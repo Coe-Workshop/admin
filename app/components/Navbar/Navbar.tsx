@@ -69,17 +69,19 @@ function Navbar() {
                     ))}
                 </div>
             </div>
-            <div className={styles.admin}>
-                <Image
-                    className={styles.blog_icon}
-                    src={Admin.ProFile}
-                    width={40}
-                    height={40}
-                    alt={Admin.Title}
-                ></Image>
-                <div>
-                    <p className={styles.name}>{Admin.Name}</p>
-                    <p className={styles.email}>{Admin.Email}</p>
+            <div className={styles.tab_admin}>
+                <div className={styles.admin}>
+                    <Image
+                        className={styles.blog_icon}
+                        src={Admin.ProFile}
+                        width={40}
+                        height={40}
+                        alt={Admin.Title}
+                    ></Image>
+                    <div>
+                        <p className={styles.name}>{Admin.Name}</p>
+                        <p className={styles.email}>{Admin.Email}</p>
+                    </div>
                 </div>
                 <Image
                     className={styles.blog_icon}

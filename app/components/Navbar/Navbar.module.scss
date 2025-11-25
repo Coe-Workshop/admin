@@ -59,22 +59,27 @@
       }
     }
   }
-  .admin{
+  .tab_admin{
     display: flex;
     align-items: center;
-    gap: 15px;
-    .blog_icon{
-      object-fit: contain;
-      object-position: center;
-      border-radius: 50%;
-    }
-    .name{
-      font-size: 1.1rem;
-      font-weight: 400;
-    }
-    .email{
-      font-size: 0.8rem;
-      color:gray;
+    justify-content: space-between;
+    .admin{
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      .blog_icon{
+        object-fit: contain;
+        object-position: center;
+        border-radius: 50%;
+      }
+      .name{
+        font-size: 1.1rem;
+        font-weight: 400;
+      }
+      .email{
+        font-size: 0.8rem;
+        color:gray;
+      }
     }
   }
 }
