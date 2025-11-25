@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./styles/globals.scss";
-import Navbar from "@/app/components/Navbar/Navbar";
+import Navbar from "@/app/components/layout/Navbar/navbar";
 
 const geistInter = Inter({
   variable: "--font-Inter",
@@ -21,9 +21,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistInter.variable} `}>
-      <div className="relative md:flex">
+      <div className="layout-container">
         <Navbar />
-        <main className="flex-1">{children}</main>
+        <main className="layout-content">{children}</main>
       </div>
       </body>
     </html>

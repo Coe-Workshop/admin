@@ -20,28 +20,28 @@ function Blog({ Cover, Title, Url}: BlogProps) {
 function Navbar() {
     const BlogList: BlogProps[] = [
         {
-            Cover: "/Navbar/transaction.png",
+            Cover: "/Navbar/transaction.svg",
             Title: "Transaction",
             Url: "/transaction",
         },
         {
-            Cover: "/Navbar/tools.png",
+            Cover: "/Navbar/tools.svg",
             Title: "Tools",
             Url: "/tools",
         },
         {
-            Cover: "/Navbar/account.png",
+            Cover: "/Navbar/account.svg",
             Title: "Account ManageMent",
             Url: "/account",
         },
     ];
 
     const Admin:AdminProps = {
-        ProFile: "/Navbar/admin.jpg",
+        ProFile: "/Navbar/admin.svg",
         Title: "Admin",
         Name: "username",
         Email: "Email@example.com",
-        Icon: '/Navbar/meatBalls.png'
+        Icon: '/Navbar/meatBalls.svg'
     };
 
     return (
@@ -86,8 +86,8 @@ function Navbar() {
                 <Image
                     className={styles.blog_icon}
                     src={Admin.Icon}
-                    width={30}
-                    height={30}
+                    width={20}
+                    height={20}
                     alt={Admin.Title}
                 ></Image>
             </div>

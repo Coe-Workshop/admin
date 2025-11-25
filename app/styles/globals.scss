@@ -1,4 +1,5 @@
 @use "variables" as *;
+@use "breakpoints" as bp;
 
 :root {
   --background: #ffffff;
@@ -27,6 +28,24 @@ body {
   font-family: "Inter", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.layout-container {
+  position: relative;
+  display: flex;
+
+  flex-direction: column;
+
+  @include bp.respond-to(md) {
+    flex-direction: row;
+  }
+}
+
+.layout-content {
+  flex: 1;
+
+  padding: 1.5rem;
+  min-height: 100vh;
 }
 
 * {
