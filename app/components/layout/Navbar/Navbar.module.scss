@@ -149,6 +149,15 @@
   gap: 25px;
   padding: 20px 0;
   font-weight: bold;
+  animation: slide 0.7s ease 0.3s;
+  @Keyframes slide {
+    from {
+      transform: translateX(250px);
+    }
+    to {
+      transform: translateX(0px);
+    }
+  }
 }
 .navSlide_imageContainer{
   padding-left: 15px;
