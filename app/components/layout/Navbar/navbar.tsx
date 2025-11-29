@@ -4,8 +4,10 @@ import styles from "./Navbar.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 import useDisclosure from "@/app/hook/useDisclosure";
-import ModalContainer from "../navbarContainer/modalContainer";
-import NavSlide from "./Navslide";
+import Modal from "@/app/components/ui/modal/modal";
+import NavSlide from "@/app/components/layout/Navbar/navslide";
+import {useModal} from "@/app/hook/useModal";
+import ModalContainer from "@/app/components/layout/NavbarContainer/modalContainer";
 
 function Navbar() {
   const { opened, handle } = useDisclosure();
