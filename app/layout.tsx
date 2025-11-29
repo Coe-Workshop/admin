@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Providers } from "../lib/provider"
 import "./styles/globals.scss";
-
 const geistInter = Inter({
   variable: "--font-Inter",
   subsets: ["latin"],
@@ -20,7 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistInter.variable} `}>
-        {children}
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );
