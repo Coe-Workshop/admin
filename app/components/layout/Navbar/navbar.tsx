@@ -4,7 +4,7 @@ import styles from "./Navbar.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 import useDisclosure from "@/app/hook/useDisclosure";
-import ModalContainer from "../NavbarContainer/modalContainer";
+import ModalContainer from "../navbarContainer/modalContainer";
 import NavSlide from "./Navslide";
 
 function Navbar() {

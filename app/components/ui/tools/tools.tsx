@@ -3,9 +3,8 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import styles from "./Tools.module.scss";
 import Pagination from "@/app/components/ui/pagination/pagination";
-import CategoryFilter from "@/app/components/filters/CategoryFilter/CategoryFilter";
-import SearchBar from "@/app/components/filters/SerchBar/SerchBar";
-
+import SearchBar from "../filters/serchBar/serchBar";
+import CategoryFilter from "../filters/categoryFilter/categoryFilter";
 function ToolsAction({
   url,
   title,
