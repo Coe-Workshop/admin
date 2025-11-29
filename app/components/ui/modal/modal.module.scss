@@ -1,6 +1,9 @@
 @import "../../../styles/animations";
 @import "../../../styles/variables";
 
+.container{
+  position: absolute;
+}
 .modalContainer {
   position: fixed;
   top: 0;

@@ -13,7 +13,7 @@ const Modal = ({
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       {Object.entries(modalState).map(([modalName, isOpen], index) => {
         if (isOpen) {
           if (ModalOptionsMapProps[modalName])

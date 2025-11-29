@@ -1,6 +1,8 @@
 @use "../../../styles/variables" as *;
 @use "../../../styles/_breakpoints" as *;
-
+.container{
+  height: 100%;
+}
 .navbar {
   width: fit-content;
   background: $sub-50;

@@ -5,10 +5,13 @@ import Image from "next/image";
 import Link from "next/link";
 import useDisclosure from "@/app/hook/useDisclosure";
 import ModalContainer from "../NavbarContainer/modalContainer";
-import NavSlide from "./Navslide";
+import NavSlide from "./navslide";
+import Modal from "@/app/components/ui/modal/modal";
+import {useModal} from "@/app/hook/useModal";
 
 function Navbar() {
   const { opened, handle } = useDisclosure();
+  const { modalState, handle:handleModal } = useModal();
   const menuMapProps: MenuMapProps[] = [
     { title: "Quick Create", path: "/create" },
     { title: "Transaction", path: "/transaction" },
@@ -57,6 +60,7 @@ function Navbar() {
 
   return (
     <div className={styles.navbar}>
+      <Modal modalState={modalState} onClose={handle.close}></Modal>
       <div className={styles.navbar_inner}>
         <div>
           <div className={styles.logo}>
@@ -66,7 +70,7 @@ function Navbar() {
           </div>
         </div>
         <div className={styles.box}>
-          <div className={styles.button_create}>
+          <button className={styles.button_create} onClick={()=> handleModal.open("create")}>
             <Image
               className={styles.action_plus}
               width={22}
@@ -75,7 +79,7 @@ function Navbar() {
               src={"/Navbar/plus.svg"}
             ></Image>
             <p className={styles.text}>Quick Create</p>
-          </div>
+          </button>
           <Image
             onClick={() => handle.open()}
             className={styles.action_hamberger}

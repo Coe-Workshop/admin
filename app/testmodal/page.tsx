@@ -11,7 +11,7 @@ function page() {
   return (
     <div>
       {/* default ให้ส่ง params แบบนี้ทุกการใช้ */}
-      <Modal modalState={modalState} onClose={handle.close}></Modal>
+        <Modal modalState={modalState} onClose={handle.close}></Modal>
       <button type="button" onClick={() => handle.toggle("create")}>
         เรียก create
       </button>
