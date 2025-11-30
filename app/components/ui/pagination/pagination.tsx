@@ -1,4 +1,4 @@
-import styles from "./Pagination.module.scss";
+import styles from "./pagination.module.scss";
 
 function Pagination({total, currentPage, onChange, siblings = 1, boundaries = 1,}: PaginationProps) {
     const createPagination = () => {

@@ -59,8 +59,8 @@ function Navbar() {
   });
 
   return (
+      <>
     <div className={styles.navbar}>
-      <Modal modalState={modalState} onClose={handle.close}></Modal>
       <div className={styles.navbar_inner}>
         <div>
           <div className={styles.logo}>
@@ -120,6 +120,16 @@ function Navbar() {
         ></NavSlide>
       </ModalContainer>
     </div>
+  <div
+      onClick={() => console.log("click")}
+      style={{ position: "absolute" }}
+  >
+    <Modal
+        modalState={modalState}
+        onClose={() => handleModal.close("create")}
+    ></Modal>
+  </div>
+  </>
   );
 }
 

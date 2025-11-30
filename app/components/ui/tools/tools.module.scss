@@ -1,5 +1,5 @@
-@use "./../../styles/_breakpoints" as *;
-@use "./../../styles/variables" as *;
+@use "./../../../styles/_breakpoints" as *;
+@use "./../../../styles/variables" as *;
 .title_banner {
   display: flex;
   justify-content: space-between;

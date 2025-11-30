@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import styles from "./CategoryFilter.module.scss";
+import styles from "./categoryFilter.module.scss";
 
 function CategoryFilter({
                             onCategoryChange,

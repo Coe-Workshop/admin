@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import styles from "./Tools.module.scss";
+import styles from "./tools.module.scss";
 import Pagination from "@/app/components/ui/pagination/pagination";
 import SearchBar from "@/app/components/ui/filters/SerchBar/SerchBar";
 import CategoryFilter from "@/app/components/ui/filters/CategoryFilter/categoryFilter";
