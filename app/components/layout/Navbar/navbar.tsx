@@ -1,13 +1,13 @@
 "use client";
 
-import styles from "./Navbar.module.scss";
+import styles from "./navbar.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 import useDisclosure from "@/app/hook/useDisclosure";
 import Modal from "@/app/components/ui/modal/modal";
 import NavSlide from "@/app/components/layout/navbar/navslide";
 import { useModal } from "@/app/hook/useModal";
-import ModalContainer from "@/app/components/layout/NavbarContainer/modalContainer";
+import ModalContainer from "@/app/components/layout/navbarContainer/navbarContainer";
 
 function Navbar() {
   const { opened, handle } = useDisclosure();

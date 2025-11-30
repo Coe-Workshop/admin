@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-export interface ModalContainerProps {
+export interface NavbarContainerProps {
   children: ReactNode;
   opened: boolean;
   onClose: () => void;

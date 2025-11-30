@@ -1,13 +1,13 @@
 import { ReactNode } from "react";
-import { ModalContainerProps } from "./modalContainer.types";
-import styles from "./modal.module.scss";
+import { NavbarContainerProps } from "./navbarContiner.types";
+import styles from "./navbarContiner.module.scss";
 
-const ModalContainer = ({
+const NavbarContainer = ({
   opened,
   onClose,
   children,
   margin,
-}: ModalContainerProps) => {
+}: NavbarContainerProps) => {
   if (opened) {
     return (
       <div
@@ -28,4 +28,4 @@ const ModalContainer = ({
   }
 };
 
-export default ModalContainer;
+export default NavbarContainer;
