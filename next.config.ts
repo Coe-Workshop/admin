@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
   },
   output: "export",
   basePath: "/admin",
+  assetPrefix: "/admin/",
 };
 
 export default nextConfig;
