@@ -21,9 +21,6 @@ jobs:
       NEXT_PUBLIC_BASE_PATH: "/admin"
 
     steps:
-      - name: Add Environment Variables
-        run: echo "Environment variables configured."
-
       - name: Checkout
         uses: actions/checkout@v4
 
