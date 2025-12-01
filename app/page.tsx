@@ -1,12 +1,11 @@
+"use client";
 import styles from "./page.module.scss";
-import Navbar from "@/app/components/Navbar/Navbar";
 
-function page(){
+function Page() {
   return (
-      <div className={styles.landing}>
-        <Navbar></Navbar>
-      </div>
+    <div className={styles.landing}>
+    </div>
   );
 }
 
-export default page;
+export default Page;
