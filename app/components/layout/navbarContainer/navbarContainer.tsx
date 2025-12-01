@@ -1,6 +1,5 @@
-import { ReactNode } from "react";
 import { NavbarContainerProps } from "./navbarContiner.types";
-import styles from "./navbarContiner.module.scss";
+import styles from "./navbarContainer.module.scss"
 
 const NavbarContainer = ({
   opened,

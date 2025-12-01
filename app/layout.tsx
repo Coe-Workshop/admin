@@ -13,18 +13,18 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-  children,
-}: Readonly<{
+                                     children,
+                                   }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+      <html lang="en">
       <body className={`${geistInter.variable} `}>
-        <div className="layout-container">
-          <Navbar />
-          <main className="layout-content">{children}</main>
-        </div>
+      <div className="layout-container">
+        <Navbar />
+        <main className="layout-content">{children}</main>
+      </div>
       </body>
-    </html>
+      </html>
   );
 }

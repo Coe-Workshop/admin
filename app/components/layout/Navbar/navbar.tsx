@@ -5,9 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import useDisclosure from "@/app/hook/useDisclosure";
 import Modal from "@/app/components/ui/modal/modal";
-import NavSlide from "@/app/components/layout/navbar/navslide";
 import { useModal } from "@/app/hook/useModal";
 import ModalContainer from "@/app/components/layout/navbarContainer/navbarContainer";
+import NavSlide from "@/app/components/layout/Navbar/navslide";
 
 function Navbar() {
   const { opened, handle } = useDisclosure();
