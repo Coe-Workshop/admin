@@ -17,10 +17,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      NEXT_PUBLIC_BASE_PATH: "/admin"
+
     steps:
       - name: Add Environment Variables
-        env:
-          NEXT_PUBLIC_BASE_PATH: "/admin"
         run: echo "Environment variables configured."
 
       - name: Checkout
@@ -36,7 +37,7 @@ jobs:
         run: bun run lint
 
       - name: Build with Next.js
-        run: npx next build
+        run: bun run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
