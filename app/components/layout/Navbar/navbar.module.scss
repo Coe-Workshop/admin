@@ -12,7 +12,7 @@
   justify-content: space-between;
   flex-shrink: 0;
   height: 100vh;
-  position: sticky;
+  position: relative;
   top: 0;
 
   @include respond-to-max(md) {
