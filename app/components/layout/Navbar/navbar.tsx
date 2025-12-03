@@ -8,6 +8,7 @@ import Modal from "@/app/components/ui/modal/modal";
 import { useModal } from "@/app/hook/useModal";
 import ModalContainer from "@/app/components/layout/navbarContainer/navbarContainer";
 import NavSlide from "@/app/components/layout/Navbar/navslide";
+import CreateItem from "@/app/components/ui/create_item/create";
 
 function Navbar() {
   const { opened, handle } = useDisclosure();
@@ -132,7 +133,9 @@ function Navbar() {
           onClose={() => handleModal.close("create")}
         ></Modal>
       </div>
+
     </>
+
   );
 }
 
