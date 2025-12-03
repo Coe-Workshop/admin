@@ -50,7 +50,7 @@ function Navbar() {
       <div key={index} className={styles.button_list}>
         <Image
           className={styles.blog_image}
-          src={item.cover}
+          src={`${prefix}${item.cover}`}
           width={22}
           height={22}
           alt={item.title}
@@ -81,7 +81,7 @@ function Navbar() {
                 width={22}
                 height={22}
                 alt="plus_icon"
-                src={"/Navbar/plus.svg"}
+                src={`${prefix}/Navbar/plus.svg`}
               ></Image>
               <p className={styles.text}>Quick Create</p>
             </button>
@@ -91,7 +91,7 @@ function Navbar() {
               width={120}
               height={120}
               alt="hamberger_icon"
-              src={"/Navbar/hamberger.svg"}
+              src={`${prefix}/Navbar/hamberger.svg`}
             ></Image>
             {menuBlog}
           </div>
@@ -100,7 +100,7 @@ function Navbar() {
           <div className={styles.admin}>
             <Image
               className={styles.blog_icon}
-              src={Admin.profile}
+              src={`${prefix}${Admin.profile}`}
               width={40}
               height={40}
               alt={Admin.title}
@@ -112,7 +112,7 @@ function Navbar() {
           </div>
           <Image
             className={styles.blog_icon}
-            src={Admin.icon}
+            src={`${prefix}${Admin.icon}`}
             width={20}
             height={20}
             alt={Admin.title}
