@@ -1,4 +1,4 @@
-@import "../../../styles/variables";
+@use "../../../styles/variables" as *;
 .wrapper {
   display: flex;
   justify-content: center;
@@ -15,8 +15,8 @@
   padding: 25px 25px;
   border-radius: 10px;
 
-  .content{
-    display:  flex;
+  .content {
+    display: flex;
     justify-content: space-between;
     gap: 30px;
     .formSection {
@@ -24,27 +24,27 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
-      h2{
+      h2 {
         font-size: 1.1rem;
         font-weight: 500;
       }
-      p{
+      p {
         font-size: 0.9rem;
         color: $sub-500;
         font-weight: 300;
       }
-      .field{
+      .field {
         display: flex;
         flex-direction: column;
-        label{
+        label {
           font-size: 0.9rem;
           font-weight: 400;
-          margin-bottom:  10px;
-          span{
+          margin-bottom: 10px;
+          span {
             color: $red-600;
           }
         }
-        .name{
+        .name {
           padding: 8px 10px;
           border-radius: 5px;
           border: 2px solid $sub-300;
@@ -52,7 +52,7 @@
             color: $sub-300;
           }
         }
-        .description{
+        .description {
           padding: 10px;
           border-radius: 5px;
           border: 2px solid $sub-300;

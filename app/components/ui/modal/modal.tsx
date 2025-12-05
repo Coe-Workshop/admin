@@ -9,7 +9,7 @@ const Modal = ({
   onClose: (modalName: string) => void;
 }) => {
   const ModalOptionsMapProps: Record<string, ReactNode> = {
-    create: <CreateItem />, //อยากใช้ตัวไหนก็มาเพิ่มในนี้
+    create: <CreateItem />,
   };
 
   return (
