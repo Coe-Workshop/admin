@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
 import CreateItem from "../create_item/create";
 import styles from "./modal.module.scss";
+import ModalConfirmPopup from "../confirmModal/confirmModal";
+import { useModal } from "@/app/hook/useModal";
 const Modal = ({
   modalState,
   onClose,
@@ -8,8 +10,17 @@ const Modal = ({
   modalState: Record<string, boolean>;
   onClose: (modalName: string) => void;
 }) => {
+  const { modalConfirm } = useModal();
+
   const ModalOptionsMapProps: Record<string, ReactNode> = {
     create: <CreateItem />, //อยากใช้ตัวไหนก็มาเพิ่มในนี้
+    confirm: (
+      <ModalConfirmPopup
+        title={modalConfirm?.title || ""}
+        description={modalConfirm?.description}
+        action={modalConfirm?.action}
+      />
+    ), //อยากใช้ตัวไหนก็มาเพิ่มในนี้
   };
 
   return (
