@@ -28,6 +28,7 @@ body {
 }
 button {
   border: none;
+  font-family: var(--font-Noto);
 }
 * {
   box-sizing: border-box;
@@ -60,7 +61,9 @@ p {
   font-weight: 400;
   color: $sub-500;
 }
-
+input {
+  font-family: var(--font-Noto);
+}
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

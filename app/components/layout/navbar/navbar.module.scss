@@ -4,13 +4,13 @@
   height: 100%;
 }
 .navbar {
+  border-right: 1px solid $sub-200;
   width: fit-content;
   background: $sub-50;
-  padding: 1rem 18px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  padding: 1rem 0.4rem;
   flex-shrink: 0;
   height: 100vh;
   position: relative;
@@ -52,8 +52,8 @@
   .box {
     display: flex;
     flex-direction: column;
-    margin-top: 3rem;
-    gap: 10px;
+    margin-top: 2rem;
+    gap: 5px;
     @include respond-to-max(md) {
       margin-top: 0;
       flex-direction: row;
@@ -63,6 +63,7 @@
       background-color: $sub-1000;
       align-items: center;
       padding: 8px;
+      gap: 5px;
       border-radius: 8px;
 
       @include respond-to-max(md) {
@@ -74,8 +75,8 @@
       }
 
       .action_plus {
-        width: 2rem;
-        height: 2rem;
+        width: 1.5rem;
+        height: 1.5rem;
       }
       .quickCreate {
         color: $sub-0;
@@ -98,9 +99,10 @@
       padding: 8px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 15px;
       border-radius: 8px;
       transition: all 0.5s ease;
+      width: 16rem;
       .blog_image {
         object-fit: contain;
         object-position: center;

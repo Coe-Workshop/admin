@@ -30,7 +30,7 @@ function Navbar() {
     },
     {
       cover: "/Navbar/account.svg",
-      title: "Account ManageMent",
+      title: "Account",
       url: "/account",
     },
   ];
@@ -45,16 +45,16 @@ function Navbar() {
 
   const menuBlog = BlogList.map((item, index) => {
     return (
-      <div key={index} className={styles.button_list}>
+      <Link key={index} className={styles.button_list} href={item.url}>
         <Image
           className={styles.blog_image}
           src={item.cover}
-          width={22}
-          height={22}
+          width={16}
+          height={16}
           alt={item.title}
         ></Image>
-        <Link href={item.url}>{item.title}</Link>
-      </div>
+        <h3>{item.title}</h3>
+      </Link>
     );
   });
 
@@ -81,7 +81,7 @@ function Navbar() {
                 alt="plus_icon"
                 src={"/navbar/plus.svg"}
               ></Image>
-              <h2 className={styles.quickCreate}>Quick Create</h2>
+              <h3 className={styles.quickCreate}>Quick Create</h3>
             </button>
             <Image
               onClick={() => handle.open()}
