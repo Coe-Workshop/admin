@@ -9,7 +9,14 @@ const Modal = ({
   onClose: (modalName: string) => void;
 }) => {
   const ModalOptionsMapProps: Record<string, ReactNode> = {
-    create: <CreateItem />,
+    create: (
+        <CreateItem
+            onCancel={() => onClose("create")}
+            onSubmit={() => {
+              onClose("create");
+            }}
+        />
+    ),
   };
 
   return (

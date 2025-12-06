@@ -26,10 +26,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-button {
+button, option , select {
   border: none;
   font-family: var(--font-Noto);
 }
+
 * {
   box-sizing: border-box;
   padding: 0;
