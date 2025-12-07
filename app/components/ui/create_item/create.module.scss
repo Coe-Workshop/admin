@@ -8,45 +8,48 @@
 }
 
 .container {
-  width: clamp(300px, 80vw, 703px);
-  max-height: 90vh;
+  width: clamp(250px, 80vw, 703px);
+  padding: 2rem;
   overflow-y: auto;
   background-color: $sub-0;
   position: relative;
   z-index: 2;
-  padding: 25px 25px;
   border-radius: 10px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
-  .content{
-    display:  flex;
+  .content {
+    display: flex;
+    width: 100%;
     justify-content: space-between;
     gap: 30px;
     .formSection {
-      flex: 1;
+      width: 100%;
       display: flex;
       flex-direction: column;
       gap: 12px;
-      h2{
+      h2 {
         font-size: 1.1rem;
         font-weight: 500;
       }
-      p{
+      p {
         font-size: 0.9rem;
         color: $sub-500;
         font-weight: 300;
       }
-      .field{
+      .field {
         display: flex;
         flex-direction: column;
-        label{
+        label {
           font-size: 0.9rem;
           font-weight: 400;
-          margin:3px 0 10px 0;
-          span{
+          margin: 3px 0 10px 0;
+          span {
             color: $red-600;
           }
         }
-        .name{
+        .name {
           padding: 8px 10px;
           border-radius: 3px;
           border: 1.5px solid $sub-300;
@@ -54,7 +57,7 @@
             color: $sub-300;
           }
         }
-        .description{
+        .description {
           padding: 10px;
           border-radius: 3px;
           border: 1.5px solid $sub-300;
@@ -125,24 +128,23 @@
           opacity: 0;
           cursor: pointer;
         }
-        .image{
+        .image {
           object-fit: cover;
         }
         .uploadText {
           font-size: 0.7rem;
           pointer-events: none;
           font-weight: 500;
-          span{
+          span {
             text-decoration: underline;
             font-weight: 550;
           }
         }
-        .text_size{
+        .text_size {
           padding: 3px;
           font-size: 0.65rem;
           color: $sub-500;
         }
-
       }
       .errorMessage {
         position: absolute;
@@ -156,19 +158,19 @@
         position: absolute;
         bottom: 40px;
         right: 25px;
-        display:  flex;
+        display: flex;
         gap: 8px;
-        button{
+        button {
           padding: 7px 20px;
           border-radius: 10px;
           border: 1px solid $sub-300;
           font-size: 1rem;
           cursor: pointer;
         }
-        .cancelButton{
+        .cancelButton {
           background-color: $sub-0;
         }
-        .submitButton{
+        .submitButton {
           background-color: $sub-1000;
           color: $sub-0;
         }
@@ -179,10 +181,13 @@
         position: relative;
 
         .fileList {
+          &::-webkit-scrollbar {
+            display: none;
+          }
           display: flex;
           flex-direction: column;
           gap: 10px;
-          width: 320px;
+          width: 100%;
           height: 200px;
           overflow-x: hidden;
           overflow-y: auto;
@@ -193,13 +198,12 @@
             align-items: center;
             gap: 20px;
             padding: 12px;
-            border: 1px solid $sub-1000;
+            border: 2px solid $sub-1000;
             border-radius: 6px;
 
             .detail {
               display: flex;
               gap: 10px;
-
             }
 
             .text p {
@@ -207,7 +211,6 @@
               overflow: hidden;
               display: block;
             }
-
 
             .removeButton {
               object-fit: contain;
@@ -220,7 +223,7 @@
 
             &.error {
               border-color: $red-600;
-              color: $red-600
+              color: $red-600;
             }
           }
 
@@ -282,21 +285,21 @@
   }
 
   .container {
+    padding: 1.2rem;
+
     max-height: 90vh;
     height: auto;
     overflow-y: auto;
-    width: clamp(300px, 90vw, 703px);
   }
 
   .content {
     flex-direction: column;
-    gap: 20px;
     align-items: center;
     min-height: auto;
+    gap: 0px;
   }
 
   .rightSection {
-    margin-top: 10px;
     width: 100%;
     height: auto;
     position: static;
