@@ -23,7 +23,7 @@ jobs:
     steps:
       - name: Setup Next.js basePath
         id: base_path
-        run: echo "path=${GITHUB_REPOSITORY##*/}/" >> "$GITHUB_OUTPUT"
+        run: echo "path=/${GITHUB_REPOSITORY##*/}" >> "$GITHUB_OUTPUT"
         shell: bash
 
       - name: Checkout
