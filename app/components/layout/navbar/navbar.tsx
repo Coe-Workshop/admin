@@ -9,6 +9,8 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./navbar.module.scss";
 import { AdminProps, BlogProps, MenuMapProps } from "./types";
+import { prefix } from "@/app/utils/prefix";
+
 function Navbar() {
   const { opened, handle } = useDisclosure();
   const { modalState, handle: handleModal } = useModal();
@@ -19,28 +21,28 @@ function Navbar() {
   ];
   const BlogList: BlogProps[] = [
     {
-      cover: "/Navbar/transaction.svg",
+      cover: "/navbar/transaction.svg",
       title: "Transaction",
       url: "/transaction",
     },
     {
-      cover: "/Navbar/tools.svg",
+      cover: "/navbar/tools.svg",
       title: "Tools",
       url: "/tools",
     },
     {
-      cover: "/Navbar/account.svg",
+      cover: "/navbar/account.svg",
       title: "Account",
       url: "/account",
     },
   ];
 
   const Admin: AdminProps = {
-    profile: "/Navbar/admin.svg",
+    profile: `${prefix}/navbar/admin.svg`,
     title: "Admin",
     name: "username",
     email: "Email@example.com",
-    icon: "/Navbar/meatBalls.svg",
+    icon: `${prefix}/Navbar/meatBalls.svg`,
   };
 
   const menuBlog = BlogList.map((item, index) => {
@@ -48,9 +50,9 @@ function Navbar() {
       <Link key={index} className={styles.button_list} href={item.url}>
         <Image
           className={styles.blog_image}
-          src={item.cover}
-          width={16}
-          height={16}
+          src={`${prefix}${item.cover}`}
+          width={22}
+          height={22}
           alt={item.title}
         ></Image>
         <h3>{item.title}</h3>
@@ -79,7 +81,7 @@ function Navbar() {
                 width={120}
                 height={120}
                 alt="plus_icon"
-                src={"/navbar/plus.svg"}
+                src={`${prefix}/navbar/plus.svg`}
               ></Image>
               <h3 className={styles.quickCreate}>Quick Create</h3>
             </button>
@@ -89,7 +91,7 @@ function Navbar() {
               width={120}
               height={120}
               alt="hamberger_icon"
-              src={"/navbar/hamberger.svg"}
+              src={`${prefix}/navbar/hamberger.svg`}
             ></Image>
             {menuBlog}
           </div>
@@ -98,7 +100,7 @@ function Navbar() {
           <div className={styles.admin}>
             <Image
               className={styles.blog_icon}
-              src={Admin.profile}
+              src={`${prefix}${Admin.profile}`}
               width={40}
               height={40}
               alt={Admin.title}
@@ -110,7 +112,7 @@ function Navbar() {
           </div>
           <Image
             className={styles.blog_icon}
-            src={Admin.icon}
+            src={`${prefix}${Admin.icon}`}
             width={20}
             height={20}
             alt={Admin.title}

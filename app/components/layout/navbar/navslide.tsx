@@ -2,13 +2,15 @@ import styles from "./navbar.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 import { NavSlideProps } from "./types";
+import { prefix } from "@/app/utils/prefix";
+
 const NavSlide = ({ menuMapPropsList, onClose }: NavSlideProps) => {
   return (
     <aside className={styles.navSlide}>
       <div className={styles.navSlide_imageContainer}>
         <Image
           onClick={() => onClose()}
-          src={"/Navbar/close.svg"}
+          src={`${prefix}/Navbar/close.svg`}
           alt="close"
           width={20}
           height={20}

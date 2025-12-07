@@ -1,0 +1,64 @@
+name: publish-to-github-pages
+on:
+  push:
+    branches:
+      - dev
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    outputs:
+      base_path: ${{ steps.base_path.outputs.path }}
+
+    steps:
+      - name: Setup Next.js basePath
+        id: base_path
+        run: echo "path=/${GITHUB_REPOSITORY##*/}" >> "$GITHUB_OUTPUT"
+        shell: bash
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun.js - Cache dependencies - Install dependencies
+        uses: ./.github/workflows/setup-bun
+
+      - name: Run type checking
+        run: bun run type-check
+
+      - name: Run linting
+        run: bun run lint
+
+      - name: Build with Next.js
+        env:
+          NEXT_PUBLIC_BASE_PATH: ${{ steps.base_path.outputs.path }}
+        run: |
+          echo "$NEXT_PUBLIC_BASE_PATH"
+          bun run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Publish to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
