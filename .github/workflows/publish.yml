@@ -17,10 +17,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    env:
-      NEXT_PUBLIC_BASE_PATH: "/admin"
+    outputs:
+      base_path: ${{ steps.base_path.outputs.path }}
 
     steps:
+      - name: Setup Next.js basePath
+        id: base_path
+        run: echo "path=/${{ github.repository }}" >> "$GITHUB_OUTPUT"
+
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -34,6 +38,8 @@ jobs:
         run: bun run lint
 
       - name: Build with Next.js
+        env:
+          NEXT_PUBLIC_BASE_PATH: ${{ steps.base_path.outputs.path }}
         run: bun run build
 
       - name: Upload artifact
