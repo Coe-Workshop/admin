@@ -1,10 +1,22 @@
-import { TableTransaction } from "./components/ui/tableTransaction/tableTransaction";
+"use client";
+
+import { ItemTransaction } from "./components/ui/itemTransaction/itemTransaction";
+import { Tooltip } from "./components/ui/tooltip/tooltip";
 import styles from "./page.module.scss";
 import Navbar from "@/app/components/Navbar/Navbar";
+import { useClickOutSide } from "./hook/useClickOutside";
 function page() {
+  const { ref, isOpen, setIsopen } = useClickOutSide();
   return (
     <div className={styles.landing}>
-      <TableTransaction></TableTransaction>
+      {/* <ItemTransaction></ItemTransaction> */}
+      <div style={{ marginTop: "50px", marginInline: "400px" }}>
+        <Tooltip title={"tool"}>
+          <button onClick={() => setIsopen(true)} ref={ref} type="button">
+            {isOpen ? "click is side" : "outside"}
+          </button>
+        </Tooltip>
+      </div>
     </div>
   );
 }

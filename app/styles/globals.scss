@@ -47,14 +47,13 @@ a {
 }
 
 table {
-  margin: 2rem;
   width: 100%;
   border-collapse: collapse;
-  border: 1px solid #ddd;
 
   th,
   td {
-    padding: 1rem 2rem;
+    padding: 1rem;
+    padding-left: 0.5rem;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
