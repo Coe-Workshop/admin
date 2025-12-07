@@ -17,9 +17,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    outputs:
+      base_path: ${{ steps.base_path.outputs.path }}
+
     steps:
       - name: Setup Next.js basePath
-        run: echo ::set-env name=NEXT_PUBLIC_BASE_PATH::${GITHUB_REPOSITORY##*/}
+        id: base_path
+        run: echo "${GITHUB_REPOSITORY##*/}" >> "$GITHUB_OUTPUT"
         shell: bash
 
       - name: Checkout
@@ -35,6 +39,8 @@ jobs:
         run: bun run lint
 
       - name: Build with Next.js
+        env:
+          NEXT_PUBLIC_BASE_PATH: ${{ steps.base_path.outputs.path }}
         run: |
           echo "$NEXT_PUBLIC_BASE_PATH"
           bun run build
