@@ -6,7 +6,7 @@ import { prefix } from "@/app/utils/prefix";
 
 const NavSlide = ({ menuMapPropsList, onClose }: NavSlideProps) => {
   return (
-    <div className={styles.navSlide}>
+    <aside className={styles.navSlide}>
       <div className={styles.navSlide_imageContainer}>
         <Image
           onClick={() => onClose()}
@@ -26,7 +26,7 @@ const NavSlide = ({ menuMapPropsList, onClose }: NavSlideProps) => {
       <div>
         <p className={styles.navSlide_auth}>Logout</p>
       </div>
-    </div>
+    </aside>
   );
 };
 

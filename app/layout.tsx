@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Noto_Sans_Thai } from "next/font/google";
 import "./styles/globals.scss";
 import Navbar from "@/app/components/layout/navbar/navbar";
-const geistInter = Inter({
-  variable: "--font-Inter",
+
+const geistNoto = Noto_Sans_Thai({
+  variable: "--font-Noto",
   subsets: ["latin"],
 });
 
@@ -19,11 +20,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistInter.variable} `}>
-        <div className="layout-container">
-          <Navbar />
-          <main className="layout-content">{children}</main>
-        </div>
+      <body className={`${geistNoto.variable} `}>
+        <main className="layout-content">{children}</main>
       </body>
     </html>
   );

@@ -1,0 +1,15 @@
+@use "../styles/breakpoints" as *;
+
+.layout {
+  display: flex;
+  height: 100vh;
+
+  @include respond-to-max(md) {
+    flex-direction: column;
+    overflow: hidden;
+  }
+}
+.children {
+  overflow-x: auto;
+  width: 100%;
+}

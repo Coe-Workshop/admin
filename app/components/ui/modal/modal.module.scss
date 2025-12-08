@@ -1,7 +1,7 @@
-@import "../../../styles/animations";
-@import "../../../styles/variables";
+@use "../../../styles/animations" as *;
+@use "../../../styles/variables" as *;
 
-.container{
+.container {
   position: fixed;
 }
 .modalContainer {

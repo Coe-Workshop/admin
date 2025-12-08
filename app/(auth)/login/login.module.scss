@@ -1,0 +1,26 @@
+@use "../../styles/variables" as *;
+.login {
+  margin-top: 3rem;
+}
+.logo {
+  width: 100%;
+  margin: 25px auto;
+  align-self: center;
+}
+.form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 1rem;
+  align-items: center;
+}
+.submit {
+  margin: 10px 0;
+  background-color: $sub-1000;
+  border: 0;
+  padding: 8px 10px;
+  width: clamp(200px, 80%, 300px);
+  color: $sub-0;
+  border-radius: 0.4rem;
+}

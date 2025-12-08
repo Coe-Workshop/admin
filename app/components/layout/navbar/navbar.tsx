@@ -21,24 +21,24 @@ function Navbar() {
   ];
   const BlogList: BlogProps[] = [
     {
-      cover: "/Navbar/transaction.svg",
+      cover: "/navbar/transaction.svg",
       title: "Transaction",
       url: "/transaction",
     },
     {
-      cover: "/Navbar/tools.svg",
+      cover: "/navbar/tools.svg",
       title: "Tools",
       url: "/tools",
     },
     {
-      cover: "/Navbar/account.svg",
-      title: "Account ManageMent",
+      cover: "/navbar/account.svg",
+      title: "Account",
       url: "/account",
     },
   ];
 
   const Admin: AdminProps = {
-    profile: `${prefix}/Navbar/admin.svg`,
+    profile: `${prefix}/navbar/admin.svg`,
     title: "Admin",
     name: "username",
     email: "Email@example.com",
@@ -47,7 +47,7 @@ function Navbar() {
 
   const menuBlog = BlogList.map((item, index) => {
     return (
-      <div key={index} className={styles.button_list}>
+      <Link key={index} className={styles.button_list} href={item.url}>
         <Image
           className={styles.blog_image}
           src={`${prefix}${item.cover}`}
@@ -55,8 +55,8 @@ function Navbar() {
           height={22}
           alt={item.title}
         ></Image>
-        <Link href={item.url}>{item.title}</Link>
-      </div>
+        <h3>{item.title}</h3>
+      </Link>
     );
   });
 
@@ -78,12 +78,12 @@ function Navbar() {
             >
               <Image
                 className={styles.action_plus}
-                width={22}
-                height={22}
+                width={120}
+                height={120}
                 alt="plus_icon"
-                src={`${prefix}/Navbar/plus.svg`}
+                src={`${prefix}/navbar/plus.svg`}
               ></Image>
-              <p className={styles.text}>Quick Create</p>
+              <h3 className={styles.quickCreate}>Quick Create</h3>
             </button>
             <Image
               onClick={() => handle.open()}
@@ -91,7 +91,7 @@ function Navbar() {
               width={120}
               height={120}
               alt="hamberger_icon"
-              src={`${prefix}/Navbar/hamberger.svg`}
+              src={`${prefix}/navbar/hamberger.svg`}
             ></Image>
             {menuBlog}
           </div>
@@ -125,10 +125,7 @@ function Navbar() {
           ></NavSlide>
         </ModalContainer>
       </div>
-      <div
-        onClick={() => console.log("click")}
-        style={{ position: "absolute" }}
-      >
+      <div>
         <Modal
           modalState={modalState}
           onClose={() => handleModal.close("create")}
@@ -139,3 +136,4 @@ function Navbar() {
 }
 
 export default Navbar;
+//
