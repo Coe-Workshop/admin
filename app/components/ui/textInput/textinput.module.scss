@@ -7,16 +7,18 @@
 
   .textInput_input {
     padding: 8px 12px;
-    background-color: $sub-100;
-    border: 0;
+    background-color: transparent;
+    border: 1px solid $sub-200;
     border-radius: 4px;
   }
 
   .textInput_label {
     padding: 8px 0;
+    font-size: 1rem;
+    font-weight: 500;
   }
 
   .textInput_require {
-    color: $red-400;
+    color: $red-500;
   }
 }
