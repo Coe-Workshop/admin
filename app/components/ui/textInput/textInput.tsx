@@ -6,6 +6,7 @@ export const TextInput = ({
   placeholder = "",
   require = false,
   error = "",
+  ...props
 }: TextInputProps) => {
   return (
     <div className={styles.textInput}>
@@ -21,8 +22,8 @@ export const TextInput = ({
         name={title}
         id={title}
         placeholder={placeholder}
+        {...props}
       />
-      <p>{error}</p>
     </div>
   );
 };
