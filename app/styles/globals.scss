@@ -83,11 +83,11 @@ table {
     padding: 1rem;
     padding-left: 0.5rem;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid $sub-200;
   }
 
   thead th {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid $sub-200;
     font-weight: 600;
   }
   tbody tr {
@@ -95,6 +95,6 @@ table {
   }
 
   tbody tr:hover {
-    background-color: #ddd;
+    background-color: $sub-100;
   }
 }

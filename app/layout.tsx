@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Noto_Sans_Thai } from "next/font/google";
 import "./styles/globals.scss";
-import Navbar from "@/app/components/layout/navbar/navbar";
 
 const geistNoto = Noto_Sans_Thai({
   variable: "--font-Noto",

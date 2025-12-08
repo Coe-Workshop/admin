@@ -65,11 +65,11 @@ function Navbar() {
       <div className={styles.navbar}>
         <div className={styles.navbar_inner}>
           <div>
-            <div className={styles.logo}>
+            <Link href={"/"} className={styles.logo}>
               <p className={styles.logo_mark}>EN</p>
               <p className={styles.logo_dot}>.W</p>
               <p className={styles.logo_status}>Admin</p>
-            </div>
+            </Link>
           </div>
           <div className={styles.box}>
             <button
