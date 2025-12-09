@@ -2,8 +2,13 @@
 
 .item_transaction {
   border-radius: 1rem;
-  overflow: hidden;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  width: 100%;
   border: 1px solid #ddd;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 .toggle {
   width: 3rem;
@@ -14,18 +19,36 @@
 }
 .header {
   font-weight: 500;
+  .header_status {
+    width: 8rem;
+  }
+  .header_message {
+    width: 20rem;
+  }
 }
-.username {
-  color: $sub-500;
+
+.table {
+  min-width: 900px;
+  table-layout: fixed;
+  width: 100%;
+  .assetID {
+    text-wrap: nowrap;
+    width: fit-content;
+  }
+  .username {
+    color: $sub-500;
+  }
+  .status {
+  }
+  .message {
+    color: $sub-500;
+  }
+  .endTime {
+    color: $sub-500;
+  }
 }
-.message {
-  color: $sub-500;
-  width: 20rem;
-}
-.endTime {
-  color: $sub-500;
-}
+
 .oldTransaction th {
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.8rem;
   background-color: $sub-100;
 }

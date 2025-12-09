@@ -75,12 +75,11 @@ input {
 }
 
 table {
-  width: 100%;
   border-collapse: collapse;
 
   th,
   td {
-    padding: 1rem;
+    padding: 1rem 0.8rem;
     text-align: left;
     font-weight: 400;
     border-bottom: 1px solid $sub-200;

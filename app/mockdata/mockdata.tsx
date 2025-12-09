@@ -10,7 +10,7 @@ export const mockData: ItemTableTransaction[] = [
         message: "ขอยืมเครื่องเพื่อใช้ในการประชุม",
         status: Status.Approve,
         user: {
-        tel: "0812345678",
+          tel: "0812345678",
           profileUrl: "https://randomuser.me/api/portraits/men/32.jpg",
           username: "Kritsada B.",
         },
@@ -119,10 +119,10 @@ export const mockData: ItemTableTransaction[] = [
     assetID: "ASSET-005",
     itemTransaction: [
       {
-        startTime: "2025-02-12 10:00",
-        endTime: "2025-02-12 12:00",
+        startTime: "2025-12-12 10:00",
+        endTime: "2025-12-12 12:00",
         message: "ยกเลิกการจอง",
-        status: Status.Cancel,
+        status: Status.Pending,
         user: {
           tel: "0825558181",
           profileUrl: "https://randomuser.me/api/portraits/women/8.jpg",
