@@ -1,15 +1,16 @@
 @use "../../../styles/variables" as *;
 @use "../../../styles/_breakpoints" as *;
-.container{
+.container {
   height: 100%;
 }
 .navbar {
+  border-right: 1px solid $sub-200;
   width: fit-content;
   background: $sub-50;
-  padding: 25px 18px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 1rem 0.4rem;
   flex-shrink: 0;
   height: 100vh;
   position: relative;
@@ -29,72 +30,67 @@
     }
   }
   .logo {
-    font-size: 1.4rem;
     display: flex;
     align-items: baseline;
-    color: black;
-    font-weight: 600;
+    .logo_mark {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: $sub-1000;
+    }
     .logo_status {
       padding-left: 10px;
-      font-size: 0.9rem;
-      font-weight: 600;
+      font-size: 1rem;
+      color: $sub-1000;
+      font-weight: 500;
     }
     .logo_dot {
-      color: gray;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: $sub-400;
     }
   }
   .box {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin-top: 25px;
-    font-size: 0.8rem;
+    margin-top: 2rem;
+    gap: 5px;
     @include respond-to-max(md) {
-      flex-direction: row;
-      gap: 10px;
       margin-top: 0;
+      flex-direction: row;
     }
     .button_create {
-      background-color: $sub-1000;
-      border-radius: 8px;
       display: flex;
-      padding: 10px;
+      background-color: $sub-1000;
       align-items: center;
-      gap: 10px;
-      cursor: pointer;
+      padding: 8px;
+      gap: 5px;
+      border-radius: 8px;
+
+      @include respond-to-max(md) {
+        background-color: transparent;
+        flex-direction: column;
+        height: fit-content;
+        width: fit-content;
+        padding: 0;
+      }
 
       .action_plus {
-        object-fit: contain;
-        flex-shrink: 0;
+        width: 1.5rem;
+        height: 1.5rem;
       }
-      .text {
-        color: white;
-      }
-      @include respond-to-max(md) {
-        width: 20px;
-        height: 20px;
-        padding: 0;
-        border-radius: 6px;
-        justify-content: center;
-
-        .action_plus {
-          width: 12px;
-          height: 12px;
-        }
-
-        .text {
+      .quickCreate {
+        color: $sub-0;
+        @include respond-to-max(md) {
           display: none;
         }
       }
     }
+
     .action_hamberger {
       display: none;
       cursor: pointer;
-      width: 20px;
-      padding: 2px;
-      border-radius: 4px;
-      height: fit-content;
-      background-color: black;
+      width: 2rem;
+      height: 2rem;
       @include respond-to-max(md) {
         display: block;
       }
@@ -103,9 +99,10 @@
       padding: 8px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 15px;
       border-radius: 8px;
       transition: all 0.5s ease;
+      width: 16rem;
       .blog_image {
         object-fit: contain;
         object-position: center;

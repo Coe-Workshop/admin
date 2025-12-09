@@ -1,0 +1,9 @@
+@use "../../styles/variables" as *;
+@use "../../styles/breakpoints" as *; //responsive
+
+.helloworld {
+  color: $green-900;
+  @include respond-to-max(md) {
+    color: $red-500;
+  }
+}

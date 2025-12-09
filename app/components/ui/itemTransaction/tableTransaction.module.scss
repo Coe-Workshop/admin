@@ -1,8 +1,31 @@
+@use "../../../styles/variables" as *;
+
 .item_transaction {
   border-radius: 1rem;
   overflow: hidden;
   border: 1px solid #ddd;
 }
 .toggle {
-  width: 2rem;
+  width: 3rem;
+  .toggle_image {
+    display: block;
+    margin: 0 auto;
+  }
+}
+.header {
+  font-weight: 500;
+}
+.username {
+  color: $sub-500;
+}
+.message {
+  color: $sub-500;
+  width: 20rem;
+}
+.endTime {
+  color: $sub-500;
+}
+.oldTransaction th {
+  padding: 0.5rem 1rem;
+  background-color: $sub-100;
 }
