@@ -8,7 +8,7 @@ function Page() {
   const { ref, isOpen, setIsopen } = useClickOutSide();
   return (
     <div className={styles.landing}>
-      {/* <ItemTransaction></ItemTransaction> */}
+      <ItemTransaction></ItemTransaction>
       <div style={{ marginTop: "50px", marginInline: "400px" }}>
         <Tooltip title={"tool"}>
           <button onClick={() => setIsopen(true)} ref={ref} type="button">
