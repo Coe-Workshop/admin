@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Noto_Sans_Thai } from "next/font/google";
+import { Providers } from "../lib/provider"
 import "./styles/globals.scss";
-
 const geistNoto = Noto_Sans_Thai({
   variable: "--font-Noto",
   subsets: ["latin"],
@@ -20,7 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistNoto.variable} `}>
-        <main className="layout-content">{children}</main>
+        <Providers>
+          <main className="layout-content">{children}</main>
+        </Providers>
       </body>
     </html>
   );
