@@ -19,11 +19,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistNoto.variable} `}>
         <Providers>
+      <body className={`${geistNoto.variable} `}>
           <main className="layout-content">{children}</main>
-        </Providers>
       </body>
+        </Providers>
     </html>
   );
 }
