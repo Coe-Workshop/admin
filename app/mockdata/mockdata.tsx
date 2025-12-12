@@ -1,4 +1,5 @@
-import { ItemTableTransaction, Status } from "../types/api/item";
+import { Status } from "../types/api/transaction";
+import { ItemTableTransaction } from "../types/api/table";
 
 export const mockData: ItemTableTransaction[] = [
   {

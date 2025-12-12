@@ -1,4 +1,4 @@
-import { Status } from "@/app/types/api/item";
+import { Status } from "@/app/types/api/transaction";
 
 export interface StatusTagProps {
   status: Status;

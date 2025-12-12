@@ -3,7 +3,7 @@
 import React, { ReactNode, useState } from "react";
 import styles from "./tableTransaction.module.scss";
 import { mockData } from "@/app/mockdata/mockdata";
-import { Status } from "@/app/types/api/item";
+import { Status } from "@/app/types/api/transaction";
 import { prefix } from "@/app/utils/prefix";
 import Image from "next/image";
 import { StatusTag } from "../statusTag/statusTag";
@@ -24,7 +24,7 @@ export const ItemTransaction = () => {
           return (
             <React.Fragment key={item.assetID + i}>
               <tr>
-                <th
+                <td
                   className={styles.toggle}
                   onClick={() => togleTransaction(index)}
                 >
@@ -40,25 +40,25 @@ export const ItemTransaction = () => {
                     width={10}
                     height={10}
                   ></Image>
-                </th>
-                <th>{item.assetID}</th>
-                <th className={styles.username}></th>
-                <th className={styles.status}>
+                </td>
+                <td>{item.assetID}</td>
+                <td className={styles.username}></td>
+                <td className={styles.status}>
                   <StatusTag status={Status.Blank}></StatusTag>
-                </th>
-                <th className={styles.endTime}></th>
-                <th className={styles.message}></th>
+                </td>
+                <td className={styles.endTime}></td>
+                <td className={styles.message}></td>
               </tr>
               {openTransaction.includes(index) && (
                 <tr className={styles.oldTransaction} key={item.assetID + i}>
-                  <th></th>
-                  <th className={styles.assetID}>{item.assetID}</th>
-                  <th className={styles.username}>{t.user.username}</th>
-                  <th className={styles.status}>
+                  <td></td>
+                  <td className={styles.assetID}>{item.assetID}</td>
+                  <td className={styles.username}>{t.user.username}</td>
+                  <td className={styles.status}>
                     <StatusTag status={Status.Finished}></StatusTag>
-                  </th>
-                  <th className={styles.endTime}>{t.endTime}</th>
-                  <th className={styles.message}>{t.message}</th>
+                  </td>
+                  <td className={styles.endTime}>{t.endTime}</td>
+                  <td className={styles.message}>{t.message}</td>
                 </tr>
               )}
             </React.Fragment>
@@ -97,14 +97,14 @@ export const ItemTransaction = () => {
       return (
         openTransaction.includes(index) && (
           <tr className={styles.oldTransaction} key={item.assetID + i}>
-            <th></th>
-            <th className={styles.assetID}>{item.assetID}</th>
-            <th className={styles.username}>{t.user.username}</th>
-            <th>
+            <td></td>
+            <td className={styles.assetID}>{item.assetID}</td>
+            <td className={styles.username}>{t.user.username}</td>
+            <td>
               <StatusTag status={t.status}></StatusTag>
-            </th>
-            <th className={styles.endTime}>{t.endTime}</th>
-            <th className={styles.message}>{t.message}</th>
+            </td>
+            <td className={styles.endTime}>{t.endTime}</td>
+            <td className={styles.message}>{t.message}</td>
           </tr>
         )
       );
@@ -129,7 +129,7 @@ export const ItemTransaction = () => {
             item.itemTransaction.map((t, i) =>
               i == 0 ? (
                 <tr key={i}>
-                  <th
+                  <td
                     className={styles.toggle}
                     onClick={() => togleTransaction(index)}
                   >
@@ -145,26 +145,26 @@ export const ItemTransaction = () => {
                       width={10}
                       height={10}
                     ></Image>
-                  </th>
-                  <th className={styles.assetID}>{item.assetID}</th>
-                  <th className={styles.username}>{t.user.username}</th>
-                  <th>
+                  </td>
+                  <td className={styles.assetID}>{item.assetID}</td>
+                  <td className={styles.username}>{t.user.username}</td>
+                  <td>
                     <StatusTag status={t.status}></StatusTag>
-                  </th>
-                  <th className={styles.endTime}>{t.endTime}</th>
-                  <th className={styles.message}>{t.message}</th>
+                  </td>
+                  <td className={styles.endTime}>{t.endTime}</td>
+                  <td className={styles.message}>{t.message}</td>
                 </tr>
               ) : (
                 openTransaction.includes(index) && (
                   <tr className={styles.oldTransaction} key={item.assetID + i}>
-                    <th></th>
-                    <th className={styles.assetID}>{item.assetID}</th>
-                    <th className={styles.username}>{t.user.username}</th>
-                    <th>
+                    <td></td>
+                    <td className={styles.assetID}>{item.assetID}</td>
+                    <td className={styles.username}>{t.user.username}</td>
+                    <td>
                       <StatusTag status={t.status}></StatusTag>
-                    </th>
-                    <th className={styles.endTime}>{t.endTime}</th>
-                    <th className={styles.message}>{t.message}</th>
+                    </td>
+                    <td className={styles.endTime}>{t.endTime}</td>
+                    <td className={styles.message}>{t.message}</td>
                   </tr>
                 )
               )

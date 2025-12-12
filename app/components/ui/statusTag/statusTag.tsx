@@ -1,4 +1,4 @@
-import { Status, statusVariant } from "@/app/types/api/item";
+import { Status, statusVariant } from "@/app/types/api/transaction";
 import { StatusTagProps } from "./statusTag.types";
 import styles from "./statusTag.module.scss";
 export const StatusTag = ({ status }: StatusTagProps) => {

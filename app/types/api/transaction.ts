@@ -1,16 +1,9 @@
-import { User } from "./user";
 
-interface ItemTransaction {
+export interface BaseTransaction {
   startTime: string;
   endTime: string;
   message: string;
-  user: User;
   status: Status;
-}
-
-export interface ItemTableTransaction {
-  assetID: string;
-  itemTransaction: ItemTransaction[];
 }
 
 export enum Status {
