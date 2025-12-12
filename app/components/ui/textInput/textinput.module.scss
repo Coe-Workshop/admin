@@ -3,9 +3,10 @@
 .textInput {
   display: flex;
   flex-direction: column;
-  width: clamp(200px, 80%, 300px);
+  width: 100%;
 
   .textInput_input {
+    width: 100%;
     padding: 8px 12px;
     background-color: transparent;
     border: 1px solid $sub-200;

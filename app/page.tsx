@@ -4,7 +4,7 @@ import { ItemTransaction } from "./components/ui/itemTransaction/itemTransaction
 import { Tooltip } from "./components/ui/tooltip/tooltip";
 import styles from "./page.module.scss";
 import { useClickOutSide } from "./hook/useClickOutside";
-function page() {
+function Page() {
   const { ref, isOpen, setIsopen } = useClickOutSide();
   return (
     <div className={styles.landing}>
@@ -20,4 +20,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

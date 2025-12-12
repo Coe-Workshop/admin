@@ -10,6 +10,7 @@
   }
 }
 .children {
-  overflow-x: auto;
+  overflow-y: auto;
   width: 100%;
+  padding: min(4%, 2rem);
 }

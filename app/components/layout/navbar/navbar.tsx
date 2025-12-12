@@ -1,19 +1,17 @@
 "use client";
 
 import NavSlide from "@/app/components/layout/navbar/navslide";
-import ModalContainer from "@/app/components/layout/navbarContainer/navbarContainer";
-import Modal from "@/app/components/ui/modal/modal";
 import useDisclosure from "@/app/hook/useDisclosure";
-import { useModal } from "@/app/hook/useModal";
+import { prefix } from "@/app/utils/prefix";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./navbar.module.scss";
 import { AdminProps, BlogProps, MenuMapProps } from "./types";
-import { prefix } from "@/app/utils/prefix";
-
+import CreateItem from "../../modal/create_item/create";
+import { ModalContainer } from "../../modal/modalContainer/modalContainer";
 function Navbar() {
   const { opened, handle } = useDisclosure();
-  const { modalState, handle: handleModal } = useModal();
+  const { opened: createItem, handle: handlecreateItem } = useDisclosure();
   const menuMapProps: MenuMapProps[] = [
     { title: "Quick Create", path: "/create" },
     { title: "Transaction", path: "/transaction" },
@@ -74,7 +72,7 @@ function Navbar() {
           <div className={styles.box}>
             <button
               className={styles.button_create}
-              onClick={() => handleModal.open("create")}
+              onClick={() => handlecreateItem.open()}
             >
               <Image
                 className={styles.action_plus}
@@ -118,7 +116,7 @@ function Navbar() {
             alt={Admin.title}
           ></Image>
         </div>
-        <ModalContainer margin="0" opened={opened} onClose={handle.close}>
+        <ModalContainer opened={opened} onClose={handle.close}>
           <NavSlide
             menuMapPropsList={menuMapProps}
             onClose={handle.close}
@@ -126,10 +124,12 @@ function Navbar() {
         </ModalContainer>
       </div>
       <div>
-        <Modal
-          modalState={modalState}
-          onClose={() => handleModal.close("create")}
-        ></Modal>
+        <ModalContainer
+          opened={createItem}
+          onClose={() => handlecreateItem.close()}
+        >
+          <CreateItem onClose={() => handlecreateItem.close()}></CreateItem>
+        </ModalContainer>
       </div>
     </>
   );

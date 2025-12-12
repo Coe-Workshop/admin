@@ -75,20 +75,19 @@ input {
 }
 
 table {
-  width: 100%;
   border-collapse: collapse;
 
   th,
   td {
-    padding: 1rem;
-    padding-left: 0.5rem;
+    padding: 1rem 0.8rem;
     text-align: left;
+    font-weight: 400;
     border-bottom: 1px solid $sub-200;
   }
 
   thead th {
     border-bottom: 1px solid $sub-200;
-    font-weight: 600;
+    font-weight: 500;
   }
   tbody tr {
     transition: all 0.5s ease;
