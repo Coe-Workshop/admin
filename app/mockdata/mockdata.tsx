@@ -1,5 +1,74 @@
 import { Status } from "../types/api/transaction";
-import { ItemTableTransaction } from "../types/api/table";
+import {
+  ItemTableTransaction,
+  AdminTableTransaction,
+} from "../types/api/table";
+
+// ตัวอย่าง mock data (array)
+export const mockAdminTableTransactions: AdminTableTransaction[] = [
+  {
+    user: {
+      tel: "0812345678",
+      profileUrl: "https://example.com/profiles/admin1.jpg",
+      username: "admin_user01",
+    },
+    adminTransactions: [
+      {
+        startTime: "2025-12-01T09:00:00.000Z",
+        endTime: "2025-12-01T10:30:00.000Z",
+        message: "ตรวจสอบและอัปเดตไดรเวอร์",
+        status: Status.Finished,
+        itemName: "Laptop Dell Latitude 5420",
+      },
+      {
+        startTime: "2025-12-02T13:00:00.000Z",
+        endTime: "2025-12-02T13:45:00.000Z",
+        message: "ย้ายเครื่องไปยังห้องปฏิบัติการ",
+        status: Status.Approve,
+        itemName: "Projector Epson X500",
+      },
+    ],
+  },
+  {
+    user: {
+      tel: "0821112233",
+      profileUrl: "https://example.com/profiles/admin2.jpg",
+      username: "admin_user02",
+    },
+    adminTransactions: [
+      {
+        startTime: "2025-11-28T08:30:00.000Z",
+        endTime: "2025-11-28T09:15:00.000Z",
+        message: "ซ่อมและทดสอบฟังก์ชันเครือข่าย",
+        status: Status.Pending,
+        itemName: "Network Switch TP-Link 24-port",
+      },
+    ],
+  },
+  {
+    user: {
+      tel: "0839998887",
+      profileUrl: "https://example.com/profiles/admin3.jpg",
+      username: "admin_user03",
+    },
+    adminTransactions: [
+      {
+        startTime: "2025-10-05T14:00:00.000Z",
+        endTime: "2025-10-05T14:05:00.000Z",
+        message: "บันทึกเหตุการณ์ (no action required)",
+        status: Status.Blank,
+        itemName: "Microphone Shure SM58",
+      },
+      {
+        startTime: "2025-10-10T10:00:00.000Z",
+        endTime: "2025-10-10T12:30:00.000Z",
+        message: "เปลี่ยนอะไหล่ และทดสอบหลังการเปลี่ยน",
+        status: Status.Reject,
+        itemName: "Printer HP LaserJet 1020",
+      },
+    ],
+  },
+];
 
 export const mockData: ItemTableTransaction[] = [
   {
