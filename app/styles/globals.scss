@@ -32,6 +32,11 @@ select,
 textarea {
   border: none;
   font-family: var(--font-Noto);
+  background: transparent;
+}
+
+button:disabled {
+  opacity: 0.8;
 }
 
 * {

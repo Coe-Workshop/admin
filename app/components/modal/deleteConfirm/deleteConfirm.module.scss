@@ -11,13 +11,19 @@
   width: clamp(20rem, 30%, 30rem);
 }
 
+.header {
+  padding: 0.4rem 0;
+}
+
 .action {
   display: flex;
   width: fit-content;
-  margin-left: auto;
+  margin: 0.8rem 0 0 auto;
+  gap: 0.8rem;
   .confirm {
-    background-color: $sub-1000;
+    background-color: $red-500;
     color: $sub-0;
-    padding: 0cap;
+    padding: 0.4rem 1rem;
+    border-radius: 0.4rem;
   }
 }

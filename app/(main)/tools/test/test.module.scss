@@ -1,0 +1,27 @@
+@use "../../../styles/variables" as *;
+.info {
+  margin-bottom: 2rem;
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.4rem 0;
+    .title {
+      display: flex;
+      gap: 0.8rem;
+      align-items: end;
+    }
+    .category {
+      background-color: $sub-200;
+      padding: 0.2rem 0.8rem;
+      margin-bottom: 0.4rem;
+      border-radius: 1rem;
+    }
+  }
+  .description {
+    max-width: 30rem;
+  }
+  .action {
+    display: flex;
+    gap: 1rem;
+  }
+}
