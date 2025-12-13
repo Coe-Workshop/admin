@@ -1,23 +1,13 @@
-"use client";
-
-import { ItemTransaction } from "./components/ui/itemTransaction/itemTransaction";
-import { Tooltip } from "./components/ui/tooltip/tooltip";
 import styles from "./page.module.scss";
-import { useClickOutSide } from "./hook/useClickOutside";
-function Page() {
-  const { ref, isOpen, setIsopen } = useClickOutSide();
+import Link from "next/link";
+const Hello = () => {
   return (
-    <div className={styles.landing}>
-      <ItemTransaction></ItemTransaction>
-      <div style={{ marginTop: "50px", marginInline: "400px" }}>
-        <Tooltip title={"tool"}>
-          <button onClick={() => setIsopen(true)} ref={ref} type="button">
-            {isOpen ? "click is side" : "outside"}
-          </button>
-        </Tooltip>
-      </div>
+    <div className={styles.hello}>
+      <Link href={"/landing"} className={styles.message}>
+        EN Workshop Admin is on. 😎
+      </Link>
     </div>
   );
-}
+};
 
-export default Page;
+export default Hello;

@@ -1,4 +1,4 @@
-import { AllTransaction } from "@/app/components/ui/allTransaction/allTransaction";
+import { AllTransaction } from "@/app/components/ui/adminTransaction/adminTransaction";
 
 const Transaction = () => {
   return (

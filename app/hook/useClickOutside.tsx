@@ -3,10 +3,9 @@
 import { useState, useEffect, useRef } from "react";
 export const useClickOutSide = () => {
   const [isOpen, setIsopen] = useState<boolean>(false);
-  const ref = useRef<HTMLButtonElement>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     if (!isOpen) {
-      console.log("retrun");
       return;
     }
 
@@ -17,8 +16,8 @@ export const useClickOutSide = () => {
       }
     };
 
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
+    document.addEventListener("pointerdown", handleClick);
+    return () => document.removeEventListener("pointerdown", handleClick);
   }, [isOpen]);
   return { ref, isOpen, setIsopen };
 };
