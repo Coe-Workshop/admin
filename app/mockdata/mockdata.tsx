@@ -90,7 +90,7 @@ export const mockData: ItemTableTransaction[] = [
         startTime: "2025-01-10 09:00",
         endTime: "2025-01-10 12:00",
         message: "ขอยืมเครื่องเพื่อใช้ในการประชุม",
-        status: Status.Approved,
+        status: Status.Blank,
         user: {
           tel: "0812345678",
           profileUrl: "https://randomuser.me/api/portraits/men/32.jpg",

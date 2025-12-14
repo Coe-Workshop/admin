@@ -155,12 +155,15 @@ export const ItemTransaction = () => {
                   <td className={styles.endTime}>{t.endTime}</td>
                   <td className={styles.message}>{t.message}</td>
                   <td>
-                    <Image
-                      src={`${prefix}/icon/dot.svg`}
-                      width={20}
-                      height={20}
-                      alt="dot"
-                    ></Image>
+                    {t.status == Status.Blank && (
+                      <Image
+                        className={styles.tashIcon}
+                        src={`${prefix}/icon/tash.svg`}
+                        width={20}
+                        height={20}
+                        alt="tash"
+                      ></Image>
+                    )}
                   </td>
                 </tr>
               ) : (

@@ -58,3 +58,11 @@
   padding: 0.5rem 0.8rem;
   background-color: $sub-100;
 }
+
+.tashIcon {
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+.firstItem:hover .tashIcon {
+  opacity: 1;
+}
