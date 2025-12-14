@@ -10,6 +10,9 @@
     display: none;
   }
 }
+.firstItem {
+  background-color: $sub-100;
+}
 .toggle {
   width: 3rem;
   .toggle_image {
@@ -24,6 +27,9 @@
   }
   .header_message {
     width: 20rem;
+  }
+  .header_action {
+    width: 3rem;
   }
 }
 
@@ -51,4 +57,12 @@
 .oldTransaction th {
   padding: 0.5rem 0.8rem;
   background-color: $sub-100;
+}
+
+.tashIcon {
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+.firstItem:hover .tashIcon {
+  opacity: 1;
 }

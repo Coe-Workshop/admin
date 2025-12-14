@@ -5,18 +5,51 @@ import { ModalContainer } from "@/app/components/modal/modalContainer/modalConta
 import { ItemTransaction } from "@/app/components/ui/itemTransaction/itemTransaction";
 import useDisclosure from "@/app/hook/useDisclosure";
 import { DeleteConfirm } from "@/app/components/modal/deleteConfirm/deleteConfirm";
+import styles from "./test.module.scss";
+import Image from "next/image";
+import { OptionsAction } from "@/app/components/ui/optionAction/optionsAction";
+import { prefix } from "@/app/utils/prefix";
+import { Options } from "../../../components/ui/optionAction/types";
 const Tool = () => {
   const [itemanme] = useState("itemName");
   const [category] = useState("category");
+  const [description] = useState(
+    " Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation"
+  );
+
+  const handleEditItem = () => {
+    console.log("is edit");
+  };
+
+  const handleDeleteItem = () => {
+    console.log("is del");
+  };
+
+  const [options] = useState<Options[]>([
+    { title: "แก้ไขเพิ่มเติม", action: handleEditItem },
+    { title: "ลบอุปกรณ์", action: handleDeleteItem },
+  ]);
   const { opened, handle } = useDisclosure();
   return (
     <div>
-      <section>
-        <div>
-          <h1>{itemanme}</h1>
-          <p>{category}</p>
+      <section className={styles.info}>
+        <div className={styles.header}>
+          <div className={styles.title}>
+            <h1>{itemanme}</h1>
+            <p className={styles.category}>{category}</p>
+          </div>
+          <div className={styles.action}>
+            <OptionsAction options={options} lastDelete={true}>
+              <Image
+                src={`${prefix}/icon/dot.svg`}
+                width={24}
+                height={24}
+                alt="editIcon"
+              ></Image>
+            </OptionsAction>
+          </div>
         </div>
-        <div></div>
+        <p className={styles.description}>{description}</p>
       </section>
       <section>
         <ItemTransaction></ItemTransaction>
@@ -27,9 +60,6 @@ const Tool = () => {
           confirmMessage={"อะไรซักอย่าง"}
         ></DeleteConfirm>
       </ModalContainer>
-      <button onClick={() => handle.open()} type="button">
-        click
-      </button>
     </div>
   );
 };

@@ -32,6 +32,11 @@ select,
 textarea {
   border: none;
   font-family: var(--font-Noto);
+  background: transparent;
+}
+
+button:disabled {
+  opacity: 0.8;
 }
 
 * {
@@ -87,7 +92,7 @@ table {
 
   thead th {
     border-bottom: 1px solid $sub-200;
-    font-weight: 500;
+    font-weight: 400;
   }
   tbody tr {
     transition: all 0.5s ease;

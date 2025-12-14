@@ -1,14 +1,96 @@
-import { ItemTableTransaction, Status } from "../types/api/item";
+import { Status } from "../types/api/transaction";
+import {
+  ItemTableTransaction,
+  AdminTableTransaction,
+} from "../types/api/table";
+
+export const mockAdminTableTransactions: AdminTableTransaction[] = [
+  {
+    user: {
+      username: "kritsada.b",
+      tel: "081-234-5678",
+      profileUrl: "https://i.pravatar.cc/150?img=1",
+    },
+    adminTransactions: [
+      {
+        itemName: "Laptop Dell Latitude 5440",
+        assetId: "ASSET-001",
+        startTime: "2025-01-10T08:30:00Z",
+        endTime: "2025-01-10T17:30:00Z",
+        message: "ขอยืมใช้งานสำหรับประชุมทีม",
+        status: Status.Approved,
+      },
+      {
+        itemName: "iPad Pro 11”",
+        assetId: "ASSET-002",
+        startTime: "2025-01-12T09:00:00Z",
+        endTime: "2025-01-12T18:00:00Z",
+        message: "ใช้สำหรับพรีเซนต์งานลูกค้า",
+        status: Status.Finished,
+      },
+    ],
+  },
+  {
+    user: {
+      username: "anan.c",
+      tel: "089-555-1122",
+      profileUrl: "https://i.pravatar.cc/150?img=2",
+    },
+    adminTransactions: [
+      {
+        itemName: "Projector Epson X500",
+        assetId: "ASSET-003",
+        startTime: "2025-01-15T13:00:00Z",
+        endTime: "2025-01-15T16:00:00Z",
+        message: "ใช้งานอบรมภายใน",
+        status: Status.Pending,
+      },
+      {
+        itemName: "Meeting Room A",
+        assetId: "ROOM-A",
+        startTime: "2025-01-18T10:00:00Z",
+        endTime: "2025-01-18T12:00:00Z",
+        message: "ยกเลิกเนื่องจากเลื่อนประชุม",
+        status: Status.Cancel,
+      },
+    ],
+  },
+  {
+    user: {
+      username: "somsak.r",
+      tel: "086-888-9999",
+      profileUrl: "https://i.pravatar.cc/150?img=3",
+    },
+    adminTransactions: [
+      {
+        itemName: "MacBook Pro M2",
+        assetId: "ASSET-004",
+        startTime: "2025-01-20T09:00:00Z",
+        endTime: "2025-01-20T17:00:00Z",
+        message: "ขอยืมทดสอบระบบ",
+        status: Status.Rejected,
+      },
+      {
+        itemName: "Camera Sony A7 III",
+        assetId: "ASSET-005",
+        startTime: "2025-01-22T08:00:00Z",
+        endTime: "2025-01-22T18:00:00Z",
+        message: "",
+        status: Status.Blank,
+      },
+    ],
+  },
+];
 
 export const mockData: ItemTableTransaction[] = [
   {
-    assetID: "ASSET-001",
+    assetId: "ASSET-001",
     itemTransaction: [
       {
         startTime: "2025-01-10 09:00",
         endTime: "2025-01-10 12:00",
         message: "ขอยืมเครื่องเพื่อใช้ในการประชุม",
-        status: Status.Approve,
+        status: Status.Blank,
         user: {
           tel: "0812345678",
           profileUrl: "https://randomuser.me/api/portraits/men/32.jpg",
@@ -31,7 +113,7 @@ export const mockData: ItemTableTransaction[] = [
   },
 
   {
-    assetID: "ASSET-002",
+    assetId: "ASSET-002",
     itemTransaction: [
       {
         startTime: "2025-01-08 10:00",
@@ -59,13 +141,13 @@ export const mockData: ItemTableTransaction[] = [
   },
 
   {
-    assetID: "ASSET-003",
+    assetId: "ASSET-003",
     itemTransaction: [
       {
         startTime: "2025-01-18 14:00",
         endTime: "2025-01-18 17:00",
         message: "ไม่ผ่านเกณฑ์การอนุมัติ",
-        status: Status.Reject,
+        status: Status.Rejected,
         user: {
           tel: "0805556666",
           profileUrl: "https://randomuser.me/api/portraits/men/50.jpg",
@@ -88,7 +170,7 @@ export const mockData: ItemTableTransaction[] = [
 
   // เพิ่ม asset เพิ่มเติม
   {
-    assetID: "ASSET-004",
+    assetId: "ASSET-004",
     itemTransaction: [
       {
         startTime: "2025-02-01 08:00",
@@ -116,7 +198,7 @@ export const mockData: ItemTableTransaction[] = [
   },
 
   {
-    assetID: "ASSET-005",
+    assetId: "ASSET-005",
     itemTransaction: [
       {
         startTime: "2025-12-12 10:00",
