@@ -1,0 +1,33 @@
+@use "../../../styles/variables" as *;
+
+.info {
+  width: clamp(14rem, 80%, 24rem);
+  margin-inline: auto;
+  margin-top: 10rem;
+  background-color: white;
+  position: relative;
+  z-index: 10;
+  border-radius: 0.4rem;
+  padding: 1rem;
+  span {
+    display: flex;
+    gap: 0.4rem;
+  }
+  h2 {
+    margin-bottom: 0.4rem;
+  }
+  .line {
+    margin: 1rem;
+  }
+}
+
+.header {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: space-between;
+}
+.tool {
+  background-color: $sub-200;
+  padding: 0.8rem 1rem;
+  border-radius: 0.4rem;
+}

@@ -6,3 +6,27 @@
     opacity: 1;
   }
 }
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-1rem);
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 6rem;
+  }
+}
+@keyframes slideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 6rem;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-1rem);
+    max-height: 0;
+  }
+}

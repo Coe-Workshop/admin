@@ -1,7 +1,7 @@
 import { BaseTransaction } from "./transaction";
 import { User } from "./user";
 
-interface ItemTransaction extends BaseTransaction {
+export interface ItemTransaction extends BaseTransaction {
   user: User;
   startTime: string;
 }

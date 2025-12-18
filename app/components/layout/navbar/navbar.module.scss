@@ -77,6 +77,9 @@
       .action_plus {
         width: 1.5rem;
         height: 1.5rem;
+        @include respond-to-max(md) {
+          display: none;
+        }
       }
       .quickCreate {
         color: $sub-0;
@@ -146,21 +149,23 @@
 }
 .navSlide {
   position: fixed;
-  right: 0;
   display: flex;
   flex-direction: column;
   background-color: $sub-1000;
   width: min(50vw, 20rem);
   height: 100vh;
   gap: 25px;
+  right: 0;
   padding: 20px 0;
   font-weight: bold;
-  animation: slide 0.7s ease 0.3s;
+  animation: slide 0.7s ease 0.2s backwards;
   @keyframes slide {
     from {
+      right: -20%;
       transform: translateX(250px);
     }
     to {
+      right: 0;
       transform: translateX(0px);
     }
   }
