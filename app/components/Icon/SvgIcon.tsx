@@ -11,6 +11,7 @@ type Props = {
   color?: string;        // color to embed or omit to use "currentColor"
   className?: string;
   alt?: string;
+  fixColor?: boolean;
 };
 
 /**
@@ -29,6 +30,7 @@ export default function IconSvgMono({
     color,
     className,
     alt,
+    fixColor = false,
 }: Props) {
     const [svgInner, setSvgInner] = useState<string | null>(null);
     const [svgAttrs, setSvgAttrs] = useState<Record<string, string>>({});
@@ -42,8 +44,10 @@ export default function IconSvgMono({
             
             // default color = currentColor to allow CSS inheritance
             const finalColor = color ?? "currentColor";
-            s = s.replace(/fill="(?!none)[^"]*"/gi, `fill="${finalColor}"`);
-            s = s.replace(/stroke="(?!none)[^"]*"/gi, `stroke="${finalColor}"`);
+            if (!fixColor) {
+                s = s.replace(/fill="(?!none)[^"]*"/gi, `fill="${finalColor}"`);
+                s = s.replace(/stroke="(?!none)[^"]*"/gi, `stroke="${finalColor}"`);
+            }
             
             // extract <svg ...attrs...>inner</svg>
             const m = s.match(/<svg([^>]*)>([\s\S]*?)<\/svg>/i);
@@ -128,11 +132,21 @@ export default function IconSvgMono({
     );
 }
 
-export const searchSvg = `<svg viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M25.884 23.992l-5.287-5.289a10.255 10.255 0 10-1.893 1.893l5.291 5.292a1.337 1.337 0 101.893-1.892l-.004-.004zM4.899 12.47a7.57 7.57 0 117.57 7.57 7.578 7.578 0 01-7.57-7.57z" 
-fill="currentColor"/>
-</svg>`
-export const basketSvg = `<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M28 8h-6V7a3 3 0 00-3-3h-6a3 3 0 00-3 3v1H4a2 2 0 00-2 2v14a2 2 0 002 2h24a2 2 0 002-2V10a2 2 0 00-2-2zM12 7a1 1 0 011-1h6a1 1 0 011 1v1h-8V7zm16 3v4h-4v-1a1 1 0 00-2 0v1H10v-1a1 1 0 10-2 0v1H4v-4h24zm0 14H4v-8h4v1a1 1 0 102 0v-1h12v1a1 1 0 002 0v-1h4v8z" 
-fill="currentColor"/>
+export const addImageSvg_Dark = `<svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#prefix__clip0_4349_3815)">
+        <path d="M16.875 3.125H3.125a1.25 1.25 0 00-1.25 1.25v11.25a1.25 1.25 0 001.25 1.25h13.75a1.25 1.25 0 001.25-1.25V4.375a1.25 1.25 0 00-1.25-1.25zm0 1.25v8.027l-2.037-2.036a1.25 1.25 0 00-1.768 0l-1.562 1.563L8.07 8.49a1.25 1.25 0 00-1.767 0L3.125 11.67V4.375h13.75zm-13.75 9.063l4.063-4.063 6.25 6.25H3.124v-2.188zm13.75 2.187h-1.67l-2.812-2.813 1.563-1.562 2.919 2.92v1.455zM11.25 7.812a.938.938 0 111.875 0 .938.938 0 01-1.875 0z" 
+        fill="#000"/>
+        <mask id="prefix__a" maskUnits="userSpaceOnUse" x="12.271" y=".5" width="9" height="9" fill="#000">
+            <path fill="#" d="M12.271.5h9v9h-9z"/>
+            <path d="M16.123 7.063V2.067h1.134v4.996h-1.134zm-1.931-1.931V3.998h4.996v1.134h-4.996z"/>
+        </mask>
+        <path d="M16.123 7.063V2.067h1.134v4.996h-1.134zm-1.931-1.931V3.998h4.996v1.134h-4.996z" fill="#fff"/>
+        <path d="M16.123 7.063h-1.47v1.47h1.47v-1.47zm0-4.996V.597h-1.47v1.47h1.47zm1.134 0h1.47V.597h-1.47v1.47zm0 4.996v1.47h1.47v-1.47h-1.47zm-3.065-1.931h-1.47v1.47h1.47v-1.47zm0-1.134v-1.47h-1.47v1.47h1.47zm4.996 0h1.47v-1.47h-1.47v1.47zm0 1.134v1.47h1.47v-1.47h-1.47zm-3.065 1.931h1.47V2.067h-2.94v4.996h1.47zm0-4.996v1.47h1.134V.598h-1.134v1.47zm1.134 0h-1.47v4.996h2.94V2.067h-1.47zm0 4.996v-1.47h-1.134v2.94h1.134v-1.47zm-3.065-1.931h1.47V3.998h-2.94v1.134h1.47zm0-1.134V5.47h4.996V2.528h-4.996v1.47zm4.996 0h-1.47v1.134h2.94V3.998h-1.47zm0 1.134v-1.47h-4.996v2.94h4.996v-1.47z" 
+        fill="#" mask="url(#prefix__a)"/>
+    </g>
+    <defs>
+        <clipPath id="prefix__clip0_4349_3815">
+            <path fill="#fff" d="M0 0h20v20H0z"/>
+        </clipPath>
+    </defs>
 </svg>`

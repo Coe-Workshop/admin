@@ -61,7 +61,7 @@ h4,
 p {
   font-size: 0.8rem;
   font-weight: 400;
-  color: $sub-500;
+  color: $text-faded;
 }
 input {
   font-family: var(--font-Noto);
@@ -100,5 +100,8 @@ table {
   :root {
     --background: #1f1f1f;
     --foreground: #ededed;
+  }
+  p {
+    color: $text-faded;
   }
 }

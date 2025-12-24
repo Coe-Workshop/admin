@@ -1,3 +1,4 @@
+// big group colour shade
 $sub-0: #ffffff;
 $sub-50: #fafafa;
 $sub-100: #f5f5f5;
@@ -102,7 +103,9 @@ $red-100: #fee2e2;
 $red-200: #fecaca;
 $red-300: #fca5a5;
 $red-400: #f87171;
+$red-450: #ff5555;
 $red-500: #ef4444;
+$red-550: #e63535;
 $red-600: #dc2626;
 $red-700: #b91c1c;
 $red-800: #991b1b;
@@ -130,12 +133,25 @@ $brown-700: #5a4433;
 $brown-800: #4a382b;
 $brown-900: #3a2d23;
 
+
+// color group for element
 $icon:#333;
 $icon-dark:#ccc;
 
-// for use color and decresd time to adjust
-:root {
-  --backgroud-dark: #1f1f1f;
-  --text-normal-dark: $sub-100;
-  --text-faded-dark: $sub-350;
-}
+$foreground: #1f1f1f;
+$background: #ededed;
+
+$text-normal: $sub-900;
+$text-faded: $sub-500;
+$text-faded2: $sub-600;
+$text-faded3: $sub-700;
+$text-red: $red-600;
+
+$foreground-dark: #ededed;
+$background-dark: #1f1f1f;
+
+$text-normal-dark: $sub-100;
+$text-faded-dark: $sub-350;
+$text-faded2-dark: $sub-300;
+$text-faded3-dark: $sub-200;
+$text-red-dark: $red-450;
