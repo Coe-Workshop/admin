@@ -1,6 +1,7 @@
 "use client";
 
 import { mockAdminTableTransactions } from "@/app/mockdata/mockdata";
+import IconSvgMono from "../../Icon/svgIcon";
 import React, { useState } from "react";
 import { StatusTag } from "../statusTag/statusTag";
 import { Tooltip } from "../tooltip/tooltip";
@@ -54,18 +55,19 @@ export const AllTransaction = () => {
               <tr className={styles.userRow}>
                 <td colSpan={1}>
                   <div className={styles.userInfo}>
-                    <Image
-                      style={{
-                        transform: openTransaction.includes(index)
+                    <div style={{
+                          transform: openTransaction.includes(index)
                           ? ""
                           : "rotate(-90deg)",
-                      }}
-                      onClick={() => toggleOpenTransaction(index)}
-                      src={`${prefix}/icon/arrow.svg`}
-                      width={15}
-                      height={15}
-                      alt="arrowDown"
-                    ></Image>
+                          }}
+                        onClick={() => toggleOpenTransaction(index)}>
+                      <IconSvgMono
+                        src={`${prefix}/icon/arrow.svg`}
+                        width={15}
+                        height={15}
+                        alt="arrowDown"
+                      ></IconSvgMono>
+                    </div>
                     <Tooltip title={item.user.tel}>
                       <h2 className={styles.username}>{item.user.username}</h2>
                     </Tooltip>
@@ -84,7 +86,7 @@ export const AllTransaction = () => {
                     <tr key={t.assetId} className={styles.transactionRow}>
                       <td>{t.itemName}</td>
                       <td>{t.assetId}</td>
-                      <td>
+                      <td className={styles.status}>
                         <StatusTag status={t.status} />
                       </td>
                       <td className={styles.endTime}>
@@ -93,13 +95,15 @@ export const AllTransaction = () => {
                       <td className={styles.message}>{t.message}</td>
                       <td>
                         <div className={styles.action_content}>
-                          <Image
+                          <IconSvgMono
+                            className={styles.action_content_check}
                             src={`${prefix}/icon/double-check.svg`}
                             width={20}
                             height={20}
                             alt="check"
-                          />
-                          <Image
+                            />
+                          <IconSvgMono
+                            className={styles.action_content_stop}
                             src={`${prefix}/icon/stop.svg`}
                             width={20}
                             height={20}
