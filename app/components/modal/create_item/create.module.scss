@@ -35,7 +35,7 @@
       }
       p {
         font-size: 0.9rem;
-        color: $sub-500;
+        color: $text-faded;
         font-weight: 300;
       }
       .field {
@@ -150,7 +150,7 @@
         position: absolute;
         font-size: 0.8rem;
         font-weight: 400;
-        color: $red-600;
+        color: $text-red;
         top: 76%;
         right: 4%;
       }
@@ -169,6 +169,7 @@
         }
         .cancelButton {
           background-color: $sub-0;
+          color: $sub-1000;
         }
         .submitButton {
           background-color: $sub-1000;
@@ -222,8 +223,8 @@
             }
 
             &.error {
-              border-color: $red-600;
-              color: $red-600;
+              border-color: $text-red;
+              color: $text-red;
             }
           }
 
@@ -236,12 +237,16 @@
               font-size: 0.75rem;
             }
 
+            .text_picDetail {
+              color: $text-faded;
+            }
+
             .status {
               font-size: 0.7rem;
-              color: $sub-500;
+              color: $text-faded;
 
               &.error {
-                color: $red-600;
+                color: $text-red;
                 font-size: 0.65rem;
               }
             }
@@ -335,6 +340,89 @@
       right: auto !important;
       text-align: center;
       margin: 10px 0;
+    }
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .container {
+    background-color: $sub-550;
+    .formSection {
+      color: $sub-0;
+      p {
+        color: $text-faded2-dark !important;
+      }
+      .field {
+        label {
+          span {
+            color: $text-red-dark !important;
+          }
+        }
+        .error {
+          border: 1.5px solid $text-red-dark !important;
+          &::placeholder {
+            color: $text-red-dark !important;
+          }
+          &.error {
+            color: $text-red-dark !important;
+          }
+        }
+      }
+    }
+    // idk why it's can't config normaly, so i force it. 
+    .rightSection {
+      .imageBox {
+        border-color: $sub-700 !important;
+        .uploadText {
+          color: $text-faded2-dark !important;
+        }
+        .text_size {
+          color: $text-faded2-dark !important;
+        }
+        &:hover {
+          border-color: $sub-800 !important;
+          background: $sub-600 !important;
+        }
+      }
+      .imageBoxPreview {
+        .fileList {
+          .blog {
+            border: 2px solid $sub-200 !important;
+            &.compressing {
+              border-color: $sub-500 !important;
+            }
+            &.error {
+              border-color: $text-red-dark !important;
+              color: $text-red-dark !important;
+            }
+            .text_picDetail, &.compressing {
+              color: $text-faded2-dark !important;
+            }
+          }
+          .text {
+            .text_picDetail {
+              color: $text-faded2-dark !important;
+            }
+            .status {
+              color: $text-faded2-dark !important;
+              &.error {
+                color: $text-red-dark !important;
+              }
+            }
+          }
+        }
+        .button {
+          .uploadText {
+            color: $text-normal-dark !important;
+          }
+          &:hover {
+            background-color: $sub-650 !important;
+          }
+        }
+      }
+      .errorMessage {
+        color: $text-red-dark !important;
+      }
     }
   }
 }

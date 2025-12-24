@@ -3,6 +3,7 @@
 import NavSlide from "@/app/components/layout/navbar/navslide";
 import useDisclosure from "@/app/hook/useDisclosure";
 import { prefix } from "@/app/utils/prefix";
+import IconSvgMono from "@/app/components/Icon/svgIcon";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./navbar.module.scss";
@@ -46,13 +47,13 @@ function Navbar() {
   const menuBlog = BlogList.map((item, index) => {
     return (
       <Link key={index} className={styles.button_list} href={item.url}>
-        <Image
+        <IconSvgMono
           className={styles.blog_image}
           src={`${prefix}${item.cover}`}
           width={22}
           height={22}
           alt={item.title}
-        ></Image>
+        ></IconSvgMono>
         <h3>{item.title}</h3>
       </Link>
     );
@@ -83,14 +84,15 @@ function Navbar() {
               ></Image>
               <h3 className={styles.quickCreate}>Quick Create</h3>
             </button>
-            <Image
-              onClick={() => handle.open()}
-              className={styles.action_hamberger}
-              width={120}
-              height={120}
-              alt="hamberger_icon"
-              src={`${prefix}/navbar/hamberger.svg`}
-            ></Image>
+            <div onClick={() => handle.open()}>
+              <IconSvgMono
+                className={styles.action_hamberger}
+                width={120}
+                height={120}
+                alt="hamberger_icon"
+                src={`${prefix}/navbar/hamberger.svg`}
+              ></IconSvgMono>
+            </div>
             {menuBlog}
           </div>
         </div>

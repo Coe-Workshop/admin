@@ -1,4 +1,6 @@
 "use client";
+import IconSvgMono from "../../Icon/svgIcon";
+import { addImageSvg_Dark } from "../../Icon/svgIcon";
 import styles from "./create.module.scss";
 import { useState } from "react";
 import { Category, crateProps } from "./types";
@@ -310,7 +312,7 @@ function CreateItem({ onClose }: CreateItemProps) {
                                 alt="error-image"
                               />
                               <div className={styles.text}>
-                                <p>{formatFilename(file.name)}</p>
+                                <p className={styles.text_picDetail}>{formatFilename(file.name)}</p>
                                 <p
                                   className={`${styles.status} ${
                                     uploadStatus[file.name] === "error"
@@ -327,26 +329,28 @@ function CreateItem({ onClose }: CreateItemProps) {
                                 </p>
                               </div>
                             </div>
-                            <Image
-                              src={"/create-item/close.svg"}
-                              width={10}
-                              height={10}
-                              alt="close-button"
-                              onClick={() => handleRemoveFile(file.name)}
-                              className={styles.removeButton}
-                            />
+                            <div onClick={() => handleRemoveFile(file.name)}>
+                              <IconSvgMono
+                                src={"/create-item/close.svg"}
+                                width={10}
+                                height={10}
+                                alt="close-button"
+                                className={styles.removeButton}
+                              />
+                            </div>
                           </div>
                         );
                       })}
                     </div>
 
                     <label htmlFor="image-upload" className={styles.button}>
-                      <Image
-                        src={"/create-item/button.svg"}
+                      <IconSvgMono
+                        svg={addImageSvg_Dark}
                         alt="image"
                         width={20}
                         height={20}
                         className={styles.image}
+                        fixColor={true}
                       />
                       <p className={styles.uploadText}>อัพโหลดรูปภาพ</p>
                     </label>

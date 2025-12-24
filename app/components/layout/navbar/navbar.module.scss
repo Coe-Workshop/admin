@@ -140,6 +140,7 @@
       .email {
         font-size: 0.75rem;
         color: gray;
+        color: $sub-500;
       }
     }
   }
@@ -189,4 +190,30 @@
   padding: 10px 20px;
   background-color: $sub-0;
   color: $sub-1000;
+}
+
+@media (prefers-color-scheme: dark) {
+  .navbar {
+    background-color: $sub-700;
+    border-right: 1px solid $sub-900;
+    .logo {
+      .logo_mark {
+        color: $sub-0;
+      }
+      .logo_status {
+        color: $sub-0;
+      }
+      .logo_dot {
+        color: $sub-800;
+      }
+    }
+    .box {
+      .button_list {
+        color: $sub-200;
+      }
+      .button_list:hover {
+        color: $sub-900;
+      }
+    }
+  }
 }
