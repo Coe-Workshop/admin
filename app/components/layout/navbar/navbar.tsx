@@ -3,7 +3,7 @@
 import NavSlide from "@/app/components/layout/navbar/navslide";
 import useDisclosure from "@/app/hook/useDisclosure";
 import { prefix } from "@/app/utils/prefix";
-import IconSvgMono from "@/app/components/Icon/svgIcon";
+import IconSvgMono from "../../Icon/svgIcon";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./navbar.module.scss";
