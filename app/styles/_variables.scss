@@ -3,13 +3,33 @@ $sub-50: #fafafa;
 $sub-100: #f5f5f5;
 $sub-200: #e5e5e5;
 $sub-300: #cccccc;
+$sub-350: #b2b2b2;
 $sub-400: #999999;
+$sub-450: #7f7f7f;
 $sub-500: #666666;
+$sub-550: #565656;
 $sub-600: #4d4d4d;
+$sub-650: #404040;
 $sub-700: #333333;
+$sub-750: #262626;
 $sub-800: #1a1a1a;
 $sub-900: #0d0d0d;
 $sub-1000: #000000;
+
+$sub-0-short: #fff;
+$sub-50-short: #eee;
+$sub-100-short: #bbb;
+$sub-200-short: #aaa;
+$sub-300-short: #999;
+$sub-400-short: #888;
+$sub-450-short: #777;
+$sub-500-short: #666;
+$sub-550-short: #555;
+$sub-600-short: #444;
+$sub-700-short: #333;
+$sub-800-short: #222;
+$sub-900-short: #111;
+$sub-1000-short: #000;
 
 $blue-50: #eff6ff;
 $blue-100: #dbeafe;
@@ -109,3 +129,13 @@ $brown-600: #71563f;
 $brown-700: #5a4433;
 $brown-800: #4a382b;
 $brown-900: #3a2d23;
+
+$icon:#333;
+$icon-dark:#ccc;
+
+// for use color and decresd time to adjust
+:root {
+  --backgroud-dark: #1f1f1f;
+  --text-normal-dark: $sub-100;
+  --text-faded-dark: $sub-350;
+}

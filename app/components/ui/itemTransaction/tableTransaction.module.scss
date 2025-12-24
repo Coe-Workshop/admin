@@ -59,10 +59,60 @@
   background-color: $sub-100;
 }
 
+.trashSpace {
+}
+
 .tashIcon {
   opacity: 0;
   transition: all 0.3s ease;
 }
 .firstItem:hover .tashIcon {
   opacity: 1;
+}
+
+@media (prefers-color-scheme: dark) {
+  .firstItem {
+    background-color: $sub-800;
+  }
+  // for fix transition bug
+  .firstItem .toggle, 
+  .firstItem .assetID, 
+  .firstItem .username,
+  .firstItem .status, 
+  .firstItem .message,
+  .firstItem .endTime,
+  .firstItem .trashSpace {
+    background-color: $sub-800;
+    transition: 0.5s ease;
+  }
+  .firstItem:hover,
+  .firstItem:hover .toggle, 
+  .firstItem:hover .assetID, 
+  .firstItem:hover .username, 
+  .firstItem:hover .status, 
+  .firstItem:hover .message, 
+  .firstItem:hover .endTime, 
+  .firstItem:hover .trashSpace {
+    background-color: $sub-750;
+  }
+
+  .header {
+    background-color: $sub-900;
+  }
+  
+  .table {
+    background-color: $sub-700;
+    .username,
+    .message,
+    .endTime {
+      color: var(--text-faded-dark);
+    }
+    .status, 
+    .status h3 {
+      color: $sub-900;
+    }
+    tbody tr:hover {
+      background-color: $sub-650;
+    }
+  }
 }
