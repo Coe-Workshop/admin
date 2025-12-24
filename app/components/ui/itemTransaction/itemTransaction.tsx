@@ -5,7 +5,7 @@ import styles from "./tableTransaction.module.scss";
 import { mockData } from "@/app/mockdata/mockdata";
 import { Status } from "@/app/types/api/transaction";
 import { prefix } from "@/app/utils/prefix";
-import IconSvgMono from "@/app/components/Icon/SvgIcon";
+import IconSvgMono from "@/app/components/Icon/svgIcon";
 import Image from "next/image";
 import { StatusTag } from "../statusTag/statusTag";
 export const ItemTransaction = () => {

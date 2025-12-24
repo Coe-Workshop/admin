@@ -69,6 +69,11 @@
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  .action_content_check {
+  }
+  .action_content_stop {
+    color: $text-red;
+  }
 }
 .allApprove {
   cursor: pointer;
@@ -80,5 +85,36 @@
   text-align: center;
   &:hover {
     background-color: $sub-200;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .table {
+    thead th {
+      background: $sub-800;
+    }
+    tbody tr:hover {
+      background-color: $sub-750;
+    }
+  }
+  .userRow {
+    background-color: $sub-750;
+  }
+  .status h3{
+    color: $text-normal;
+  }
+  .allApprove {
+    background-color: $sub-900;
+    transition: all 0.5s ease;
+    text-align: center;
+    &:hover {
+      background-color: $sub-800;
+    }
+  }
+  .message {
+    color: $text-faded-dark;
+  }
+  .action_content_stop {
+    color: $text-red-dark;
   }
 }

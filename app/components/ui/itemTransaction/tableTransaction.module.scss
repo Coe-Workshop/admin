@@ -105,11 +105,11 @@
     .username,
     .message,
     .endTime {
-      color: var(--text-faded-dark);
+      color: $text-faded-dark;
     }
     .status, 
     .status h3 {
-      color: $sub-900;
+      color: $text-normal;
     }
     tbody tr:hover {
       background-color: $sub-650;

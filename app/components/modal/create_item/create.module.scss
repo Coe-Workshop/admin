@@ -35,7 +35,7 @@
       }
       p {
         font-size: 0.9rem;
-        color: $sub-500;
+        color: $text-faded;
         font-weight: 300;
       }
       .field {
@@ -150,7 +150,7 @@
         position: absolute;
         font-size: 0.8rem;
         font-weight: 400;
-        color: $red-600;
+        color: $text-red;
         top: 76%;
         right: 4%;
       }
@@ -223,8 +223,8 @@
             }
 
             &.error {
-              border-color: $red-600;
-              color: $red-600;
+              border-color: $text-red;
+              color: $text-red;
             }
           }
 
@@ -237,12 +237,16 @@
               font-size: 0.75rem;
             }
 
+            .text_picDetail {
+              color: $text-faded;
+            }
+
             .status {
               font-size: 0.7rem;
-              color: $sub-500;
+              color: $text-faded;
 
               &.error {
-                color: $red-600;
+                color: $text-red;
                 font-size: 0.65rem;
               }
             }
@@ -345,9 +349,23 @@
     background-color: $sub-550;
     .formSection {
       color: $sub-0;
+      p {
+        color: $text-faded2-dark !important;
+      }
       .field {
-        .name, .description, .option {
-          color: $sub-100;
+        label {
+          span {
+            color: $text-red-dark !important;
+          }
+        }
+        .error {
+          border: 1.5px solid $text-red-dark !important;
+          &::placeholder {
+            color: $text-red-dark !important;
+          }
+          &.error {
+            color: $text-red-dark !important;
+          }
         }
       }
     }
@@ -356,10 +374,10 @@
       .imageBox {
         border-color: $sub-700 !important;
         .uploadText {
-          color: var(--text-faded-dark);
+          color: $text-faded2-dark !important;
         }
         .text_size {
-          color: var(--text-faded-dark) !important;
+          color: $text-faded2-dark !important;
         }
         &:hover {
           border-color: $sub-800 !important;
@@ -369,33 +387,42 @@
       .imageBoxPreview {
         .fileList {
           .blog {
-            border-color: $blue-100 !important;
-            .text p, &.compressing {
-              color: var(--text-faded-dark) !important;
+            border: 2px solid $sub-200 !important;
+            &.compressing {
+              border-color: $sub-500 !important;
             }
-             &.error {
-              border-color: $red-400 !important;
-              color: $red-400 !important;
-             }
+            &.error {
+              border-color: $text-red-dark !important;
+              color: $text-red-dark !important;
+            }
+            .text_picDetail, &.compressing {
+              color: $text-faded2-dark !important;
+            }
+          }
+          .text {
+            .text_picDetail {
+              color: $text-faded2-dark !important;
+            }
+            .status {
+              color: $text-faded2-dark !important;
+              &.error {
+                color: $text-red-dark !important;
+              }
+            }
           }
         }
         .button {
           .uploadText {
-            color: $sub-100 !important;
+            color: $text-normal-dark !important;
+          }
+          &:hover {
+            background-color: $sub-650 !important;
           }
         }
-        .button &:hover {
-          background-color: $sub-600 !important;
-        }
       }
-    }
-  }
-  .error {
-    &::placeholder {
-      color: $blue-600;
-    }
-    &.error {
-      color: $blue-600;
+      .errorMessage {
+        color: $text-red-dark !important;
+      }
     }
   }
 }
