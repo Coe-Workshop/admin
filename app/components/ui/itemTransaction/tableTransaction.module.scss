@@ -42,15 +42,16 @@
     width: fit-content;
   }
   .username {
-    color: $sub-500;
+    color: var(--text-fade-mid);
   }
   .status {
+    color: $sub-1000;
   }
   .message {
-    color: $sub-500;
+    color: var(--text-fade-mid);
   }
   .endTime {
-    color: $sub-500;
+    color: var(--text-fade-mid);
   }
 }
 
@@ -102,15 +103,6 @@
   
   .table {
     background-color: $sub-700;
-    .username,
-    .message,
-    .endTime {
-      color: $text-faded-dark;
-    }
-    .status, 
-    .status h3 {
-      color: $text-normal;
-    }
     tbody tr:hover {
       background-color: $sub-650;
     }

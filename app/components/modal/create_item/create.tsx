@@ -244,7 +244,7 @@ function CreateItem({ onClose }: CreateItemProps) {
                     ยังไม่ได้เลือกหมวดหมู่ใดๆ
                   </option>
                   {Object.values(Category).map((cat) => (
-                    <option key={cat} value={cat}>
+                    <option className={styles.option_inside} key={cat} value={cat}>
                       {cat.replace("_", " ")}
                     </option>
                   ))}

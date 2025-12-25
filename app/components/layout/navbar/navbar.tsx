@@ -3,7 +3,7 @@
 import NavSlide from "@/app/components/layout/navbar/navslide";
 import useDisclosure from "@/app/hook/useDisclosure";
 import { prefix } from "@/app/utils/prefix";
-import IconSvgMono from "../../Icon/svgIcon";
+import IconSvgMono from "@/app/components/Icon/svgIcon";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./navbar.module.scss";
@@ -110,13 +110,13 @@ function Navbar() {
               <p className={styles.email}>{Admin.email}</p>
             </div>
           </div>
-          <Image
+          <IconSvgMono
             className={styles.blog_icon}
             src={`${prefix}${Admin.icon}`}
             width={20}
             height={20}
             alt={Admin.title}
-          ></Image>
+          ></IconSvgMono>
         </div>
         <ModalContainer opened={opened} onClose={handle.close}>
           <NavSlide

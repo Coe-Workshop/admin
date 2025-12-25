@@ -35,18 +35,18 @@
     .logo_mark {
       font-size: 1.4rem;
       font-weight: 800;
-      color: $sub-1000;
+      color: var(--logo-mark);
     }
     .logo_status {
       padding-left: 10px;
       font-size: 1rem;
-      color: $sub-1000;
+      color: var(--logo-mark);
       font-weight: 500;
     }
     .logo_dot {
       font-size: 1.4rem;
       font-weight: 800;
-      color: $sub-400;
+      color: var(--logo-dot);
     }
   }
   .box {
@@ -60,12 +60,12 @@
     }
     .button_create {
       display: flex;
-      background-color: $sub-1000;
+      background-color: var(--text-normal);
       align-items: center;
       padding: 8px;
       gap: 5px;
       border-radius: 8px;
-
+      
       @include respond-to-max(md) {
         background-color: transparent;
         flex-direction: column;
@@ -73,13 +73,13 @@
         width: fit-content;
         padding: 0;
       }
-
+      
       .action_plus {
         width: 1.5rem;
         height: 1.5rem;
       }
       .quickCreate {
-        color: $sub-0;
+        color: var(--text-inverse);
         @include respond-to-max(md) {
           display: none;
         }
@@ -103,6 +103,7 @@
       border-radius: 8px;
       transition: all 0.5s ease;
       width: 16rem;
+      color: var(--text-fade-high);
       .blog_image {
         object-fit: contain;
         object-position: center;
@@ -132,15 +133,16 @@
         object-fit: cover;
         object-position: center;
         overflow: hidden;
+        color: var(--icon-fade);
       }
       .name {
         font-size: 1rem;
         font-weight: 400;
+        color: var(--text-fade-low);
       }
       .email {
         font-size: 0.75rem;
-        color: gray;
-        color: $sub-500;
+        color: var(--text-fade-low);
       }
     }
   }
@@ -194,22 +196,13 @@
 
 @media (prefers-color-scheme: dark) {
   .navbar {
-    background-color: $sub-700;
+    background-color: $sub-800;
     border-right: 1px solid $sub-900;
-    .logo {
-      .logo_mark {
-        color: $sub-0;
-      }
-      .logo_status {
-        color: $sub-0;
-      }
-      .logo_dot {
-        color: $sub-800;
-      }
-    }
     .box {
-      .button_list {
-        color: $sub-200;
+      .button_create {
+        .action_plus {
+          filter: invert(96%);
+        }
       }
       .button_list:hover {
         color: $sub-900;

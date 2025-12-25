@@ -17,21 +17,6 @@ $sub-800: #1a1a1a;
 $sub-900: #0d0d0d;
 $sub-1000: #000000;
 
-$sub-0-short: #fff;
-$sub-50-short: #eee;
-$sub-100-short: #bbb;
-$sub-200-short: #aaa;
-$sub-300-short: #999;
-$sub-400-short: #888;
-$sub-450-short: #777;
-$sub-500-short: #666;
-$sub-550-short: #555;
-$sub-600-short: #444;
-$sub-700-short: #333;
-$sub-800-short: #222;
-$sub-900-short: #111;
-$sub-1000-short: #000;
-
 $blue-50: #eff6ff;
 $blue-100: #dbeafe;
 $blue-200: #bfdbfe;
@@ -135,23 +120,43 @@ $brown-900: #3a2d23;
 
 
 // color group for element
-$icon:#333;
-$icon-dark:#ccc;
+$light: (
+    test : $green-500,
 
-$foreground: #1f1f1f;
-$background: #ededed;
+    icon : #333,
+    icon-fade : #555,
+    logo-mark : $sub-1000,
+    logo-dot : $sub-600,
 
-$text-normal: $sub-900;
-$text-faded: $sub-500;
-$text-faded2: $sub-600;
-$text-faded3: $sub-700;
-$text-red: $red-600;
+    text-normal : $sub-1000,
+    text-inverse : $sub-100,
+    text-fade-low : $sub-400,
+    text-fade-mid : $sub-500,
+    text-fade-mid2 : $sub-550,
+    text-fade-high : $sub-700,
 
-$foreground-dark: #ededed;
-$background-dark: #1f1f1f;
+    warning-red: $red-600,
+);
+$dark: (
+    test : $green-500,
 
-$text-normal-dark: $sub-100;
-$text-faded-dark: $sub-350;
-$text-faded2-dark: $sub-300;
-$text-faded3-dark: $sub-200;
-$text-red-dark: $red-450;
+    icon:#ccc,
+    icon-fade:#999,
+    logo-mark : $sub-0,
+    logo-dot : $sub-400,
+    
+    text-normal : $sub-100,
+    text-inverse : $sub-1000,
+    text-fade-low : $sub-500,
+    text-fade-mid : $sub-350,
+    text-fade-mid2 : $sub-300,
+    text-fade-high : $sub-200,
+
+    warning-red: $red-450,
+);
+
+@mixin theme-vars($map) {
+  @each $name, $value in $map {
+    --#{$name}: #{$value};
+  }
+}

@@ -2,6 +2,7 @@
 @use "breakpoints" as *;
 
 :root {
+  @include theme-vars($light);
 }
 
 html,
@@ -61,7 +62,7 @@ h4,
 p {
   font-size: 0.8rem;
   font-weight: 400;
-  color: $text-faded;
+  color: var(--text-fade-mid);
 }
 input {
   font-family: var(--font-Noto);
@@ -98,10 +99,8 @@ table {
 
 @media (prefers-color-scheme: dark) {
   :root {
+    @include theme-vars($dark);
     --background: #1f1f1f;
     --foreground: #ededed;
-  }
-  p {
-    color: $text-faded;
   }
 }
