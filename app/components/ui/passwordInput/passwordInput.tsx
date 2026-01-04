@@ -35,7 +35,7 @@ export const PasswordInput = ({
           onClick={() => setHide(!hide)}
           aria-label={hide ? "แสดงรหัสผ่าน" : "ซ่อนรหัสผ่าน"}
         >
-          <EyeIcon width={20} height={20} isHide={hide}></EyeIcon>
+          <EyeIcon isHide={hide}></EyeIcon>
         </button>
       </div>
     </div>

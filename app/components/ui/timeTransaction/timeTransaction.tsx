@@ -1,14 +1,10 @@
 "use client";
 
 import { mockData } from "@/app/mockdata/mockdata";
-import { useState } from "react";
-import React from "react";
-import styles from "./timeTransaction.module.scss";
-import { timeEnd } from "console";
-import { ItemTransaction } from "../itemTransaction/itemTransaction";
+import React, { useState } from "react";
 import { ModalContainer } from "../../modal/modalContainer/modalContainer";
 import { TransactionInfo } from "../../modal/transactionInfo/transactionInfo";
-import useDisclosure from "@/app/hook/useDisclosure";
+import styles from "./timeTransaction.module.scss";
 export const TimeTransaction = () => {
   const [timeAxis] = useState<string[]>([
     "09.00",
@@ -53,7 +49,7 @@ export const TimeTransaction = () => {
         <h3 className={styles.header_blank}></h3>
         {timeAxis.map((time, index) => (
           <React.Fragment key={index}>
-            <h1 className={styles.header_time}>{time}</h1>
+            <h2 className={styles.header_time}>{time}</h2>
             <h3 className={styles.header_time}></h3>
           </React.Fragment>
         ))}
@@ -104,6 +100,7 @@ export const TimeTransaction = () => {
                           onClose={() => toggleOpened(id)}
                         >
                           <TransactionInfo
+                            onClose={() => toggleOpened(id)}
                             user={event.user}
                             startTime={event.startTime}
                             endTime={event.endTime}

@@ -17,7 +17,10 @@ export const OptionsAction = ({
             options.length == index + 1 && lastDelete ? (
               <h3
                 key={index}
-                onClick={() => item.action(id)}
+                onClick={() => {
+                  setIsopen(false);
+                  item.action(id);
+                }}
                 className={styles.select_last}
               >
                 {item.title}
@@ -25,7 +28,10 @@ export const OptionsAction = ({
             ) : (
               <h3
                 key={index}
-                onClick={() => item.action(id)}
+                onClick={() => {
+                  setIsopen(false);
+                  item.action(id);
+                }}
                 className={styles.select_text}
               >
                 {item.title}

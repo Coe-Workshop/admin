@@ -1,13 +1,15 @@
 import { ItemTransaction } from "@/app/types/api/table";
 import styles from "./transactionInfo.module.scss";
 import { StatusTag } from "../../ui/statusTag/statusTag";
+import { TransactionInfoProps } from "./transactionInfo.types";
 export const TransactionInfo = ({
   user,
   startTime,
   endTime,
   message,
   status,
-}: ItemTransaction) => {
+  onClose,
+}: TransactionInfoProps) => {
   return (
     <div className={styles.info}>
       <section>
@@ -41,7 +43,7 @@ export const TransactionInfo = ({
       <hr className={styles.line} />
       <section>
         <span>
-          <h2>เกี่ยวกับอุปกรณ์</h2>
+          <h3>เกี่ยวกับอุปกรณ์</h3>
         </span>
         <div className={styles.tool}>
           <h3>ชื่อของอุปกรณ์</h3>
@@ -49,12 +51,14 @@ export const TransactionInfo = ({
       </section>
       <section className={styles.action}>
         <form
-          onSubmit={(e: Event) => {
+          onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault();
-            onclose();
+            onClose();
           }}
         >
-          <button type="submit"></button>
+          <button type="submit" className={styles.action_button}>
+            ปิด
+          </button>
         </form>
       </section>
     </div>
