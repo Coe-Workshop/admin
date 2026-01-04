@@ -65,7 +65,7 @@ export const AllTransaction = () => {
                           ? ""
                           : "rotate(-90deg)",
                           }}
-                        onClick={() => toggleOpenTransaction(index)}>
+                        onClick={() => toggleTransaction(index)}>
                       <IconSvgMono
                         src={`${prefix}/icon/arrow.svg`}
                         width={15}
