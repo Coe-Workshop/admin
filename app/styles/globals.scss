@@ -2,13 +2,7 @@
 @use "breakpoints" as *;
 
 :root {
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  @include theme-vars($light);
 }
 
 html,
@@ -68,7 +62,7 @@ h4,
 p {
   font-size: 0.8rem;
   font-weight: 400;
-  color: $sub-500;
+  color: var(--text-fade-mid);
 }
 input {
   font-family: var(--font-Noto);
@@ -100,5 +94,13 @@ table {
 
   tbody tr:hover {
     background-color: $sub-100;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    @include theme-vars($dark);
+    --background: #1f1f1f;
+    --foreground: #ededed;
   }
 }

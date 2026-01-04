@@ -45,15 +45,16 @@
     width: fit-content;
   }
   .username {
-    color: $sub-500;
+    color: var(--text-fade-mid);
   }
   .status {
+    color: $sub-1000;
   }
   .message {
-    color: $sub-500;
+    color: var(--text-fade-mid);
   }
   .endTime {
-    color: $sub-500;
+    color: var(--text-fade-mid);
   }
 }
 
@@ -64,10 +65,52 @@
   z-index: -1;
 }
 
-.slideIn {
-  animation: slideIn 0.3s ease forwards;
+.trashSpace {
+}
+
+.tashIcon {
+  opacity: 0;
+  transition: all 0.3s ease;
 }
 
 .slideOut {
   animation: slideOut 0.3s ease forwards;
+}
+
+@media (prefers-color-scheme: dark) {
+  .firstItem {
+    background-color: $sub-800;
+  }
+  // for fix transition bug
+  .firstItem .toggle, 
+  .firstItem .assetID, 
+  .firstItem .username,
+  .firstItem .status, 
+  .firstItem .message,
+  .firstItem .endTime,
+  .firstItem .trashSpace {
+    background-color: $sub-800;
+    transition: 0.5s ease;
+  }
+  .firstItem:hover,
+  .firstItem:hover .toggle, 
+  .firstItem:hover .assetID, 
+  .firstItem:hover .username, 
+  .firstItem:hover .status, 
+  .firstItem:hover .message, 
+  .firstItem:hover .endTime, 
+  .firstItem:hover .trashSpace {
+    background-color: $sub-750;
+  }
+
+  .header {
+    background-color: $sub-900;
+  }
+  
+  .table {
+    background-color: $sub-700;
+    tbody tr:hover {
+      background-color: $sub-650;
+    }
+  }
 }

@@ -35,7 +35,7 @@
       }
       p {
         font-size: 0.9rem;
-        color: $sub-500;
+        color: var(--text-fade-mid);
         font-weight: 300;
       }
       .field {
@@ -46,7 +46,7 @@
           font-weight: 400;
           margin: 3px 0 10px 0;
           span {
-            color: $red-600;
+            color: var(--warning-red);
           }
         }
         .name {
@@ -81,16 +81,19 @@
           border-radius: 6px;
           height: 40px;
           width: 100%;
+
+          .option_inside {
+          }
         }
         .error {
           padding: 8px 10px;
           border-radius: 3px;
-          border: 1.5px solid $red-600;
+          border: 1.5px solid var(--warning-red);
           &::placeholder {
-            color: $red-600;
+            color: var(--warning-red);
           }
           &.error {
-            color: $red-600;
+            color: var(--warning-red);
           }
         }
       }
@@ -143,14 +146,14 @@
         .text_size {
           padding: 3px;
           font-size: 0.65rem;
-          color: $sub-500;
+          color: var(--text-fade-mid);
         }
       }
       .errorMessage {
         position: absolute;
         font-size: 0.8rem;
         font-weight: 400;
-        color: $red-600;
+        color: var(--warning-red);
         top: 76%;
         right: 4%;
       }
@@ -169,6 +172,7 @@
         }
         .cancelButton {
           background-color: $sub-0;
+          color: $sub-1000;
         }
         .submitButton {
           background-color: $sub-1000;
@@ -222,8 +226,8 @@
             }
 
             &.error {
-              border-color: $red-600;
-              color: $red-600;
+              border-color: var(--warning-red);
+              color: var(--warning-red);
             }
           }
 
@@ -236,12 +240,16 @@
               font-size: 0.75rem;
             }
 
+            .text_picDetail {
+              color: var(--text-fade-mid);
+            }
+
             .status {
               font-size: 0.7rem;
-              color: $sub-500;
+              color: var(--text-fade-mid);
 
               &.error {
-                color: $red-600;
+                color: var(--warning-red);
                 font-size: 0.65rem;
               }
             }
@@ -335,6 +343,54 @@
       right: auto !important;
       text-align: center;
       margin: 10px 0;
+    }
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .container {
+    background-color: $sub-550;
+    .formSection {
+      .field {
+        .option {
+          background-image: url("/Tools/arrow_dark.svg") !important;
+          .option_inside {
+            color: var(--text-inverse);
+          }
+        }
+      }
+    }
+    // idk why it's can't config normaly, so i force it. 
+    .rightSection {
+      .imageBox {
+        border-color: $sub-700 !important;
+        &:hover {
+          border-color: $sub-800 !important;
+          background: $sub-600 !important;
+        }
+      }
+      .imageBoxPreview {
+        .fileList {
+          .blog {
+            border: 2px solid $sub-200 !important;
+            &.compressing {
+              border-color: $sub-500 !important;
+            }
+            &.error {
+              border-color: var(--warning-red) !important;
+            }
+          }
+
+        }
+        .button {
+          .uploadText {
+            color: var(--text-fade-high) !important;
+          }
+          &:hover {
+            background-color: $sub-650 !important;
+          }
+        }
+      }
     }
   }
 }

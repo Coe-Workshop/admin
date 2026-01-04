@@ -5,6 +5,7 @@ import styles from "./tableTransaction.module.scss";
 import { mockData } from "@/app/mockdata/mockdata";
 import { Status } from "@/app/types/api/transaction";
 import { prefix } from "@/app/utils/prefix";
+import IconSvgMono from "@/app/components/Icon/svgIcon";
 import Image from "next/image";
 import { StatusTag } from "../statusTag/statusTag";
 export const ItemTransaction = () => {
@@ -20,6 +21,106 @@ export const ItemTransaction = () => {
     }
     setOpenTransaction((prev) => [...prev, idx]);
   };
+
+  const tableContent: ReactNode | null = mockData.flatMap((item, index) => {
+    return item.itemTransaction.map((t, i) => {
+      const now = new Date();
+      const target = new Date(t.endTime);
+      if (i == 0) {
+        if (target < now) {
+          return (
+            <React.Fragment key={item.assetId + i}>
+              <tr>
+                <td
+                  className={styles.toggle}
+                  onClick={() => togleTransaction(index)}
+                >
+                  <div style={{
+                        transform: openTransaction.includes(index)
+                          ? "rotate(-90deg)"
+                          : "",
+                        }}
+                  >
+                    <IconSvgMono
+                      className={styles.toggle_image}
+                      src={`${prefix}/icon/arrow.svg`}
+                      alt="arrow"
+                      width={10}
+                      height={10}
+                    ></IconSvgMono>
+                  </div>
+                </td>
+                <td className={styles.assetID}>{item.assetId}</td>
+                <td className={styles.username}></td>
+                <td className={styles.status}>
+                  <StatusTag status={Status.Blank}></StatusTag>
+                </td>
+                <td className={styles.endTime}></td>
+                <td className={styles.message}></td>
+              </tr>
+              {openTransaction.includes(index) && (
+                <tr className={styles.oldTransaction} key={item.assetId + i}>
+                  <td></td>
+                  <td className={styles.assetID}>{item.assetId}</td>
+                  <td className={styles.username}>{t.user.username}</td>
+                  <td className={styles.status}>
+                    <StatusTag status={Status.Finished}></StatusTag>
+                  </td>
+                  <td className={styles.endTime}>{t.endTime}</td>
+                  <td className={styles.message}>{t.message}</td>
+                </tr>
+              )}
+            </React.Fragment>
+          );
+        }
+        return (
+          <tr key={item.assetId + i}>
+            <th
+              className={styles.toggle}
+              onClick={() => togleTransaction(index)}
+            >
+              <div style={{
+                    transform: openTransaction.includes(index)
+                      ? "rotate(-90deg)"
+                      : "",
+                    }}
+              >
+                <IconSvgMono
+                  className={styles.toggle_image}
+                  src={`${prefix}/icon/arrow.svg`}
+                  alt="arrow"
+                  width={10}
+                  height={10}
+                ></IconSvgMono>
+              </div>
+            </th>
+            <th className={styles.assetId}>{item.assetId}</th>
+            <th className={styles.username}>{t.user.username}</th>
+            <th className={styles.status}>
+              <StatusTag status={t.status}></StatusTag>
+            </th>
+            <th className={styles.endTime}>{t.endTime}</th>
+            <th className={styles.message}>{t.message}</th>
+          </tr>
+        );
+      }
+
+      return (
+        openTransaction.includes(index) && (
+          <tr className={styles.oldTransaction} key={item.assetId + i}>
+            <td></td>
+            <td className={styles.assetID}>{item.assetId}</td>
+            <td className={styles.username}>{t.user.username}</td>
+            <td className={styles.status}>
+              <StatusTag status={t.status}></StatusTag>
+            </td>
+            <td className={styles.endTime}>{t.endTime}</td>
+            <td className={styles.message}>{t.message}</td>
+          </tr>
+        )
+      );
+    });
+  });
 
   return (
     <div className={styles.item_transaction}>
@@ -44,35 +145,37 @@ export const ItemTransaction = () => {
                     className={styles.toggle}
                     onClick={() => toggleTransaction(index)}
                   >
-                    <Image
-                      style={{
-                        transform: openTransaction.includes(index)
-                          ? ""
-                          : "rotate(-90deg)",
-                      }}
-                      className={styles.toggle_image}
-                      src={`${prefix}/icon/arrow.svg`}
-                      alt="arrow"
-                      width={15}
-                      height={15}
-                    ></Image>
+                    <div style={{
+                          transform: openTransaction.includes(index)
+                            ? ""
+                            : "rotate(-90deg)",
+                          }}
+                    >
+                      <IconSvgMono
+                        className={styles.toggle_image}
+                        src={`${prefix}/icon/arrow.svg`}
+                        alt="arrow"
+                        width={15}
+                        height={15}
+                      ></IconSvgMono>
+                    </div>
                   </td>
-                  <td className={styles.assetId}>{item.assetId}</td>
+                  <td className={styles.assetID}>{item.assetId}</td>
                   <td className={styles.username}>{t.user.username}</td>
-                  <td>
+                  <td className={styles.status}>
                     <StatusTag status={t.status}></StatusTag>
                   </td>
                   <td className={styles.endTime}>{t.endTime}</td>
                   <td className={styles.message}>{t.message}</td>
-                  <td>
+                  <td className={styles.trashSpace}>
                     {t.status == Status.Blank && (
-                      <Image
+                      <IconSvgMono
                         className={styles.tashIcon}
                         src={`${prefix}/icon/tash.svg`}
                         width={20}
                         height={20}
                         alt="tash"
-                      ></Image>
+                      ></IconSvgMono>
                     )}
                   </td>
                 </tr>
@@ -87,9 +190,9 @@ export const ItemTransaction = () => {
                     key={item.assetId + i}
                   >
                     <td></td>
-                    <td className={styles.assetId}>{item.assetId}</td>
+                    <td className={styles.assetID}>{item.assetId}</td>
                     <td className={styles.username}>{t.user.username}</td>
-                    <td>
+                    <td className={styles.status}>
                       <StatusTag status={t.status}></StatusTag>
                     </td>
                     <td className={styles.endTime}>{t.endTime}</td>
