@@ -10,12 +10,17 @@ import Image from "next/image";
 import { prefix } from "@/app/utils/prefix";
 export const AllTransaction = () => {
   const [openTransaction, setOpenTransaction] = useState<number[]>([]);
+  const [closeTransaction, setCloseTransaction] = useState<number[]>([]);
 
-  const toggleOpenTransaction = (idx: number) => {
-    setOpenTransaction((prev) =>
-      prev.includes(idx) ? prev.filter((item) => item !== idx) : [...prev, idx]
-    );
-    console.log("openTransaction", openTransaction);
+  const toggleTransaction = (idx: number) => {
+    if (openTransaction.includes(idx)) {
+      setCloseTransaction((prev) => [...prev, idx]);
+      setTimeout(() => {
+        setOpenTransaction((prev) => prev.filter((item) => item !== idx));
+        setCloseTransaction((prev) => prev.filter((item) => item !== idx));
+      }, 300);
+    }
+    setOpenTransaction((prev) => [...prev, idx]);
   };
 
   const formatHourMinute = (iso: string): string => {
@@ -39,7 +44,7 @@ export const AllTransaction = () => {
         </colgroup>
 
         <thead>
-          <tr>
+          <tr className={styles.header}>
             <th>ชื่ออุปกรณ์</th>
             <th>เลขครุภัณฑ์</th>
             <th>สถานะ</th>
@@ -83,7 +88,14 @@ export const AllTransaction = () => {
               {item.adminTransactions.map(
                 (t) =>
                   openTransaction.includes(index) && (
-                    <tr key={t.assetId} className={styles.transactionRow}>
+                    <tr
+                      key={t.assetId}
+                      className={`${styles.transactionRow}  ${
+                        closeTransaction.includes(index)
+                          ? styles.slideOut
+                          : styles.slideIn
+                      }`}
+                    >
                       <td>{t.itemName}</td>
                       <td>{t.assetId}</td>
                       <td className={styles.status}>
