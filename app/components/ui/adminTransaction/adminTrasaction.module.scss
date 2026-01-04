@@ -70,6 +70,7 @@
   align-items: center;
   gap: 1rem;
   .action_content_check {
+    color: var(--icon);
   }
   .action_content_stop {
     color: $text-red;
