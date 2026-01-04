@@ -91,6 +91,7 @@ function Navbar() {
                 height={120}
                 alt="hamberger_icon"
                 src={`${prefix}/navbar/hamberger.svg`}
+                fixColor={true}
               ></IconSvgMono>
             </div>
             {menuBlog}
