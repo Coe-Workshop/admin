@@ -1,39 +1,18 @@
 import { apiSlice } from "../apiSlice";
 import { createSelector } from "@reduxjs/toolkit";
-
-// handle enum
-export enum catagories {}
-export interface Tool {
-  id: number;
-  name: string;
-  description: string | null;
-  image_url: string | null;
-  category_ids: number[] | null;
-}
-export type Tools = Tool[];
-export interface ToolsResponse {
-  data: Tools;
-  success: boolean;
-  error: string | null;
-}
-export interface ToolResponse {
-  data: Tool;
-  success: boolean;
-  error: string | null;
-}
-export interface ToolRequest {
-  id: number;
-  name: string;
-  description: string | null;
-  image_url: string | null;
-  category_ids: number[] | null;
-}
-const mock = {
-  name: "postpost pose",
-  description: "string",
-  category_ids: "the hell",
-  image_url: "string",
-};
+import type {
+  Tool,
+  Tools,
+  ToolsResponse,
+  ToolResponse,
+  ToolRequest,
+} from "@/lib/src/models/tool.typs";
+// const mock = {
+//   name: "postpost pose",
+//   description: "string",
+//   category_ids: "the hell",
+//   image_url: "string",
+// };
 
 export const initialState: Tools = [];
 export const apiSliceWithTools = apiSlice.injectEndpoints({
@@ -43,32 +22,34 @@ export const apiSliceWithTools = apiSlice.injectEndpoints({
       transformResponse(res: ToolsResponse) {
         return res.data;
       },
-      providesTags: (result = [], error, arg) => [
-        "Tools",
-        ...result.map((id) => ({ type: "Tools", id } as const)),
-      ],
+      providesTags: (result = []) =>
+        result
+          ? [
+              { type: "Tools", id: "LIST" },
+              ...result.map(
+                (tool) => ({ type: "Tools", id: tool.id } as const)
+              ),
+            ]
+          : [{ type: "Tools", id: "LIST" }],
     }),
 
     getTool: builder.query<Tool, number>({
       query: (toolId) => ({ url: `/v1/items/${toolId}`, method: "GET" }),
-      providesTags: (result, error, arg) => [{ type: "Post", id: arg }],
+      providesTags: (result, error, arg) => [{ type: "Tools", id: arg }],
     }),
 
-    deleteTool: builder.mutation<{}, { toolId: number }>({
+    deleteTool: builder.mutation<object, { toolId: number }>({
       query: ({ toolId }) => ({
-        url: `/v1/items/${0}`,
+        url: `/v1/items/${toolId}`,
         method: "DELETE",
       }),
-      transformResponse(res: ToolResponse) {
-        if (!res.success) {
-          throw {
-            status: 200,
-            data: { message: res.data },
-          };
-        }
-        return res.data;
-      },
-      invalidatesTags: ["Tools"],
+      // transformResponse(res: ToolResponse) {
+      //   return res.data;
+      // }, เตอบอกreturnเผื่อไว้
+      invalidatesTags: (res, eror, arg) => [
+        { type: "Tools", id: "LIST" },
+        { type: "Tools", id: arg.toolId },
+      ],
     }),
 
     createTool: builder.mutation<Tool, Omit<Tool, "id">>({
@@ -78,23 +59,21 @@ export const apiSliceWithTools = apiSlice.injectEndpoints({
         body: tool,
       }),
       transformResponse(res: ToolResponse) {
-        if (!res.success) {
-          throw {
-            status: 200,
-            data: { message: res.data },
-          };
-        }
         return res.data;
       },
-      invalidatesTags: ["Tools"],
+      invalidatesTags: [{ type: "Tools", id: "LIST" }],
     }),
 
     updateTool: builder.mutation<Tool, { tool: ToolRequest }>({
       query: ({ tool }) => ({
         url: `/v1/items/${tool.id}`,
         method: "PATCH",
+        body: tool,
       }),
-      invalidatesTags: ["Tools"],
+      invalidatesTags: (result, error, arg) => [
+        { type: "Tools", id: "LIST" },
+        { type: "Tools", id: arg.tool.id },
+      ],
     }),
   }),
   overrideExisting: false,
@@ -104,6 +83,8 @@ export const {
   useGetToolsQuery,
   useDeleteToolMutation,
   useCreateToolMutation,
+  useGetToolQuery,
+  useUpdateToolMutation,
 } = apiSliceWithTools;
 
 export const selectToolsResult =
