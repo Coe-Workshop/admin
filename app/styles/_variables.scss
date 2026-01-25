@@ -121,38 +121,43 @@ $brown-900: #3a2d23;
 
 // color group for element
 $light: (
-    test : $green-500,
+  test : $green-500,
 
-    icon : #333,
-    icon-fade : #555,
-    logo-mark : $sub-1000,
-    logo-dot : $sub-600,
+  icon : #333,
+  icon-fade : #555,
+  logo-mark : $sub-1000,
+  logo-dot : $sub-600,
 
-    text-normal : $sub-1000,
-    text-inverse : $sub-100,
-    text-fade-low : $sub-400,
-    text-fade-mid : $sub-500,
-    text-fade-mid2 : $sub-550,
-    text-fade-high : $sub-700,
+  text-normal : $sub-1000,
+  text-inverse : $sub-100,
+  text-fade-low : $sub-400,
+  text-fade-mid : $sub-500,
+  text-fade-mid2 : $sub-550,
+  text-fade-high : $sub-700,
 
-    warning-red: $red-600,
+  warning-red: $red-600,
+  
+  background-fade: rgba(0, 0, 0, 0.1),
 );
+
 $dark: (
-    test : $green-500,
-
-    icon:#ccc,
-    icon-fade:#999,
-    logo-mark : $sub-0,
-    logo-dot : $sub-400,
-    
-    text-normal : $sub-100,
-    text-inverse : $sub-1000,
-    text-fade-low : $sub-500,
-    text-fade-mid : $sub-350,
-    text-fade-mid2 : $sub-300,
-    text-fade-high : $sub-200,
-
-    warning-red: $red-450,
+  test : $green-500,
+  
+  icon:#ccc,
+  icon-fade:#999,
+  logo-mark : $sub-0,
+  logo-dot : $sub-400,
+  
+  text-normal : $sub-100,
+  text-inverse : $sub-1000,
+  text-fade-low : $sub-500,
+  text-fade-mid : $sub-350,
+  text-fade-mid2 : $sub-300,
+  text-fade-high : $sub-200,
+  
+  warning-red: $red-450,
+  
+  background-fade: rgba(255, 255, 255, 0.1),
 );
 
 @mixin theme-vars($map) {
