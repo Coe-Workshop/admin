@@ -93,7 +93,7 @@ table {
   }
 
   tbody tr:hover {
-    background-color: $sub-100;
+    background-color: var(--table-hover);
   }
 }
 

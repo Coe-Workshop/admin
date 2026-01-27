@@ -33,7 +33,7 @@ export const ItemTransaction = () => {
               <tr>
                 <td
                   className={styles.toggle}
-                  onClick={() => togleTransaction(index)}
+                  onClick={() => toggleTransaction(index)}
                 >
                   <div style={{
                         transform: openTransaction.includes(index)
@@ -77,7 +77,7 @@ export const ItemTransaction = () => {
           <tr key={item.assetId + i}>
             <th
               className={styles.toggle}
-              onClick={() => togleTransaction(index)}
+              onClick={() => toggleTransaction(index)}
             >
               <div style={{
                     transform: openTransaction.includes(index)
