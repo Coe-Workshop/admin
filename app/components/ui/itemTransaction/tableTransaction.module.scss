@@ -11,7 +11,9 @@
   }
 }
 .firstItem {
-  background-color: $sub-100;
+  background-color: var(--table-firstItem);
+  position: relative;
+  z-index: 0;
 }
 .toggle {
   width: 3rem;
@@ -56,7 +58,9 @@
 
 .oldTransaction th {
   padding: 0.5rem 0.8rem;
-  background-color: $sub-100;
+  background-color: var(--table-oldTransaction);
+  position: relative;
+  z-index: -1;
 }
 
 .trashSpace {
@@ -68,51 +72,4 @@
 }
 .firstItem:hover .tashIcon {
   opacity: 1;
-}
-
-@media (prefers-color-scheme: dark) {
-  .firstItem {
-    background-color: $sub-800;
-  }
-  // for fix transition bug
-  .firstItem .toggle, 
-  .firstItem .assetID, 
-  .firstItem .username,
-  .firstItem .status, 
-  .firstItem .message,
-  .firstItem .endTime,
-  .firstItem .trashSpace {
-    background-color: $sub-800;
-    transition: 0.5s ease;
-  }
-  .firstItem:hover,
-  .firstItem:hover .toggle, 
-  .firstItem:hover .assetID, 
-  .firstItem:hover .username, 
-  .firstItem:hover .status, 
-  .firstItem:hover .message, 
-  .firstItem:hover .endTime, 
-  .firstItem:hover .trashSpace {
-    background-color: $sub-750;
-  }
-
-  .header {
-    background-color: $sub-900;
-  }
-  
-  .table {
-    background-color: $sub-700;
-    .username,
-    .message,
-    .endTime {
-      color: $text-faded-dark;
-    }
-    .status, 
-    .status h3 {
-      color: $text-normal;
-    }
-    tbody tr:hover {
-      background-color: $sub-650;
-    }
-  }
 }

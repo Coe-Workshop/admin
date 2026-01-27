@@ -132,11 +132,41 @@ $text-faded2: $sub-600;
 $text-faded3: $sub-700;
 $text-red: $red-600;
 
-$foreground-dark: #ededed;
-$background-dark: #1f1f1f;
+  warning-red: $red-600,
+  
+  table-hover: $sub-100,
+  table-firstItem: $sub-100,
+  table-oldTransaction: $sub-0,
 
-$text-normal-dark: $sub-100;
-$text-faded-dark: $sub-350;
-$text-faded2-dark: $sub-300;
-$text-faded3-dark: $sub-200;
-$text-red-dark: $red-450;
+  background-fade: rgba(0, 0, 0, 0.1),
+);
+
+$dark: (
+  test : $green-500,
+  
+  icon:#ccc,
+  icon-fade:#999,
+  logo-mark : $sub-0,
+  logo-dot : $sub-400,
+  
+  text-normal : $sub-100,
+  text-inverse : $sub-1000,
+  text-fade-low : $sub-500,
+  text-fade-mid : $sub-350,
+  text-fade-mid2 : $sub-300,
+  text-fade-high : $sub-200,
+  
+  warning-red: $red-450,
+
+  table-hover: $sub-900,
+  table-firstItem: $sub-800,
+  table-oldTransaction: $sub-750,
+  
+  background-fade: rgba(255, 255, 255, 0.1),
+);
+
+@mixin theme-vars($map) {
+  @each $name, $value in $map {
+    --#{$name}: #{$value};
+  }
+}
