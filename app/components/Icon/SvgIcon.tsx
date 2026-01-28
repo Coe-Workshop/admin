@@ -135,7 +135,7 @@ export default function IconSvgMono({
 export const addImageSvg_Dark = `<svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g clip-path="url(#prefix__clip0_4349_3815)">
         <path d="M16.875 3.125H3.125a1.25 1.25 0 00-1.25 1.25v11.25a1.25 1.25 0 001.25 1.25h13.75a1.25 1.25 0 001.25-1.25V4.375a1.25 1.25 0 00-1.25-1.25zm0 1.25v8.027l-2.037-2.036a1.25 1.25 0 00-1.768 0l-1.562 1.563L8.07 8.49a1.25 1.25 0 00-1.767 0L3.125 11.67V4.375h13.75zm-13.75 9.063l4.063-4.063 6.25 6.25H3.124v-2.188zm13.75 2.187h-1.67l-2.812-2.813 1.563-1.562 2.919 2.92v1.455zM11.25 7.812a.938.938 0 111.875 0 .938.938 0 01-1.875 0z" 
-        fill="#000"/>
+        fill="currentColor"/>
         <mask id="prefix__a" maskUnits="userSpaceOnUse" x="12.271" y=".5" width="9" height="9" fill="#000">
             <path fill="#" d="M12.271.5h9v9h-9z"/>
             <path d="M16.123 7.063V2.067h1.134v4.996h-1.134zm-1.931-1.931V3.998h4.996v1.134h-4.996z"/>

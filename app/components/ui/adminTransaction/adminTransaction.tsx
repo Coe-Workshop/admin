@@ -1,7 +1,7 @@
 "use client";
 
 import { mockAdminTableTransactions } from "@/app/mockdata/mockdata";
-import IconSvgMono from "../../Icon/svgIcon";
+import IconSvgMono from "../../Icon/SvgIcon";
 import React, { useState } from "react";
 import { StatusTag } from "../statusTag/statusTag";
 import { Tooltip } from "../tooltip/tooltip";
