@@ -138,6 +138,11 @@ $text-red: $red-600;
   table-firstItem: $sub-100,
   table-oldTransaction: $sub-0,
 
+  timetable-event-content: $sub-0,
+  
+  Obj-fade: $sub-200,
+  Obj-fade2: $sub-300,
+
   background-fade: rgba(0, 0, 0, 0.1),
 );
 
@@ -161,6 +166,11 @@ $dark: (
   table-hover: $sub-900,
   table-firstItem: $sub-800,
   table-oldTransaction: $sub-750,
+
+  timetable-event-content: $sub-800,
+  
+  Obj-fade: $sub-650,
+  Obj-fade2: $sub-500,
   
   background-fade: rgba(255, 255, 255, 0.1),
 );

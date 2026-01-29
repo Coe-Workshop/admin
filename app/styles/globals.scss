@@ -2,6 +2,9 @@
 @use "breakpoints" as *;
 
 :root {
+  @include theme-vars($light);
+  --background: #ffffff;
+  --foreground: #000000;
 }
 
 html,
