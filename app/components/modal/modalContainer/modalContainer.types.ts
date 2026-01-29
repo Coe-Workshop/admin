@@ -2,6 +2,6 @@ import { ReactNode } from "react";
 
 export interface ModalContainerProps {
   opened: boolean;
-  onClose: () => void;
+  onClose: (id?: number) => void;
   children: ReactNode;
 }

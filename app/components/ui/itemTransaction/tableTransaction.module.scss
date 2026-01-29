@@ -1,4 +1,5 @@
 @use "../../../styles/variables" as *;
+@use "../../../styles/animations" as *;
 
 .item_transaction {
   border-radius: 1rem;
@@ -44,19 +45,20 @@
     width: fit-content;
   }
   .username {
-    color: $sub-500;
+    color: var(--text-fade-mid);
   }
   .status {
+    color: $sub-1000;
   }
   .message {
-    color: $sub-500;
+    color: var(--text-fade-mid);
   }
   .endTime {
-    color: $sub-500;
+    color: var(--text-fade-mid);
   }
 }
 
-.oldTransaction th {
+.oldTransaction td {
   padding: 0.5rem 0.8rem;
   background-color: var(--table-oldTransaction);
   position: relative;
@@ -70,6 +72,7 @@
   opacity: 0;
   transition: all 0.3s ease;
 }
-.firstItem:hover .tashIcon {
-  opacity: 1;
+
+.slideOut {
+  animation: slideOut 0.3s ease forwards;
 }

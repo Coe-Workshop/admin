@@ -1,4 +1,5 @@
 @use "../../../styles/variables" as *;
+@use "../../../styles/animations" as *;
 
 .tableWrapper {
   border: 1px solid $sub-200;
@@ -14,11 +15,16 @@
   border-collapse: collapse;
   table-layout: fixed;
 }
-
+.header {
+  position: relative;
+  z-index: 0;
+}
 .userInfo {
   display: flex;
   gap: 1rem;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 .itemName {
   width: 15rem;
@@ -30,6 +36,7 @@
 
 .status {
   width: 8rem;
+  color: $sub-1000;
 }
 
 .endTime {
@@ -38,7 +45,7 @@
 
 .message {
   width: 18rem;
-  color: $sub-500;
+  color: var(--text-fade-mid);
 }
 
 .action {
@@ -73,7 +80,7 @@
     color: var(--icon);
   }
   .action_content_stop {
-    color: $text-red;
+    color: var(--warning-red);
   }
 }
 .allApprove {
@@ -101,9 +108,6 @@
   .userRow {
     background-color: $sub-750;
   }
-  .status h3{
-    color: $text-normal;
-  }
   .allApprove {
     background-color: $sub-900;
     transition: all 0.5s ease;
@@ -111,11 +115,5 @@
     &:hover {
       background-color: $sub-800;
     }
-  }
-  .message {
-    color: $text-faded-dark;
-  }
-  .action_content_stop {
-    color: $text-red-dark;
   }
 }

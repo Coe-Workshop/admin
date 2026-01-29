@@ -1,6 +1,6 @@
 "use client";
-import IconSvgMono from "../../Icon/svgIcon";
-import { addImageSvg_Dark } from "../../Icon/svgIcon";
+import IconSvgMono from "../../Icon/SvgIcon";
+import { addImageSvg_Dark } from "../../Icon/SvgIcon";
 import styles from "./create.module.scss";
 import { useState } from "react";
 import { Category, crateProps } from "./types";
@@ -244,7 +244,7 @@ function CreateItem({ onClose }: CreateItemProps) {
                     ยังไม่ได้เลือกหมวดหมู่ใดๆ
                   </option>
                   {Object.values(Category).map((cat) => (
-                    <option key={cat} value={cat}>
+                    <option className={styles.option_inside} key={cat} value={cat}>
                       {cat.replace("_", " ")}
                     </option>
                   ))}

@@ -2,6 +2,7 @@
 import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "./features/api/apiSlice";
+// import { apiSliceWithTools } from "./features/api/tools/toolsSlice";
 const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer

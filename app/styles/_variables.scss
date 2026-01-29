@@ -120,17 +120,20 @@ $brown-900: #3a2d23;
 
 
 // color group for element
-$icon:#333;
-$icon-dark:#ccc;
+$light: (
+  test : $green-500,
 
-$foreground: #1f1f1f;
-$background: #ededed;
+  icon : #333,
+  icon-fade : #555,
+  logo-mark : $sub-1000,
+  logo-dot : $sub-600,
 
-$text-normal: $sub-900;
-$text-faded: $sub-500;
-$text-faded2: $sub-600;
-$text-faded3: $sub-700;
-$text-red: $red-600;
+  text-normal : $sub-1000,
+  text-inverse : $sub-100,
+  text-fade-low : $sub-400,
+  text-fade-mid : $sub-500,
+  text-fade-mid2 : $sub-550,
+  text-fade-high : $sub-700,
 
   warning-red: $red-600,
   

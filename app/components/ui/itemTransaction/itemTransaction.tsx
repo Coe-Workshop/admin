@@ -5,15 +5,21 @@ import styles from "./tableTransaction.module.scss";
 import { mockData } from "@/app/mockdata/mockdata";
 import { Status } from "@/app/types/api/transaction";
 import { prefix } from "@/app/utils/prefix";
-import IconSvgMono from "@/app/components/Icon/svgIcon";
+import IconSvgMono from "@/app/components/Icon/SvgIcon";
 import Image from "next/image";
 import { StatusTag } from "../statusTag/statusTag";
 export const ItemTransaction = () => {
   const [openTransaction, setOpenTransaction] = useState<number[]>([]);
-  const togleTransaction = (idx: number) => {
-    setOpenTransaction((prev) =>
-      prev.includes(idx) ? prev.filter((item) => item !== idx) : [...prev, idx]
-    );
+  const [closeTransaction, setCloseTransaction] = useState<number[]>([]);
+  const toggleTransaction = (idx: number) => {
+    if (openTransaction.includes(idx)) {
+      setCloseTransaction((prev) => [...prev, idx]);
+      setTimeout(() => {
+        setOpenTransaction((prev) => prev.filter((item) => item !== idx));
+        setCloseTransaction((prev) => prev.filter((item) => item !== idx));
+      }, 300);
+    }
+    setOpenTransaction((prev) => [...prev, idx]);
   };
 
   const tableContent: ReactNode | null = mockData.flatMap((item, index) => {
@@ -137,7 +143,7 @@ export const ItemTransaction = () => {
                 <tr className={styles.firstItem} key={i}>
                   <td
                     className={styles.toggle}
-                    onClick={() => togleTransaction(index)}
+                    onClick={() => toggleTransaction(index)}
                   >
                     <div style={{
                           transform: openTransaction.includes(index)
@@ -175,7 +181,14 @@ export const ItemTransaction = () => {
                 </tr>
               ) : (
                 openTransaction.includes(index) && (
-                  <tr className={styles.oldTransaction} key={item.assetId + i}>
+                  <tr
+                    className={`${styles.oldTransaction} ${
+                      closeTransaction.includes(index)
+                        ? styles.slideOut
+                        : styles.slideIn
+                    }`}
+                    key={item.assetId + i}
+                  >
                     <td></td>
                     <td className={styles.assetID}>{item.assetId}</td>
                     <td className={styles.username}>{t.user.username}</td>
@@ -184,6 +197,7 @@ export const ItemTransaction = () => {
                     </td>
                     <td className={styles.endTime}>{t.endTime}</td>
                     <td className={styles.message}>{t.message}</td>
+                    <td></td>
                   </tr>
                 )
               )
