@@ -1,17 +1,16 @@
 "use client";
 
-import React, { useState } from "react";
-import { ModalContainer } from "@/app/components/modal/modalContainer/modalContainer";
-import { ItemTransaction } from "@/app/components/ui/itemTransaction/itemTransaction";
-import useDisclosure from "@/app/hook/useDisclosure";
-import { DeleteConfirm } from "@/app/components/modal/deleteConfirm/deleteConfirm";
-import styles from "./test.module.scss";
-import Image from "next/image";
-import { TimeTransaction } from "@/app/components/ui/timeTransaction/timeTransaction";
-import { OptionsAction } from "@/app/components/ui/optionAction/optionsAction";
-import { prefix } from "@/app/utils/prefix";
-import { Options } from "../../../components/ui/optionAction/types";
 import { TagInput } from "@/app/components/form/TagInput/TagInput";
+import { DeleteConfirm } from "@/app/components/modal/deleteConfirm/deleteConfirm";
+import { ModalContainer } from "@/app/components/modal/modalContainer/modalContainer";
+import { OptionsAction } from "@/app/components/ui/optionAction/optionsAction";
+import { TimeTransaction } from "@/app/components/ui/timeTransaction/timeTransaction";
+import useDisclosure from "@/app/hook/useDisclosure";
+import { prefix } from "@/app/utils/prefix";
+import Image from "next/image";
+import React, { useState } from "react";
+import { Options } from "../../../components/ui/optionAction/types";
+import styles from "./test.module.scss";
 const Tool = () => {
   const [itemanme] = useState("itemName");
   const [category] = useState("category");
@@ -23,12 +22,6 @@ const Tool = () => {
   // const { opened: openedDelete, handle: handleDelete } = useDisclosure();
   const handleEditItem = () => {
     console.log("is edit");
-  };
-
-  const handleAddAssetId = () => {};
-
-  const handleDeleteItem = () => {
-    console.log("is del");
   };
 
   const [options] = useState<Options[]>([
@@ -73,7 +66,7 @@ const Tool = () => {
             <h2 className={styles.assetId_title}>เพิ่มหมายเลขครุภัณฑ์</h2>
             <p>
               เพิ่มอุปกรณ์ที่มีเลขครุภัณฑ์ที่อนุญาตให้ผู้ใช้ทั่วไปสามารถรทำการยืมได้
-              โดยสามารถเพิ่มได้หลายรายการโดยการกดปุ่ม "ENTER"
+              โดยสามารถเพิ่มได้หลายรายการโดยการกดปุ่ม --ENTER--
               และจะไม่สามารถนำอุปกรณ์นั้นออกจากระบบได้หากมีผู้ใช้งานอยู่
             </p>
           </div>

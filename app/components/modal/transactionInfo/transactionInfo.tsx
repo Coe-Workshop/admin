@@ -1,6 +1,5 @@
-import { ItemTransaction } from "@/app/types/api/table";
-import styles from "./transactionInfo.module.scss";
 import { StatusTag } from "../../ui/statusTag/statusTag";
+import styles from "./transactionInfo.module.scss";
 import { TransactionInfoProps } from "./transactionInfo.types";
 export const TransactionInfo = ({
   user,

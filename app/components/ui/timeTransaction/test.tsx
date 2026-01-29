@@ -41,7 +41,7 @@ export const TimeTransaction = () => {
           </tr>
         </thead>
         <tbody>
-          {mockData.map((item, index) => {
+          {mockData.map((item) => {
             //เดิ๋ยวมาแก้ให้เหลือแค่เวลา
             const firstColumnTime = "2025-01-10T09:00:00";
             const lastColumnTime = "2025-01-10T16:00:00";
@@ -50,7 +50,7 @@ export const TimeTransaction = () => {
                 {(() => {
                   const firstColSpan = getColspanLenght(
                     firstColumnTime,
-                    item.itemTransaction[0].startTime
+                    item.itemTransaction[0].startTime,
                   );
                   if (firstColSpan != 0)
                     return <td colSpan={firstColSpan}>{firstColSpan}</td>;
@@ -58,18 +58,18 @@ export const TimeTransaction = () => {
                 {item.itemTransaction.map((t, i) => {
                   const currentColSpan = getColspanLenght(
                     item.itemTransaction[i].startTime,
-                    item.itemTransaction[i].endTime
+                    item.itemTransaction[i].endTime,
                   );
                   const nextColspan = getColspanLenght(
                     item.itemTransaction[i].endTime,
-                    item.itemTransaction[i + 1]?.startTime ?? lastColumnTime
+                    item.itemTransaction[i + 1]?.startTime ?? lastColumnTime,
                   );
                   return (
                     <React.Fragment key={i}>
                       <td colSpan={currentColSpan}>
                         {getColspanLenght(
                           item.itemTransaction[i].startTime,
-                          item.itemTransaction[i].endTime
+                          item.itemTransaction[i].endTime,
                         )}
                       </td>
                       {nextColspan != 0 && (
@@ -77,7 +77,7 @@ export const TimeTransaction = () => {
                           {getColspanLenght(
                             item.itemTransaction[i].endTime,
                             item.itemTransaction[i + 1]?.startTime ??
-                              "2025-01-10T16:00:00"
+                              "2025-01-10T16:00:00",
                           )}
                         </td>
                       )}

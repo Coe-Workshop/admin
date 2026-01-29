@@ -1,12 +1,10 @@
 "use client";
-import IconSvgMono from "../../Icon/SvgIcon";
-import { addImageSvg_Dark } from "../../Icon/SvgIcon";
-import styles from "./create.module.scss";
-import { useState } from "react";
-import { Category, crateProps } from "./types";
-import Image from "next/image";
 import imageCompression from "browser-image-compression";
-import { CreateItemProps } from "./types";
+import Image from "next/image";
+import { useState } from "react";
+import IconSvgMono, { addImageSvg_Dark } from "../../Icon/SvgIcon";
+import styles from "./create.module.scss";
+import { Category, CreateItemProps } from "./types";
 function CreateItem({ onClose }: CreateItemProps) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -17,7 +15,6 @@ function CreateItem({ onClose }: CreateItemProps) {
     [key: string]: "compressing" | "done" | "error";
   }>({});
   const [tempFiles, setTempFiles] = useState<File[]>([]);
-  const [fileError, setFileError] = useState("");
 
   const [errors, setErrors] = useState({
     name: "",
@@ -41,18 +38,16 @@ function CreateItem({ onClose }: CreateItemProps) {
     const duplicates = files.filter(
       (file) =>
         images.some((f) => f.name === file.name) ||
-        tempFiles.some((f) => f.name === file.name)
+        tempFiles.some((f) => f.name === file.name),
     );
 
     const newFiles = files.filter(
       (file) =>
         !images.some((f) => f.name === file.name) &&
-        !tempFiles.some((f) => f.name === file.name)
+        !tempFiles.some((f) => f.name === file.name),
     );
 
     if (duplicates.length > 0) {
-      setFileError(``);
-
       setTempFiles((prev) => [...prev, ...duplicates]);
 
       const errorStatus: typeof uploadStatus = {};
@@ -89,7 +84,7 @@ function CreateItem({ onClose }: CreateItemProps) {
         const compressedFile = await imageCompression(file, options);
 
         processedFiles.push(
-          new File([compressedFile], file.name, { type: file.type })
+          new File([compressedFile], file.name, { type: file.type }),
         );
 
         setUploadStatus((prev) => ({
@@ -244,7 +239,11 @@ function CreateItem({ onClose }: CreateItemProps) {
                     ยังไม่ได้เลือกหมวดหมู่ใดๆ
                   </option>
                   {Object.values(Category).map((cat) => (
-                    <option className={styles.option_inside} key={cat} value={cat}>
+                    <option
+                      className={styles.option_inside}
+                      key={cat}
+                      value={cat}
+                    >
                       {cat.replace("_", " ")}
                     </option>
                   ))}
@@ -312,7 +311,9 @@ function CreateItem({ onClose }: CreateItemProps) {
                                 alt="error-image"
                               />
                               <div className={styles.text}>
-                                <p className={styles.text_picDetail}>{formatFilename(file.name)}</p>
+                                <p className={styles.text_picDetail}>
+                                  {formatFilename(file.name)}
+                                </p>
                                 <p
                                   className={`${styles.status} ${
                                     uploadStatus[file.name] === "error"
