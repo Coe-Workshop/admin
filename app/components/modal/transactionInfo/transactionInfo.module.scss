@@ -4,7 +4,7 @@
   width: clamp(14rem, 90%, 24rem);
   margin-inline: auto;
   margin-top: 10rem;
-  background-color: $sub-0;
+  background-color: var(--background);
   position: relative;
   z-index: 10;
   border-radius: 0.4rem;
@@ -27,7 +27,7 @@
   justify-content: space-between;
 }
 .tool {
-  background-color: $sub-200;
+  background-color: var(--Obj-fade);
   padding: 0.8rem 1rem;
   border-radius: 0.4rem;
 }
