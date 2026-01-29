@@ -24,3 +24,29 @@
     padding: 0 1rem;
   }
 }
+.assetId {
+  background-color: var(--theme-0);
+  width: clamp(20rem, 32rem, 90%);
+  margin: 10rem auto;
+  padding: 1rem;
+  border-radius: 0.2rem;
+  z-index: 10;
+  position: relative;
+  .assetId_title {
+    color: var(--theme-1000);
+  }
+  .assetId_action {
+    display: flex;
+    gap: 0.4rem;
+    width: fit-content;
+    margin-left: auto;
+    margin-top: 0.8rem;
+
+    .assetId_submit {
+      color: var(--theme-0);
+      background-color: var(--theme-1000);
+      padding: 0.4rem 1rem;
+      border-radius: 0.2rem;
+    }
+  }
+}

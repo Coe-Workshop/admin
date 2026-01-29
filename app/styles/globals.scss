@@ -34,7 +34,9 @@ textarea {
 button:disabled {
   opacity: 0.8;
 }
-
+button {
+  cursor: pointer;
+}
 * {
   box-sizing: border-box;
   padding: 0;
