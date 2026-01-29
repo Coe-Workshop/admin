@@ -114,8 +114,8 @@ export default function IconSvgMono({
     for (const k in svgAttrs) {
         // React uses camelCase for some props (viewBox stays viewBox)
         const propName = k === "viewbox" ? "viewBox" : k;
-        // assign as any
-        (svgProps as any)[propName] = svgAttrs[k];
+        // assign as unknown instead any
+        (svgProps as unknown as Record<string, string>)[propName] = svgAttrs[k];
     }
     
     // ensure role/aria
