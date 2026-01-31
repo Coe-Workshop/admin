@@ -1,9 +1,17 @@
 "use client";
 
+import { useEffect } from "react";
+import { useGetToolsQuery } from "@/lib/features/api/tools/toolsApiSlice";
+import Tool from "./test/page";
+const Tools = () => {
+  const { data: Tools } = useGetToolsQuery();
 
+  useEffect(() => {
+    const tools = JSON.stringify(Tools);
+    console.log("data" + tools);
+  }, [Tools]);
 
-// import Tools from "@/app/components/ui/tools/tools";
-function ToolsPage() {
-  return <div>{/*<Tools></Tools>*/}</div>;
-}
-export default ToolsPage;
+  return <div>Hello tool</div>;
+};
+
+export default Tools;

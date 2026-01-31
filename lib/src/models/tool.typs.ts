@@ -1,19 +1,18 @@
 // handle enum
 export enum catagories {}
-export const enum ToolCategories {
+export enum ToolCategories {
   MACHINE = "MACHINE",
   HANDTOOL = "HANDTOOL",
   ELECTRONIC = "ELECTRONIC",
-  OTHER = "OTHER"
+  OTHER = "OTHER",
 }
-
 
 export interface Tool {
   id: number;
   name: string;
   description: string | null;
   imageUrl: string | null;
-  categoryName: ToolCategories ;
+  categoryName: ToolCategories;
   assets_id: number[] | null;
 }
 

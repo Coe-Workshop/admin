@@ -21,11 +21,9 @@
 
   .content {
     display: flex;
-    width: 100%;
     justify-content: space-between;
     gap: 30px;
     .formSection {
-      width: 100%;
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -39,6 +37,7 @@
         font-weight: 300;
       }
       .field {
+        width: 100%;
         display: flex;
         flex-direction: column;
         label {
@@ -99,7 +98,7 @@
       }
     }
     .rightSection {
-      flex: 1;
+      width: 22rem;
       margin-top: 42px;
       display: flex;
       flex-direction: column;
@@ -191,9 +190,7 @@
           display: flex;
           flex-direction: column;
           gap: 10px;
-          width: 100%;
           height: 200px;
-          overflow-x: hidden;
           overflow-y: auto;
 
           .blog {
@@ -363,7 +360,7 @@
         }
       }
     }
-    // idk why it's can't config normaly, so i force it. 
+    // idk why it's can't config normaly, so i force it.
     .rightSection {
       .imageBox {
         border-color: $sub-900 !important;
@@ -383,7 +380,6 @@
               border-color: var(--warning-red) !important;
             }
           }
-
         }
         .button {
           .uploadText {

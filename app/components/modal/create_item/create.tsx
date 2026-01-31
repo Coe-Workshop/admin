@@ -1,25 +1,29 @@
 "use client";
 import imageCompression from "browser-image-compression";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { AreaInput } from "../../ui/form/AreaInput/AreaInput";
+import { TextInput } from "../../ui/form/TextInput/TextInput";
+import { Select } from "../../ui/form/Select/Select";
 import IconSvgMono, { addImageSvg_Dark } from "../../Icon/SvgIcon";
 import styles from "./create.module.scss";
+import { ToolCategories, Tool, ToolResponse } from "@/lib/src/models/tool.typs";
 import { Category, CreateItemProps } from "./types";
+import { useCreateToolMutation } from "@/lib/features/api/tools/toolsApiSlice";
 function CreateItem({ onClose }: CreateItemProps) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState<Category | "">("");
+  const [category, setCategory] = useState<ToolCategories | undefined>();
   const [images, setImages] = useState<File[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const [uploadStatus, setUploadStatus] = useState<{
     [key: string]: "compressing" | "done" | "error";
   }>({});
   const [tempFiles, setTempFiles] = useState<File[]>([]);
+  const [errors, setErrors] = useState({ api: "", name: "", category: "" });
 
-  const [errors, setErrors] = useState({
-    name: "",
-    category: "",
-  });
+  const [createTools, { data: data, error: createError, isLoading, isError }] =
+    useCreateToolMutation();
 
   const formatFilename = (name: string, containerWidth = 290) => {
     const maxLength = Math.floor(containerWidth / 10);
@@ -92,7 +96,6 @@ function CreateItem({ onClose }: CreateItemProps) {
           [file.name]: "done",
         }));
       } catch (err) {
-        console.error(err);
         setUploadStatus((prev) => ({
           ...prev,
           [file.name]: "error",
@@ -119,6 +122,7 @@ function CreateItem({ onClose }: CreateItemProps) {
     const newErrors = {
       name: "",
       category: "",
+      api: "",
     };
 
     if (!name.trim()) {
@@ -134,20 +138,6 @@ function CreateItem({ onClose }: CreateItemProps) {
     return !newErrors.name && !newErrors.category;
   };
 
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
-    if (errors.name) {
-      setErrors((prev) => ({ ...prev, name: "" }));
-    }
-  };
-
-  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCategory(e.target.value as Category);
-    if (errors.category) {
-      setErrors((prev) => ({ ...prev, category: "" }));
-    }
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -156,30 +146,37 @@ function CreateItem({ onClose }: CreateItemProps) {
     }
 
     setSubmitting(true);
+    if (!category) {
+      return;
+    }
+    const body: Omit<Tool, "id"> = {
+      name: name,
+      description: description,
+      categoryName: category, //category
+      assets_id: null,
+      imageUrl: "https://gear.kku.ac.th/wp-content/uploads/2025/05/wasu.jpg",
+    };
 
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("description", description);
-    formData.append("category", category);
-
-    images.forEach((file) => {
-      formData.append("images", file);
-    });
+    images.forEach((file) => {});
 
     try {
+      await createTools(body).unwrap();
       //   if (onSubmit) {
       //     onSubmit(formData);
       //   }
-      console.log("Submitting:", formData);
 
       setName("");
       setDescription("");
-      setCategory("");
       setImages([]);
       setTempFiles([]);
       setUploadStatus({});
     } catch (error) {
-      console.error(error);
+      if (createError && "data" in createError) {
+        setErrors((prev) => ({
+          ...prev,
+          api: (createError.data as ToolResponse).error ?? "",
+        }));
+      }
     } finally {
       setSubmitting(false);
     }
@@ -195,59 +192,36 @@ function CreateItem({ onClose }: CreateItemProps) {
               <p>หรือข้อมูล และตารางข้อมูลสำหรับจัดการหมวดหมู่ของโปรเจกต์</p>
 
               <div className={styles.field}>
-                <label htmlFor="name">
-                  ชื่ออุปกรณ์<span>*</span>
-                </label>
-                <input
-                  id="name"
-                  type="text"
-                  className={`${styles.name} ${
-                    errors.name ? styles.error : ""
-                  }`}
-                  value={name}
-                  onChange={handleNameChange}
+                <TextInput
+                  label="ชื่ออุปกรณ์"
                   placeholder="ระบุชื่ออุปกรณ์"
-                  disabled={submitting}
-                />
+                  require
+                  value={name}
+                  onChange={setName}
+                  errorMessage={errors.name}
+                ></TextInput>
               </div>
 
               <div className={styles.field}>
-                <label htmlFor="description">คำอธิบาย</label>
-                <textarea
-                  id="description"
-                  className={styles.description}
+                <AreaInput
+                  label="คำอธิบาย"
                   value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  onChange={setDescription}
                   placeholder="ระบุคำอธิบาย"
-                  disabled={submitting}
-                />
+                ></AreaInput>
               </div>
 
               <div className={styles.field}>
-                <label>
-                  หมวดหมู่<span>*</span>
-                </label>
-                <select
+                <Select
+                  placeholder="กรุณาเลือกหมวดหมู่"
+                  onTop
+                  label="หมวดหมู่"
+                  require
+                  errorMessage={errors.category}
                   value={category}
-                  onChange={handleCategoryChange}
-                  disabled={submitting}
-                  className={`${styles.option} ${
-                    errors.category ? styles.error : ""
-                  }`}
-                >
-                  <option value="" disabled>
-                    ยังไม่ได้เลือกหมวดหมู่ใดๆ
-                  </option>
-                  {Object.values(Category).map((cat) => (
-                    <option
-                      className={styles.option_inside}
-                      key={cat}
-                      value={cat}
-                    >
-                      {cat.replace("_", " ")}
-                    </option>
-                  ))}
-                </select>
+                  onChange={setCategory}
+                  options={Object.values(ToolCategories)}
+                ></Select>
               </div>
             </div>
 
@@ -370,9 +344,9 @@ function CreateItem({ onClose }: CreateItemProps) {
                 )}
               </div>
 
-              {(errors.name || errors.category) && (
+              {errors.api && (
                 <span className={styles.errorMessage}>
-                  ไม่สามารถสร้างรายการได้ : error message
+                  ไม่สามารถสร้างรายการได้ : {errors.api}
                 </span>
               )}
 
