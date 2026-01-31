@@ -105,7 +105,7 @@ export default function IconSvgMono({
         return () => {
             cancelled = true;
         };
-    }, [svg, src, width, height, size, color]);
+    }, [svg, src, width, height, size, color, fixColor]);
     
     if (!svgInner) return null;
     
