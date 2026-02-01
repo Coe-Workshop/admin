@@ -159,6 +159,8 @@ $light: (
   Obj-fade: $sub-200,
   Obj-fade2: $sub-300,
 
+  textbox: $sub-100,
+
   background-fade: rgba(0, 0, 0, 0.1),
 );
 $dark: (
@@ -199,6 +201,8 @@ $dark: (
 
   Obj-fade: $sub-650,
   Obj-fade2: $sub-500,
+  
+  textbox: $sub-650,
 
   background-fade: rgba(255, 255, 255, 0.1),
 );

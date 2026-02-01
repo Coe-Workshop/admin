@@ -1,17 +1,22 @@
+"use client";
+
 import Image from "next/image";
 import styles from "./login.module.scss";
 import { PasswordInput } from "../../components/ui/passwordInput/passwordInput";
 import { TextInput } from "../../components/ui/textInput/textInput";
+import IconSvgMono, { logo } from "@/app/components/Icon/SvgIcon";
+
 const Login = () => {
   return (
     <div className={styles.login}>
-      <Image
+      <IconSvgMono
         className={styles.logo}
-        src={"logo/logo.svg"}
+        svg={logo({ a:"logo-mark", b:"logo-dot", c:"logo-mark"})}
         alt="logoAdmin"
         width={200}
         height={60}
-      ></Image>
+        fixColor={true}
+      ></IconSvgMono>
       <form className={styles.form} action="">
         <TextInput
           title="ชื่อผู้ใช้งาน"
