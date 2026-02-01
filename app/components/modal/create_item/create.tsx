@@ -1,15 +1,17 @@
 "use client";
+import { useCreateToolMutation } from "@/lib/features/api/tools/toolsApiSlice";
+import { Tool, ToolCategories, ToolResponse } from "@/lib/src/models/tool.typs";
 import imageCompression from "browser-image-compression";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { AreaInput } from "../../ui/form/AreaInput/AreaInput";
-import { TextInput } from "../../ui/form/TextInput/TextInput";
-import { Select } from "../../ui/form/Select/Select";
+import { useState } from "react";
+import { Toast } from "../../ui/Toast/Toast";
 import IconSvgMono, { addImageSvg_Dark } from "../../Icon/SvgIcon";
+import { AreaInput } from "../../form/AreaInput/AreaInput";
+import { Select } from "../../form/Select/Select";
+import { TextInput } from "../../form/TextInput/TextInput";
 import styles from "./create.module.scss";
-import { ToolCategories, Tool, ToolResponse } from "@/lib/src/models/tool.typs";
-import { Category, CreateItemProps } from "./types";
-import { useCreateToolMutation } from "@/lib/features/api/tools/toolsApiSlice";
+import { CreateItemProps } from "./types";
+import { useToast } from "@/app/context/Toast/ToastProvider";
 function CreateItem({ onClose }: CreateItemProps) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -21,8 +23,8 @@ function CreateItem({ onClose }: CreateItemProps) {
   }>({});
   const [tempFiles, setTempFiles] = useState<File[]>([]);
   const [errors, setErrors] = useState({ api: "", name: "", category: "" });
-
-  const [createTools, { data: data, error: createError, isLoading, isError }] =
+  const { addToastStack } = useToast();
+  const [createTools, { data: data, error: createError, isError }] =
     useCreateToolMutation();
 
   const formatFilename = (name: string, containerWidth = 290) => {
@@ -161,15 +163,20 @@ function CreateItem({ onClose }: CreateItemProps) {
 
     try {
       await createTools(body).unwrap();
-      //   if (onSubmit) {
-      //     onSubmit(formData);
-      //   }
 
       setName("");
       setDescription("");
       setImages([]);
       setTempFiles([]);
       setUploadStatus({});
+      if (!isError) {
+        addToastStack(
+          "สร้างอุปกรณ์สำเร็จ",
+          "อุปกรณ์ถูกเพิ่มไปยังฐานข้อมูล ชื่อ รูป และคำอธิบายจะแสดงให้ผู้ใช้งานทราบ อีกทั้งยังสามารถเพิ่มจำนวนอุปกรณ์โดยการเพิ่มเลขครุภัณฑ์",
+          "success",
+        );
+        onClose();
+      }
     } catch (error) {
       if (createError && "data" in createError) {
         setErrors((prev) => ({
