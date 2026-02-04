@@ -7,13 +7,6 @@ import type {
   ToolResponse,
   ToolRequest,
 } from "@/lib/features/tools/tool.typs";
-// const mock = {
-//   name: "postpost pose",
-//   description: "string",
-//   category_ids: "the hell",
-//   image_url: "string",
-// };
-
 export const initialState: Tools = [];
 export const apiSliceWithTools = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -25,17 +18,20 @@ export const apiSliceWithTools = apiSlice.injectEndpoints({
       providesTags: (result = []) =>
         result
           ? [
-              { type: "Tools", id: "LIST" },
+              { type: "Tools" as const, id: "LIST" },
               ...result.map(
-                (tool) => ({ type: "Tools", id: tool.id } as const)
+                (tool) => ({ type: "Tools" as const, id: tool.id })
               ),
             ]
-          : [{ type: "Tools", id: "LIST" }],
+          : [{ type: "Tools" as const, id: "LIST" }],
     }),
 
     getTool: builder.query<Tool, number>({
       query: (toolId) => ({ url: `/v1/items/${toolId}`, method: "GET" }),
-      providesTags: (result, error, arg) => [{ type: "Tools", id: arg }],
+      transformResponse(res:ToolResponse) {
+        return res.data;
+      },
+      providesTags: (result, error, arg) => [{ type: "Tools" as const, id: arg }],
     }),
 
     deleteTool: builder.mutation<object, { toolId: number }>({
@@ -47,8 +43,8 @@ export const apiSliceWithTools = apiSlice.injectEndpoints({
       //   return res.data;
       // }, เตอบอกreturnเผื่อไว้
       invalidatesTags: (res, eror, arg) => [
-        { type: "Tools", id: "LIST" },
-        { type: "Tools", id: arg.toolId },
+        { type: "Tools" as const, id: "LIST" },
+        { type: "Tools" as const, id: arg.toolId },
       ],
     }),
 
@@ -61,7 +57,7 @@ export const apiSliceWithTools = apiSlice.injectEndpoints({
       transformResponse(res: ToolResponse) {
         return res.data;
       },
-      invalidatesTags: [{ type: "Tools", id: "LIST" }],
+      invalidatesTags: [{ type: "Tools" as const, id: "LIST" }],
     }),
 
     updateTool: builder.mutation<Tool, { tool: ToolRequest }>({
@@ -71,8 +67,8 @@ export const apiSliceWithTools = apiSlice.injectEndpoints({
         body: tool,
       }),
       invalidatesTags: (result, error, arg) => [
-        { type: "Tools", id: "LIST" },
-        { type: "Tools", id: arg.tool.id },
+        { type: "Tools" as const, id: "LIST" },
+        { type: "Tools" as const, id: arg.tool.id },
       ],
     }),
   }),
