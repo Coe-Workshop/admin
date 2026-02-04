@@ -1,0 +1,50 @@
+@use "../../../../styles/variables" as *;
+@use "../../../../styles/breakpoints" as *;
+
+.container {
+  display: inline-block;
+  position: relative;
+  margin-bottom: 16px;
+
+  @include respond-to-max(md) {
+    width: 100%;
+  }
+}
+
+.select {
+  padding: 12px 20px 12px 38px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  cursor: pointer;
+  min-width: 150px;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  // bug ขึ้นสีแดง
+  background-image:
+          url('/Tools/filter.svg'),
+          url('/Tools/arrow.svg');
+  background-repeat: no-repeat;
+  background-position:
+          left 10px center,
+          right 10px center;
+  background-size: 16px 16px, 18px 18px;
+
+  @include respond-to-max(sm) {
+    min-width: 50px;
+    padding: 10px 14px 10px 34px;
+    font-size: 0.7rem;
+    margin-left: 30px;
+    background-size: 14px 14px, 16px 16px;
+    background-position:
+            left 8px center,
+            right 8px center;
+    position: relative;
+    z-index: -1;
+  }
+}

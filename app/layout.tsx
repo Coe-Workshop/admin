@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Noto_Sans_Thai } from "next/font/google";
+import { Providers } from "../lib/provider";
+import ToastProvider from "./context/Toast/ToastProvider";
 import "./styles/globals.scss";
-
-const geistInter = Inter({
-  variable: "--font-Inter",
+import { ToastContext } from "./context/Toast/ToastContext";
+const geistNoto = Noto_Sans_Thai({
+  variable: "--font-Noto",
   subsets: ["latin"],
 });
 
@@ -19,8 +21,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistInter.variable} `}>
-        {children}
+      <body className={`${geistNoto.variable} `}>
+        <Providers>
+          <main className="layout-content">{children}</main>
+        </Providers>
       </body>
     </html>
   );

@@ -1,0 +1,119 @@
+@use "../../../styles/variables" as *;
+@use "../../../styles/animations" as *;
+
+.tableWrapper {
+  border: 1px solid $sub-200;
+  border-radius: 0.4rem;
+  overflow-y: hidden;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.header {
+  position: relative;
+  z-index: 0;
+}
+.userInfo {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.itemName {
+  width: 15rem;
+}
+
+.assetID {
+  width: 12rem;
+}
+
+.status {
+  width: 8rem;
+  color: $sub-1000;
+}
+
+.endTime {
+  width: 8rem;
+}
+
+.message {
+  width: 18rem;
+  color: var(--text-fade-mid);
+}
+
+.action {
+  width: 6rem;
+}
+
+.table {
+  th,
+  td {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+  }
+
+  thead th {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 2;
+  }
+}
+
+.userRow {
+  background-color: $sub-100;
+}
+
+.action_content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  .action_content_check {
+    color: var(--icon);
+  }
+  .action_content_stop {
+    color: var(--warning-red);
+  }
+}
+.allApprove {
+  cursor: pointer;
+  text-wrap: nowrap;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.2rem;
+  background-color: $sub-0;
+  transition: all 0.5s ease;
+  text-align: center;
+  &:hover {
+    background-color: $sub-200;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .table {
+    thead th {
+      background: $sub-800;
+    }
+    tbody tr:hover {
+      background-color: $sub-750;
+    }
+  }
+  .userRow {
+    background-color: $sub-750;
+  }
+  .allApprove {
+    background-color: $sub-900;
+    transition: all 0.5s ease;
+    text-align: center;
+    &:hover {
+      background-color: $sub-800;
+    }
+  }
+}

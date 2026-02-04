@@ -1,12 +1,13 @@
 import styles from "./page.module.scss";
-import Navbar from "@/app/components/Navbar/Navbar";
-
-function page(){
+import Link from "next/link";
+const Hello = () => {
   return (
-      <div className={styles.landing}>
-        <Navbar></Navbar>
-      </div>
+    <div className={styles.hello}>
+      <Link href={"/landing"} className={styles.message}>
+        EN Workshop Admin is on. 😎
+      </Link>
+    </div>
   );
-}
+};
 
-export default page;
+export default Hello;
