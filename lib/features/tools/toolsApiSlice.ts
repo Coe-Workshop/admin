@@ -6,7 +6,7 @@ import type {
   ToolsResponse,
   ToolResponse,
   ToolRequest,
-} from "@/lib/src/models/tool.typs";
+} from "@/lib/features/tools/tool.typs";
 // const mock = {
 //   name: "postpost pose",
 //   description: "string",
