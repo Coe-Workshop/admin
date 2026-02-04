@@ -10,29 +10,31 @@ export const ItemBlog = ({
   imageUrl,
 }: ItemBlogProps) => {
   return (
-    <button>
+    <button className={styles.itemBlog}>
       <div>
-        <Image src="" width={200} height={200} alt={name}></Image>
+        {/* <Image src={imageUrl} width={200} height={200} alt={name}></Image> */}
       </div>
-      <section>
+      <section className={styles.info}>
         <div>
-          <h2>{name}</h2>
-          <p>
-            {description.length > 20 ? description.slice(0, 20) : description}
+          <h2 className={styles.info_name}>{name}</h2>
+          <p className={styles.info_description}>
+            {description.length > 30
+              ? description.slice(0, 30) + " ..."
+              : description}
           </p>
-          <div>
-            <h3>{avaliable}</h3>
-            <h3>{quatity}</h3>
-          </div>
+          <span className={styles.info_number}>
+            <h3 className={styles.info_avaliable}>{avaliable}</h3>
+            <h3 className={styles.info_quatity}>/ {quatity}</h3>
+          </span>
         </div>
-        <div>
+        {/* <div>
           <IconSvgMono
             src="./icon/dot.svg"
             width={14}
             height={14}
             alt="dot"
           ></IconSvgMono>
-        </div>
+        </div> */}
       </section>
     </button>
   );

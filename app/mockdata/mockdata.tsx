@@ -82,7 +82,6 @@ export const mockAdminTableTransactions: AdminTableTransaction[] = [
   },
 ];
 
-
 export const mockData: ItemTableTransaction[] = [
   {
     assetId: "ASSET-001",
