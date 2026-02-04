@@ -1,0 +1,8 @@
+export interface TextInputProps {
+  label?: string;
+  placeholder?: string;
+  require?: boolean;
+  value: string;
+  errorMessage?: string;
+  onChange?: (value: string) => void;
+}
