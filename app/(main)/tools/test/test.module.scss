@@ -41,6 +41,10 @@
     width: fit-content;
     margin-left: auto;
     margin-top: 0.8rem;
+    
+    .errorMessage {
+      color: var(--warning-red);
+    }
 
     .assetId_submit {
       color: var(--theme-0);
