@@ -13,7 +13,8 @@ export interface Tool {
   name: string;
   description: string | null;
   imageUrl: string | null;
-  categoryName: ToolCategories ;
+  category: ToolCategories;
+  categoryID: number | null;
   assets_id: number[] | null;
 }
 
@@ -32,6 +33,6 @@ export interface ToolRequest {
   id: number;
   name: string;
   description: string | null;
-  image_url: string | null;
-  category_ids: number[] | null;
+  imageUrl: string | null;
+  category: number[] | null;
 }
