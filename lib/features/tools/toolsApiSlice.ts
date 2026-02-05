@@ -71,6 +71,21 @@ export const apiSliceWithTools = apiSlice.injectEndpoints({
         { type: "Tools" as const, id: arg.tool.id },
       ],
     }),
+
+    updateToolAssets: builder.mutation<Tool, { tool: ToolRequest; assets_id: number[] | null }>({
+      query: ({ tool, assets_id }) => ({
+        url: `/v1/items/${tool.id}/assets`,
+        method: "PATCH",
+        body: { assets_id },
+      }),
+      transformResponse(res: ToolResponse) {
+        return res.data;
+      },
+      invalidatesTags: (result, error, arg) => [
+        { type: "Tools" as const, id: "LIST" },
+        { type: "Tools" as const, id: arg.tool.id },
+      ],
+    }),
   }),
   overrideExisting: false,
 });
