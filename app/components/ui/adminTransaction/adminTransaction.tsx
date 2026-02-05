@@ -1,13 +1,12 @@
 "use client";
 
 import { mockAdminTableTransactions } from "@/app/mockdata/mockdata";
-import IconSvgMono from "../../Icon/svgIcon";
+import { prefix } from "@/app/utils/prefix";
 import React, { useState } from "react";
+import IconSvgMono from "../../Icon/SvgIcon";
 import { StatusTag } from "../statusTag/statusTag";
 import { Tooltip } from "../tooltip/tooltip";
 import styles from "./adminTrasaction.module.scss";
-import Image from "next/image";
-import { prefix } from "@/app/utils/prefix";
 export const AllTransaction = () => {
   const [openTransaction, setOpenTransaction] = useState<number[]>([]);
   const [closeTransaction, setCloseTransaction] = useState<number[]>([]);
@@ -60,12 +59,14 @@ export const AllTransaction = () => {
               <tr className={styles.userRow}>
                 <td colSpan={1}>
                   <div className={styles.userInfo}>
-                    <div style={{
-                          transform: openTransaction.includes(index)
+                    <div
+                      style={{
+                        transform: openTransaction.includes(index)
                           ? ""
                           : "rotate(-90deg)",
-                          }}
-                        onClick={() => toggleOpenTransaction(index)}>
+                      }}
+                      onClick={() => toggleTransaction(index)}
+                    >
                       <IconSvgMono
                         src={`${prefix}/icon/arrow.svg`}
                         width={15}
@@ -113,7 +114,7 @@ export const AllTransaction = () => {
                             width={20}
                             height={20}
                             alt="check"
-                            />
+                          />
                           <IconSvgMono
                             className={styles.action_content_stop}
                             src={`${prefix}/icon/stop.svg`}
@@ -124,7 +125,7 @@ export const AllTransaction = () => {
                         </div>
                       </td>
                     </tr>
-                  )
+                  ),
               )}
             </React.Fragment>
           ))}

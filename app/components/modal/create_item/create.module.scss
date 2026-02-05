@@ -171,12 +171,12 @@
           cursor: pointer;
         }
         .cancelButton {
-          background-color: $sub-0;
-          color: $sub-1000;
+          background-color: var(--theme-0);
+          color: var(--theme-1000);
         }
         .submitButton {
-          background-color: $sub-1000;
-          color: $sub-0;
+          background-color: var(--theme-1000);
+          color: var(--theme-0);
         }
       }
       .imageBoxPreview {
@@ -349,9 +349,12 @@
 
 @media (prefers-color-scheme: dark) {
   .container {
-    background-color: $sub-550;
+    background-color: $sub-800;
     .formSection {
       .field {
+        .name {
+          background: $sub-750 !important;
+        }
         .option {
           background-image: url("/Tools/arrow_dark.svg") !important;
           .option_inside {
@@ -363,10 +366,10 @@
     // idk why it's can't config normaly, so i force it. 
     .rightSection {
       .imageBox {
-        border-color: $sub-700 !important;
+        border-color: $sub-900 !important;
         &:hover {
-          border-color: $sub-800 !important;
-          background: $sub-600 !important;
+          border-color: $sub-1000 !important;
+          background: $sub-800 !important;
         }
       }
       .imageBoxPreview {
@@ -387,7 +390,7 @@
             color: var(--text-fade-high) !important;
           }
           &:hover {
-            background-color: $sub-650 !important;
+            background-color: $sub-800 !important;
           }
         }
       }

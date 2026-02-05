@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+APP_DIR="/var/www/en_w_admin"
+RELEASES_DIR="$APP_DIR/releases"
+RELEASE_DIR="$RELEASES_DIR/$TIMESTAMP"
+CURRENT_LINK="$APP_DIR/current"
+KEEP_RELEASES=5
+SERVICE="en_w_admin.service"
+NODE_BIN="/home/deploy/.local/share/fnm/node-versions/v20.19.4/installation/bin"
+BUN_BIN="/home/deploy/.bun/bin"
+
+export PATH="$NODE_BIN:$BUN_BIN:$PATH"
+
+log() { echo "[deploy] $1"; }
+
+log "Creating release directory: $RELEASE_DIR"
+mkdir -p "$RELEASE_DIR"
+
+log "Linking environment"
+ln -sfn "$APP_DIR/development-env" "$RELEASE_DIR/.env"
+
+log "Building"
+if [ -f "$RELEASE_DIR/package.json" ]; then
+  (cd "$RELEASE_DIR" && /home/deploy/.bun/bin/bun run build || true)
+fi
+
+log "Switching current symlink atomically"
+ln -sfn "$RELEASE_DIR" "$CURRENT_LINK"
+
+log "Reloading systemd service"
+sudo systemctl reload "$SERVICE" || sudo systemctl restart "$SERVICE"
+
+log "Cleaning up old releases"
+ls -1dt "$RELEASES_DIR"/* | tail -n +$((KEEP_RELEASES+1)) | xargs -r rm -rf --
+
+log "Deployment complete!"
+

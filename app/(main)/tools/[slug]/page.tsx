@@ -7,11 +7,22 @@ import { OptionsAction } from "@/app/components/ui/optionAction/optionsAction";
 import { TimeTransaction } from "@/app/components/ui/timeTransaction/timeTransaction";
 import useDisclosure from "@/app/hook/useDisclosure";
 import { prefix } from "@/app/utils/prefix";
-import Image from "next/image";
 import React, { useState } from "react";
 import { Options } from "../../../components/ui/optionAction/types";
 import styles from "./test.module.scss";
+import IconSvgMono from "@/app/components/Icon/SvgIcon";
+import { useParams } from "next/navigation";
+import { useGetToolQuery } from "@/lib/features/tools/toolsApiSlice";
+import { ToolCategories, type Tool } from "@/lib/features/tools/tool.typs"
+import CreateItem from "@/app/components/modal/create_item/create";
 const Tool = () => {
+  const params = useParams<{ slug: string }>();
+  const toolId = params.slug;
+  const [toolData, setToolData] = useState<Tool | null>(null);
+  const {data: fetchTool } = useGetToolQuery(Number(toolId), {refetchOnMountOrArgChange: false})
+  const tool = fetchTool
+  console.log("category name", tool?.category)
+  console.log("this is ", tool);  
   const [itemanme] = useState("itemName");
   const [category] = useState("category");
   const [description] = useState(
@@ -19,9 +30,11 @@ const Tool = () => {
   );
   const { opened, handle } = useDisclosure();
   const { opened: openedAssetId, handle: handleAssetId } = useDisclosure();
+  const { opened: createItem, handle: handlecreateItem } = useDisclosure();
   // const { opened: openedDelete, handle: handleDelete } = useDisclosure();
   const handleEditItem = () => {
     console.log("is edit");
+    handlecreateItem.open()
   };
 
   const [options] = useState<Options[]>([
@@ -34,17 +47,17 @@ const Tool = () => {
       <section className={styles.info}>
         <div className={styles.header}>
           <div className={styles.title}>
-            <h1>{itemanme}</h1>
-            <p className={styles.category}>{category}</p>
+            <h1>{tool?.name}</h1>
+            <p className={styles.category}>{tool ?  (tool.category) : ""}</p>
           </div>
           <div className={styles.action}>
             <OptionsAction options={options} lastDelete={true}>
-              <Image
+              <IconSvgMono
                 src={`${prefix}/icon/dot.svg`}
                 width={24}
                 height={24}
                 alt="editIcon"
-              ></Image>
+              ></IconSvgMono>
             </OptionsAction>
           </div>
         </div>
@@ -90,6 +103,11 @@ const Tool = () => {
           onClose={() => handle.close()}
           confirmMessage={itemanme}
         ></DeleteConfirm>
+
+      </ModalContainer>
+      <ModalContainer opened={createItem}
+          onClose={() => handlecreateItem.close()}>
+          <CreateItem onClose={() => handlecreateItem.close()}></CreateItem>
       </ModalContainer>
     </div>
   );

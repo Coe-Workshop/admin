@@ -3,7 +3,7 @@
 import NavSlide from "@/app/components/layout/navbar/navslide";
 import useDisclosure from "@/app/hook/useDisclosure";
 import { prefix } from "@/app/utils/prefix";
-import IconSvgMono from "@/app/components/Icon/svgIcon";
+import IconSvgMono from "@/app/components/Icon/SvgIcon";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./navbar.module.scss";
@@ -91,6 +91,7 @@ function Navbar() {
                 height={120}
                 alt="hamberger_icon"
                 src={`${prefix}/navbar/hamberger.svg`}
+                fixColor={true}
               ></IconSvgMono>
             </div>
             {menuBlog}
