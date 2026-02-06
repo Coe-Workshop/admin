@@ -43,7 +43,6 @@ const Tool = () => {
   const { opened: createItem, handle: handlecreateItem } = useDisclosure();
   // const { opened: openedDelete, handle: handleDelete } = useDisclosure();
   const handleEditItem = () => {
-    console.log("is edit");
     handlecreateItem.open();
   };
 
