@@ -1,6 +1,13 @@
 "use client";
-import { useCreateToolMutation } from "@/lib/features/api/tools/toolsApiSlice";
-import { Tool, ToolCategories, ToolResponse } from "@/lib/src/models/tool.typs";
+import {
+  useCreateToolMutation,
+  useUpdateToolMutation,
+} from "@/lib/features/tools/toolsApiSlice";
+import {
+  ToolCategories,
+  ToolCreateRequest,
+  ToolResponse,
+} from "@/lib/features/tools/tool.typs";
 import imageCompression from "browser-image-compression";
 import Image from "next/image";
 import { useState } from "react";
@@ -12,10 +19,13 @@ import { TextInput } from "../../form/TextInput/TextInput";
 import styles from "./create.module.scss";
 import { CreateItemProps } from "./types";
 import { useToast } from "@/app/context/Toast/ToastProvider";
-function CreateItem({ onClose }: CreateItemProps) {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState<ToolCategories | undefined>();
+// import { fetchBaseQuery } from "@reduxjs/toolkit/query";
+function CreateItem({ onClose, value }: CreateItemProps) {
+  const [name, setName] = useState(value?.name || "");
+  const [description, setDescription] = useState(value?.description || "");
+  const [category, setCategory] = useState<ToolCategories | undefined>(
+    value?.category,
+  );
   const [images, setImages] = useState<File[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const [uploadStatus, setUploadStatus] = useState<{
@@ -26,7 +36,10 @@ function CreateItem({ onClose }: CreateItemProps) {
   const { addToastStack } = useToast();
   const [createTools, { data: data, error: createError, isError }] =
     useCreateToolMutation();
-
+  const [
+    updateTool,
+    { data: updateData, error: updateError, isError: isUpdateError },
+  ] = useUpdateToolMutation();
   const formatFilename = (name: string, containerWidth = 290) => {
     const maxLength = Math.floor(containerWidth / 10);
     if (name.length <= maxLength) return name;
@@ -151,7 +164,7 @@ function CreateItem({ onClose }: CreateItemProps) {
     if (!category) {
       return;
     }
-    const body: Omit<Tool, "id"> = {
+    const body: ToolCreateRequest = {
       name: name,
       description: description,
       categoryName: category, //category
@@ -161,6 +174,36 @@ function CreateItem({ onClose }: CreateItemProps) {
 
     images.forEach((file) => {});
 
+    if (value) {
+      console.log("check update Ja");
+      try {
+        await updateTool({ updatedData: body, id: value.id }).unwrap();
+
+        setName("");
+        setDescription("");
+        setImages([]);
+        setTempFiles([]);
+        setUploadStatus({});
+        if (!isUpdateError) {
+          addToastStack(
+            "อัปเดตอุปกรณ์สำเร็จ",
+            "อุปกรณ์ถูกเพิ่มไปยังฐานข้อมูล ชื่อ รูป และคำอธิบายจะแสดงให้ผู้ใช้งานทราบ อีกทั้งยังสามารถเพิ่มจำนวนอุปกรณ์โดยการเพิ่มเลขครุภัณฑ์",
+            "success",
+          );
+          onClose();
+        }
+      } catch (error: any) {
+        if (error?.data?.error) {
+          setErrors((prev) => ({
+            ...prev,
+            api: error.data.error ?? "iter tum mai error wa",
+          }));
+        }
+      } finally {
+        setSubmitting(false);
+      }
+      return;
+    }
     try {
       await createTools(body).unwrap();
 
@@ -195,7 +238,7 @@ function CreateItem({ onClose }: CreateItemProps) {
         <form onSubmit={handleSubmit}>
           <div className={styles.content}>
             <div className={styles.formSection}>
-              <h2>สร้างอุปกรณ์รายการใหม่</h2>
+              <h2>{value ? "อัปเดตอุปกรณ์" : "สร้างอุปกรณ์รายการใหม่"}</h2>
               <p>หรือข้อมูล และตารางข้อมูลสำหรับจัดการหมวดหมู่ของโปรเจกต์</p>
 
               <div className={styles.field}>

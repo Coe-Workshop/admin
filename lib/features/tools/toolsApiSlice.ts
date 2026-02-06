@@ -5,13 +5,22 @@ import type {
   Tools,
   ToolsResponse,
   ToolResponse,
-  ToolRequest,
+  ToolCreateRequest,
+  ToolUpdateRequest,
 } from "@/lib/features/tools/tool.typs";
+const mock = {
+  name: "fix333333",
+  description: "string",
+  categoryName: "OTHER",
+  imageUrl: "string",
+};
+
 export const initialState: Tools = [];
 export const apiSliceWithTools = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getTools: builder.query<Tools, void>({
       query: () => "/v1/items",
+      keepUnusedDataFor: 300,
       transformResponse(res: ToolsResponse) {
         return res.data;
       },
@@ -19,19 +28,22 @@ export const apiSliceWithTools = apiSlice.injectEndpoints({
         result
           ? [
               { type: "Tools" as const, id: "LIST" },
-              ...result.map(
-                (tool) => ({ type: "Tools" as const, id: tool.id })
-              ),
+              ...result.map((tool) => ({
+                type: "Tools" as const,
+                id: tool.id,
+              })),
             ]
           : [{ type: "Tools" as const, id: "LIST" }],
     }),
 
     getTool: builder.query<Tool, number>({
       query: (toolId) => ({ url: `/v1/items/${toolId}`, method: "GET" }),
-      transformResponse(res:ToolResponse) {
+      transformResponse(res: ToolResponse) {
         return res.data;
       },
-      providesTags: (result, error, arg) => [{ type: "Tools" as const, id: arg }],
+      providesTags: (result, error, arg) => [
+        { type: "Tools" as const, id: arg },
+      ],
     }),
 
     deleteTool: builder.mutation<object, { toolId: number }>({
@@ -48,7 +60,7 @@ export const apiSliceWithTools = apiSlice.injectEndpoints({
       ],
     }),
 
-    createTool: builder.mutation<Tool, Omit<Tool, "id">>({
+    createTool: builder.mutation<Tool, ToolCreateRequest>({
       query: (tool) => ({
         url: `/v1/items`,
         method: "POST",
@@ -60,15 +72,18 @@ export const apiSliceWithTools = apiSlice.injectEndpoints({
       invalidatesTags: [{ type: "Tools" as const, id: "LIST" }],
     }),
 
-    updateTool: builder.mutation<Tool, { tool: ToolRequest }>({
-      query: ({ tool }) => ({
+    updateTool: builder.mutation<Tool, ToolUpdateRequest>({
+      query: (tool) => ({
         url: `/v1/items/${tool.id}`,
         method: "PATCH",
-        body: tool,
+        body: tool.updatedData,
       }),
+      transformResponse(res: ToolResponse) {  
+        return res.data;
+      },
       invalidatesTags: (result, error, arg) => [
         { type: "Tools" as const, id: "LIST" },
-        { type: "Tools" as const, id: arg.tool.id },
+        { type: "Tools" as const, id: arg.id },
       ],
     }),
   }),
@@ -88,7 +103,7 @@ export const selectToolsResult =
 
 const selectToolsData = createSelector(
   selectToolsResult,
-  (result) => result.data ?? initialState
+  (result) => result.data ?? initialState,
 );
 
 export const selectAllTools = selectToolsData;

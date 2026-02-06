@@ -1,3 +1,5 @@
+import { Category } from "@/app/components/modal/create_item/types";
+
 // handle enum
 export enum catagories {}
 export enum ToolCategories {
@@ -13,7 +15,7 @@ export interface Tool {
   description: string | null;
   imageUrl: string | null;
   category: ToolCategories;
-  categoryID: number | null;
+  categoryID?: number | null;
   assets_id: number[] | null;
 }
 
@@ -28,10 +30,26 @@ export interface ToolResponse {
   success: boolean;
   error: string | null;
 }
-export interface ToolRequest {
-  id: number;
+
+export interface ErrorResponse {
+  success: boolean;
+  error: string | null;
+}
+
+export interface ToolErrorResponse {
+  status: number;
+  data: ErrorResponse;
+}
+
+export interface ToolCreateRequest {
   name: string;
   description: string | null;
   imageUrl: string | null;
-  category: number[] | null;
+  categoryName: ToolCategories;
+  assets_id: number[] | null;
+}
+
+export interface ToolUpdateRequest {
+  id: number;
+  updatedData: ToolCreateRequest;
 }

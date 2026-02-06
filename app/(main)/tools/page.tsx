@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect } from "react";
-import { useGetToolsQuery } from "@/lib/features/api/tools/toolsApiSlice";
+import { useRouter } from "next/navigation";
+import { useGetToolsQuery } from "@/lib/features/tools/toolsApiSlice";
 import styles from "./tool.module.scss";
 import { ItemBlogProps } from "@/app/components/ui/ItemBlog/ItemBlog.types";
 import { ItemBlog } from "@/app/components/ui/ItemBlog/ItemBlog";
 const Tools = () => {
   const { data: toolsInfo } = useGetToolsQuery();
-
+  const router = useRouter();
   useEffect(() => {
     const tools = JSON.stringify(Tools);
     console.log("data" + tools);
@@ -20,15 +21,17 @@ const Tools = () => {
       </div>
       <div className={styles.tools}>
         {toolsInfo?.map((t) => (
-          <ItemBlog
-            key={t.id}
-            id={t.id}
-            name={t.name}
-            description={t.description ?? ""}
-            avaliable={0}
-            quatity={0}
-            imageUrl={t.imageUrl ?? ""}
-          ></ItemBlog>
+          <div onClick={() => router && router.push(`/tools/${t.id}`)} key={t.id}>
+            <ItemBlog
+              key={t.id}
+              id={t.id}
+              name={t.name}
+              description={t.description ?? ""}
+              avaliable={0}
+              quatity={0}
+              imageUrl={t.imageUrl ?? ""}
+            ></ItemBlog>
+          </div>
           // <div key={t.id}>
           //   <h2>{t.name}</h2>
           //   <p>{t.description}</p>

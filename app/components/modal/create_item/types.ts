@@ -1,3 +1,4 @@
+import Tool from "@/app/(main)/tools/[slug]/page";
 export enum Category {
   DevelopmentBoard = "development_board",
   Tool = "tool",
@@ -14,4 +15,5 @@ export interface crateProps {
 
 export interface CreateItemProps {
   onClose: () => void;
+  value?: Tool;
 }
