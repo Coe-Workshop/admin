@@ -13,7 +13,7 @@ import styles from "./test.module.scss";
 import IconSvgMono from "@/app/components/Icon/SvgIcon";
 import { useParams } from "next/navigation";
 import { useGetToolQuery } from "@/lib/features/tools/toolsApiSlice";
-import { type Tool } from "@/lib/features/tools/tool.typs";
+import { ErrorResponse, type Tool } from "@/lib/features/tools/tool.typs";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import CreateItem from "@/app/components/modal/create_item/create";
 const Tool = () => {
@@ -30,7 +30,7 @@ const Tool = () => {
   if (fetchToolError && "data" in fetchToolError) {
     const err = fetchToolError as FetchBaseQueryError;
     if (err.data && typeof err.data === "object" && "error" in err.data) {
-      fetchToolErrorMessage = (err.data as any).error;
+      fetchToolErrorMessage = (err.data as ErrorResponse).error || "";
     }
   }
   const [itemanme] = useState("itemName");

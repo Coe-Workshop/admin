@@ -8,12 +8,12 @@ import type {
   ToolCreateRequest,
   ToolUpdateRequest,
 } from "@/lib/features/tools/tool.typs";
-const mock = {
-  name: "fix333333",
-  description: "string",
-  categoryName: "OTHER",
-  imageUrl: "string",
-};
+// const mock = {
+//   name: "fix333333",
+//   description: "string",
+//   categoryName: "OTHER",
+//   imageUrl: "string",
+// };
 
 export const initialState: Tools = [];
 export const apiSliceWithTools = apiSlice.injectEndpoints({

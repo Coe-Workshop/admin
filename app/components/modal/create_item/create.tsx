@@ -4,6 +4,7 @@ import {
   useUpdateToolMutation,
 } from "@/lib/features/tools/toolsApiSlice";
 import {
+  ErrorResponse,
   ToolCategories,
   ToolCreateRequest,
   ToolResponse,
@@ -19,7 +20,7 @@ import { TextInput } from "../../form/TextInput/TextInput";
 import styles from "./create.module.scss";
 import { CreateItemProps } from "./types";
 import { useToast } from "@/app/context/Toast/ToastProvider";
-// import { fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 function CreateItem({ onClose, value }: CreateItemProps) {
   const [name, setName] = useState(value?.name || "");
   const [description, setDescription] = useState(value?.description || "");
@@ -38,7 +39,7 @@ function CreateItem({ onClose, value }: CreateItemProps) {
     useCreateToolMutation();
   const [
     updateTool,
-    { data: updateData, error: updateError, isError: isUpdateError },
+    { data: updateData, isError: isUpdateError },
   ] = useUpdateToolMutation();
   const formatFilename = (name: string, containerWidth = 290) => {
     const maxLength = Math.floor(containerWidth / 10);
@@ -192,13 +193,16 @@ function CreateItem({ onClose, value }: CreateItemProps) {
           );
           onClose();
         }
-      } catch (error: any) {
-        if (error?.data?.error) {
-          setErrors((prev) => ({
-            ...prev,
-            api: error.data.error ?? "iter tum mai error wa",
-          }));
+      } catch (error) {
+        let updateErrorMessage = "";
+        const err = error as FetchBaseQueryError;
+        if (err.data && typeof err.data === "object" && "error" in err.data) {
+          updateErrorMessage = (err.data as ErrorResponse).error || "something went wrong";
         }
+        setErrors((prev) => ({
+          ...prev,
+          api: updateErrorMessage,
+        }));
       } finally {
         setSubmitting(false);
       }
