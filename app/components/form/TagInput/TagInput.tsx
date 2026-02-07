@@ -1,13 +1,18 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useImperativeHandle, forwardRef } from "react";
+// removed unused forward-ref types; direct `displayName` assignment below
 import { TagInputProps, TagItem } from "./TagInput.type";
 import styles from "./TagInput.module.scss";
-
-export const TagInput = ({ placeholder = "", label = "" }: TagInputProps) => {
+ 
+export const TagInput = forwardRef<unknown, TagInputProps>(({ placeholder, initialAssets = [] }, ref) => {
   const [currentInput, setCurrentInput] = useState<string>("");
   const [Tag, setTag] = useState<TagItem[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [duplicateValue, setDuplicateValue] = useState<string | null>(null);
   const lastAddedIdRef = useRef<string | null>(null);
+
+  useImperativeHandle(ref, () => ({
+    getValues: () => Tag.map((t) => Number(t.value)),
+  }));
 
   const onTagInput = (element: React.KeyboardEvent<HTMLInputElement>) => {
     if (currentInput === "") return;
@@ -33,6 +38,7 @@ export const TagInput = ({ placeholder = "", label = "" }: TagInputProps) => {
   const onDeleteTag = (idx: number): void => {
     const tagElement = document.querySelectorAll(`.${styles.tag_body}`)[idx];
     tagElement?.classList.add(styles.tag_removing);
+    setTag((prev) => prev.filter((_, i) => i !== idx));
 
     setTimeout(() => {
       setTag((prev) => prev.filter((_, i) => idx !== i));
@@ -40,15 +46,17 @@ export const TagInput = ({ placeholder = "", label = "" }: TagInputProps) => {
   };
 
   useEffect(() => {
+    let timer: ReturnType<typeof setTimeout> | undefined;
+
     // duplicate effect
     if (duplicateValue) {
       const el = document.querySelector(`[data-tag-value="${duplicateValue}"]`) as HTMLElement;
       el?.scrollIntoView({ behavior: "smooth", block: "center" });
-      const timer = setTimeout(() => {
+      timer = setTimeout(() => {
         setDuplicateValue(null);
       }, 2000);
-      return () => clearTimeout(timer);
     }
+
     // create effect
     if (lastAddedIdRef.current) {
       const el = document.querySelector(
@@ -56,17 +64,21 @@ export const TagInput = ({ placeholder = "", label = "" }: TagInputProps) => {
       ) as HTMLElement;
       el?.scrollIntoView({ behavior: "smooth", block: "center" });
       el?.classList.add(styles.tag_enter);
-      const timer = setTimeout(() => {
+      timer = setTimeout(() => {
         el?.classList.remove(styles.tag_enter); // reset class
         setDuplicateValue(null);
       }, 1000);
       lastAddedIdRef.current = null; // reset ref ไม่ trigger render
     }
-  }, [Tag, duplicateValue, lastAddedIdRef]);
+
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, [Tag, initialAssets, duplicateValue, lastAddedIdRef]);
 
   return (
     <div className={styles.tagInput}>
-      {label && <label htmlFor="">{label}</label>}
+      {/* {label && <label htmlFor="">{label}</label>} */}
       <div className={styles.tag_collection}>
         {Tag.map((t, index) => (
           <div className={`${styles.tag_body} ${duplicateValue === t.value ? styles.tag_duplicate : ""}`} 
@@ -95,4 +107,6 @@ export const TagInput = ({ placeholder = "", label = "" }: TagInputProps) => {
       </div>
     </div>
   );
-};
+});
+
+TagInput.displayName = "TagInput";
