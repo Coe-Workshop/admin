@@ -7,22 +7,27 @@ import { OptionsAction } from "@/app/components/ui/optionAction/optionsAction";
 import { TimeTransaction } from "@/app/components/ui/timeTransaction/timeTransaction";
 import useDisclosure from "@/app/hook/useDisclosure";
 import { prefix } from "@/app/utils/prefix";
+import { ItemTransaction } from "@/app/components/ui/itemTransaction/itemTransaction";
+import IconSvgMono from "@/app/components/Icon/SvgIcon";
+import CreateItem from "@/app/components/modal/create_item/create";
+import { Tabs } from "@/app/components/ui/Tabs/Tabs";
+import { TabsOption } from "@/app/components/ui/Tabs/Tabs.type";
+import { type Tool } from "@/lib/features/tools/tool.typs";
+import { useGetToolQuery } from "@/lib/features/tools/toolsApiSlice";
+import { useParams } from "next/navigation";
 import React, { useState } from "react";
 import { Options } from "../../../components/ui/optionAction/types";
 import styles from "./test.module.scss";
-import IconSvgMono from "@/app/components/Icon/SvgIcon";
-import { useParams } from "next/navigation";
-import { useGetToolQuery } from "@/lib/features/tools/toolsApiSlice";
-import { ToolCategories, type Tool } from "@/lib/features/tools/tool.typs"
-import CreateItem from "@/app/components/modal/create_item/create";
 const Tool = () => {
   const params = useParams<{ slug: string }>();
   const toolId = params.slug;
   const [toolData, setToolData] = useState<Tool | null>(null);
-  const {data: fetchTool } = useGetToolQuery(Number(toolId), {refetchOnMountOrArgChange: false})
-  const tool = fetchTool
-  console.log("category name", tool?.category)
-  console.log("this is ", tool);  
+  const { data: fetchTool } = useGetToolQuery(Number(toolId), {
+    refetchOnMountOrArgChange: false,
+  });
+  const tool = fetchTool;
+  console.log("category name", tool?.category);
+  console.log("this is ", tool);
   const [itemanme] = useState("itemName");
   const [category] = useState("category");
   const [description] = useState(
@@ -31,10 +36,11 @@ const Tool = () => {
   const { opened, handle } = useDisclosure();
   const { opened: openedAssetId, handle: handleAssetId } = useDisclosure();
   const { opened: createItem, handle: handlecreateItem } = useDisclosure();
+  const [isList, setIsList] = useState(true);
   // const { opened: openedDelete, handle: handleDelete } = useDisclosure();
   const handleEditItem = () => {
     console.log("is edit");
-    handlecreateItem.open()
+    handlecreateItem.open();
   };
 
   const [options] = useState<Options[]>([
@@ -42,13 +48,30 @@ const Tool = () => {
     { title: "เพิ่มเลขครุภัณฑ์", action: handleAssetId.open },
     { title: "ลบอุปกรณ์", action: handle.open },
   ]);
+  const tabsOptions: TabsOption[] = [
+    {
+      options: "ลิสต์",
+      icon: `${prefix}/icon/book.svg`,
+      isSelect: isList,
+      action: () => {
+        setIsList(true);
+      },
+    },
+    {
+      options: "ตาราง",
+      icon: `${prefix}/icon/align-left.svg`,
+      isSelect: !isList,
+      action: () => setIsList(false),
+    },
+  ];
+
   return (
     <div>
       <section className={styles.info}>
         <div className={styles.header}>
           <div className={styles.title}>
             <h1>{tool?.name}</h1>
-            <p className={styles.category}>{tool ?  (tool.category) : ""}</p>
+            <p className={styles.category}>{tool ? tool.category : ""}</p>
           </div>
           <div className={styles.action}>
             <OptionsAction options={options} lastDelete={true}>
@@ -64,7 +87,12 @@ const Tool = () => {
         <p className={styles.description}>{description}</p>
       </section>
       <section>
-        <TimeTransaction></TimeTransaction>
+        <Tabs TabsOptions={tabsOptions}></Tabs>
+        {isList ? (
+          <ItemTransaction></ItemTransaction>
+        ) : (
+          <TimeTransaction></TimeTransaction>
+        )}
         {/* <ItemTransaction></ItemTransaction> */}
       </section>
       <ModalContainer
@@ -103,11 +131,12 @@ const Tool = () => {
           onClose={() => handle.close()}
           confirmMessage={itemanme}
         ></DeleteConfirm>
-
       </ModalContainer>
-      <ModalContainer opened={createItem}
-          onClose={() => handlecreateItem.close()}>
-          <CreateItem onClose={() => handlecreateItem.close()}></CreateItem>
+      <ModalContainer
+        opened={createItem}
+        onClose={() => handlecreateItem.close()}
+      >
+        <CreateItem onClose={() => handlecreateItem.close()}></CreateItem>
       </ModalContainer>
     </div>
   );
