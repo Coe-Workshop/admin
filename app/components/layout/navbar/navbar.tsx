@@ -3,7 +3,7 @@
 import NavSlide from "@/app/components/layout/navbar/navslide";
 import useDisclosure from "@/app/hook/useDisclosure";
 import { prefix } from "@/app/utils/prefix";
-import IconSvgMono from "@/app/components/Icon/SvgIcon";
+import SvgIconMono from "@/app/components/Icon/SvgIconMono";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./navbar.module.scss";
@@ -47,13 +47,13 @@ function Navbar() {
   const menuBlog = BlogList.map((item, index) => {
     return (
       <Link key={index} className={styles.button_list} href={item.url}>
-        <IconSvgMono
+        <SvgIconMono
           className={styles.blog_image}
           src={`${prefix}${item.cover}`}
           width={22}
           height={22}
           alt={item.title}
-        ></IconSvgMono>
+        ></SvgIconMono>
         <h3>{item.title}</h3>
       </Link>
     );
@@ -85,14 +85,14 @@ function Navbar() {
               <h3 className={styles.quickCreate}>Quick Create</h3>
             </button>
             <div onClick={() => handle.open()}>
-              <IconSvgMono
+              <SvgIconMono
                 className={styles.action_hamberger}
                 width={120}
                 height={120}
                 alt="hamberger_icon"
                 src={`${prefix}/navbar/hamberger.svg`}
                 fixColor={true}
-              ></IconSvgMono>
+              ></SvgIconMono>
             </div>
             {menuBlog}
           </div>
@@ -111,13 +111,13 @@ function Navbar() {
               <p className={styles.email}>{Admin.email}</p>
             </div>
           </div>
-          <IconSvgMono
+          <SvgIconMono
             className={styles.blog_icon}
             src={`${prefix}${Admin.icon}`}
             width={20}
             height={20}
             alt={Admin.title}
-          ></IconSvgMono>
+          ></SvgIconMono>
         </div>
         <ModalContainer opened={opened} onClose={handle.close}>
           <NavSlide

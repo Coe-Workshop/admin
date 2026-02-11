@@ -1,6 +1,6 @@
 import { ItemBlogProps } from "./ItemBlog.types";
 import Image from "next/image";
-import IconSvgMono from "../../Icon/SvgIcon";
+import SvgIconMono from "../../Icon/SvgIconMono";
 import styles from "./ItemBlog.module.scss";
 export const ItemBlog = ({
   name,
@@ -28,12 +28,12 @@ export const ItemBlog = ({
           </span>
         </div>
         {/* <div>
-          <IconSvgMono
+          <SvgIconMono
             src="./icon/dot.svg"
             width={14}
             height={14}
             alt="dot"
-          ></IconSvgMono>
+          ></SvgIconMono>
         </div> */}
       </section>
     </button>

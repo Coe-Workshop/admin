@@ -9,6 +9,15 @@
   width: 100%;
   margin: rem(25px) auto;
   align-self: center;
+  :global(.color1) {
+    color: var(--logo-mark);
+  } 
+  :global(.color2) {
+    color: var(--logo-dot);
+  } 
+  :global(.color3) {
+    color: var(--logo-mark);
+  } 
 }
 .form {
   display: flex;

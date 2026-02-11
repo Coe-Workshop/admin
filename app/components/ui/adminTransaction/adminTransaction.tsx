@@ -3,7 +3,7 @@
 import { mockAdminTableTransactions } from "@/app/mockdata/mockdata";
 import { prefix } from "@/app/utils/prefix";
 import React, { useState } from "react";
-import IconSvgMono from "../../Icon/SvgIcon";
+import SvgIconMono from "../../Icon/SvgIconMono";
 import { StatusTag } from "../statusTag/statusTag";
 import { Tooltip } from "../tooltip/tooltip";
 import styles from "./adminTrasaction.module.scss";
@@ -67,12 +67,12 @@ export const AllTransaction = () => {
                       }}
                       onClick={() => toggleTransaction(index)}
                     >
-                      <IconSvgMono
+                      <SvgIconMono
                         src={`${prefix}/icon/arrow.svg`}
                         width={15}
                         height={15}
                         alt="arrowDown"
-                      ></IconSvgMono>
+                      ></SvgIconMono>
                     </div>
                     <Tooltip title={item.user.tel}>
                       <h2 className={styles.username}>{item.user.username}</h2>
@@ -108,14 +108,14 @@ export const AllTransaction = () => {
                       <td className={styles.message}>{t.message}</td>
                       <td>
                         <div className={styles.action_content}>
-                          <IconSvgMono
+                          <SvgIconMono
                             className={styles.action_content_check}
                             src={`${prefix}/icon/double-check.svg`}
                             width={20}
                             height={20}
                             alt="check"
                           />
-                          <IconSvgMono
+                          <SvgIconMono
                             className={styles.action_content_stop}
                             src={`${prefix}/icon/stop.svg`}
                             width={20}
