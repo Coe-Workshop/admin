@@ -8,10 +8,16 @@ import { TimeTransaction } from "@/app/components/ui/timeTransaction/timeTransac
 import useDisclosure from "@/app/hook/useDisclosure";
 import { prefix } from "@/app/utils/prefix";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Options } from "../../../components/ui/optionAction/types";
 import styles from "./test.module.scss";
+import { useGetToolQuery, useUpdateToolAssetsMutation } from "@/lib/features/tools/toolsApiSlice";
+
 const Tool = () => {
+  const [updateToolAssets, { isLoading, isError, error }] = useUpdateToolAssetsMutation();
+  const [assetIds, setAssetIds] = useState<number[]>([]);
+  const { data: tool } = useGetToolQuery(1); // test สมมติ toolId = 1
+
   const [itemanme] = useState("itemName");
   const [category] = useState("category");
   const [description] = useState(
@@ -23,6 +29,25 @@ const Tool = () => {
   const handleEditItem = () => {
     console.log("is edit");
   };
+
+  // ใช้ ref เพื่อดึงค่าออกจาก TagInput
+  const tagRef = useRef<{ getValues: () => number[] }>(null);
+
+  const handleConfirmAssets = async () => {
+    const assets = tagRef.current?.getValues() ?? [];
+    // test สมมติ toolId = 1
+    try {
+      await updateToolAssets({ toolId: 1, assets_id: assets }).unwrap();
+      handleAssetId.close(); // ปิด modal หลังอัปเดตเสร็จ
+    } catch (err) {
+      console.error("Update failed:", err);
+    }
+  };
+
+  const [errors, setErrors] = useState({
+    name: "",
+    category: "",
+  });
 
   const [options] = useState<Options[]>([
     { title: "แก้ไขเพิ่มเติม", action: handleEditItem },
@@ -70,8 +95,17 @@ const Tool = () => {
               และจะไม่สามารถนำอุปกรณ์นั้นออกจากระบบได้หากมีผู้ใช้งานอยู่
             </p>
           </div>
-          <TagInput placeholder="ป้อนเลขครุภัณฑ์ของอุปกรณ์"></TagInput>
+          <TagInput 
+            ref={tagRef}
+            placeholder="ป้อนเลขครุภัณฑ์ของอุปกรณ์"
+            initialAssets={tool?.assets_id ?? []}
+          ></TagInput>
           <div className={styles.assetId_action}>
+            {(errors.name || errors.category) && (
+              <span className={styles.errorMessage}>
+                ไม่สามารถสร้างรายการได้ : error message
+              </span>
+            )}
             <button
               onClick={() => handleAssetId.close()}
               type="button"
@@ -79,8 +113,13 @@ const Tool = () => {
             >
               ยกเลิก
             </button>
-            <button type="button" className={styles.assetId_submit}>
-              ยืนยัน
+            <button 
+              type="button" 
+              disabled={isLoading}
+              className={styles.assetId_submit}
+              onClick={handleConfirmAssets}
+            >
+              {isLoading ? "กำลังบันทึก..." : "ยืนยัน"}
             </button>
           </div>
         </form>
