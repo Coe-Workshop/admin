@@ -30,7 +30,6 @@ export const TimeTransaction = () => {
     setOpened((prev) =>
       prev.includes(idx) ? prev.filter((item) => item != idx) : [...prev, idx]
     );
-    console.log("opened", opened);
   };
 
   const getTimeFormat = (date: string): string => {

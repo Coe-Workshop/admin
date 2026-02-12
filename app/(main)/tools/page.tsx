@@ -10,7 +10,6 @@ const Tools = () => {
   const router = useRouter();
   useEffect(() => {
     const tools = JSON.stringify(Tools);
-    console.log("data" + tools);
   }, [toolsInfo]);
 
   return (

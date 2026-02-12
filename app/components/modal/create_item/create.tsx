@@ -176,7 +176,6 @@ function CreateItem({ onClose, value }: CreateItemProps) {
     images.forEach((file) => {});
 
     if (value) {
-      console.log("check update Ja");
       try {
         await updateTool({ updatedData: body, id: value.id }).unwrap();
 

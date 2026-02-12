@@ -22,7 +22,6 @@ const ToastProvider = ({ children }: { children: ReactNode }) => {
   const addToastStack = useCallback(
     (title: string, description: string, variant: Variant) => {
       const id = toastID.current++;
-      console.log("ontoast");
       setToastStack((prev) => [
         ...prev,
         {
@@ -41,7 +40,6 @@ const ToastProvider = ({ children }: { children: ReactNode }) => {
   );
 
   useEffect(() => {
-    console.log("Current toastStack:", toastStack);
   }, [toastStack]);
 
   const value = useMemo<ToastContextTypeProps>(

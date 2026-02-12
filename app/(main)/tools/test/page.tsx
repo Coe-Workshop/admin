@@ -27,7 +27,6 @@ const Tool = () => {
   const { opened: openedAssetId, handle: handleAssetId } = useDisclosure();
   // const { opened: openedDelete, handle: handleDelete } = useDisclosure();
   const handleEditItem = () => {
-    console.log("is edit");
   };
 
   // ใช้ ref เพื่อดึงค่าออกจาก TagInput
