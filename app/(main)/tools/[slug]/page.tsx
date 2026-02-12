@@ -7,7 +7,7 @@ import { OptionsAction } from "@/app/components/ui/optionAction/optionsAction";
 import { TimeTransaction } from "@/app/components/ui/timeTransaction/timeTransaction";
 import useDisclosure from "@/app/hook/useDisclosure";
 import { prefix } from "@/app/utils/prefix";
-import { TabsOption } from "@/app/components/ui/Tabs/Tabs.type";
+// import { TabsOption } from "@/app/components/ui/Tabs/Tabs.type";
 import React, { useState } from "react";
 import { Options } from "../../../components/ui/optionAction/types";
 import styles from "./tool.module.scss";
@@ -23,7 +23,6 @@ const Tool = () => {
   const {
     data: fetchTool,
     isError,
-    isLoading,
     error: fetchToolError,
   } = useGetToolQuery(Number(toolId), { refetchOnMountOrArgChange: false });
   const tool = fetchTool;
@@ -34,15 +33,11 @@ const Tool = () => {
       fetchToolErrorMessage = (err.data as ErrorResponse).error || "";
     }
   }
-  const [itemanme] = useState("itemName");
-  const [category] = useState("category");
-  const [description] = useState(
-    " Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation",
-  );
+  
   const { opened, handle } = useDisclosure();
   const { opened: openedAssetId, handle: handleAssetId } = useDisclosure();
   const { opened: createItem, handle: handlecreateItem } = useDisclosure();
-  const [isList, setIsList] = useState(true);
+  // const [isList, setIsList] = useState(true);
   // const { opened: openedDelete, handle: handleDelete } = useDisclosure();
   const handleEditItem = () => {
     handlecreateItem.open();
@@ -53,22 +48,22 @@ const Tool = () => {
     { title: "เพิ่มเลขครุภัณฑ์", action: handleAssetId.open },
     { title: "ลบอุปกรณ์", action: handle.open },
   ]);
-  const tabsOptions: TabsOption[] = [
-    {
-      options: "ลิสต์",
-      icon: `${prefix}/icon/book.svg`,
-      isSelect: isList,
-      action: () => {
-        setIsList(true);
-      },
-    },
-    {
-      options: "ตาราง",
-      icon: `${prefix}/icon/align-left.svg`,
-      isSelect: !isList,
-      action: () => setIsList(false),
-    },
-  ];
+  // const tabsOptions: TabsOption[] = [
+  //   {
+  //     options: "ลิสต์",
+  //     icon: `${prefix}/icon/book.svg`,
+  //     isSelect: isList,
+  //     action: () => {
+  //       setIsList(true);
+  //     },
+  //   },
+  //   {
+  //     options: "ตาราง",
+  //     icon: `${prefix}/icon/align-left.svg`,
+  //     isSelect: !isList,
+  //     action: () => setIsList(false),
+  //   },
+  // ];
 
   return (
     <div>

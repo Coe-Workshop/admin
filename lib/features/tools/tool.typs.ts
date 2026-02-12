@@ -1,4 +1,3 @@
-import { Category } from "@/app/components/modal/create_item/types";
 
 // handle enum
 export enum catagories {}

@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useGetToolsQuery } from "@/lib/features/tools/toolsApiSlice";
 import styles from "./tool.module.scss";
-import { ItemBlogProps } from "@/app/components/ui/ItemBlog/ItemBlog.types";
 import { ItemBlog } from "@/app/components/ui/ItemBlog/ItemBlog";
 const Tools = () => {
   const { data: toolsInfo } = useGetToolsQuery();
