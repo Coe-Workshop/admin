@@ -10,7 +10,7 @@ import { prefix } from "@/app/utils/prefix";
 import React, { useState } from "react";
 import { Options } from "../../../components/ui/optionAction/types";
 import styles from "./tool.module.scss";
-import IconSvgMono from "@/app/components/Icon/SvgIcon";
+import SvgIconMono from "@/app/components/Icon/SvgIconMono";
 import { useParams } from "next/navigation";
 import { useGetToolQuery } from "@/lib/features/tools/toolsApiSlice";
 import { ErrorResponse, type Tool } from "@/lib/features/tools/tool.typs";
@@ -68,12 +68,12 @@ const Tool = () => {
               </div>
               <div className={styles.action}>
                 <OptionsAction options={options} lastDelete={true}>
-                  <IconSvgMono
+                  <SvgIconMono
                     src={`${prefix}/icon/dot.svg`}
                     width={24}
                     height={24}
                     alt="editIcon"
-                  ></IconSvgMono>
+                  ></SvgIconMono>
                 </OptionsAction>
               </div>
             </div>

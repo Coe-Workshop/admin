@@ -13,7 +13,8 @@ import imageCompression from "browser-image-compression";
 import Image from "next/image";
 import { useState } from "react";
 import { Toast } from "../../ui/Toast/Toast";
-import IconSvgMono, { addImageSvg_Dark } from "../../Icon/SvgIcon";
+import { addImageSvg_Dark } from "../../Icon/SvgIcon";
+import SvgIconMono from "../../Icon/SvgIconMono";
 import { AreaInput } from "../../form/AreaInput/AreaInput";
 import { Select } from "../../form/Select/Select";
 import { TextInput } from "../../form/TextInput/TextInput";
@@ -359,7 +360,7 @@ function CreateItem({ onClose, value }: CreateItemProps) {
                               </div>
                             </div>
                             <div onClick={() => handleRemoveFile(file.name)}>
-                              <IconSvgMono
+                              <SvgIconMono
                                 src={"/create-item/close.svg"}
                                 width={10}
                                 height={10}
@@ -373,7 +374,7 @@ function CreateItem({ onClose, value }: CreateItemProps) {
                     </div>
 
                     <label htmlFor="image-upload" className={styles.button}>
-                      <IconSvgMono
+                      <SvgIconMono
                         svg={addImageSvg_Dark}
                         alt="image"
                         width={20}
