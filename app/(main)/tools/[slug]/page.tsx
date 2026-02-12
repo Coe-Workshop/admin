@@ -9,7 +9,7 @@ import useDisclosure from "@/app/hook/useDisclosure";
 import { prefix } from "@/app/utils/prefix";
 import React, { useState } from "react";
 import { Options } from "../../../components/ui/optionAction/types";
-import styles from "./test.module.scss";
+import styles from "./tool.module.scss";
 import IconSvgMono from "@/app/components/Icon/SvgIcon";
 import { useParams } from "next/navigation";
 import { useGetToolQuery } from "@/lib/features/tools/toolsApiSlice";
