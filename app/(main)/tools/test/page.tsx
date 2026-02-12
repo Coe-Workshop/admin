@@ -1,6 +1,6 @@
 "use client";
 
-import { TagInput } from "@/app/components/form/TagInput/TagInput";
+import { TagInput } from "@/app/components/ui/TagInput/TagInput";
 import { DeleteConfirm } from "@/app/components/modal/deleteConfirm/deleteConfirm";
 import { ModalContainer } from "@/app/components/modal/modalContainer/modalContainer";
 import { OptionsAction } from "@/app/components/ui/optionAction/optionsAction";
@@ -27,7 +27,6 @@ const Tool = () => {
   const { opened: openedAssetId, handle: handleAssetId } = useDisclosure();
   // const { opened: openedDelete, handle: handleDelete } = useDisclosure();
   const handleEditItem = () => {
-    console.log("is edit");
   };
 
   // ใช้ ref เพื่อดึงค่าออกจาก TagInput

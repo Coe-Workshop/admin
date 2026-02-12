@@ -1,0 +1,108 @@
+@use "../../../styles/variables" as *;
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: var(--in);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+@keyframes slide {
+  from {
+    transform: translateY(var(--slide));
+  }
+  to {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 100%;
+    transform: translateX(0px);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(var(--fade));
+  }
+}
+
+.toast {
+  font-family: var(--font-Inter), sans-serif;
+  box-shadow:
+    rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: white;
+  z-index: 1000;
+  animation:
+    fadeIn 0.8s ease,
+    fadeOut 0.8s ease forwards 3.6s;
+}
+.toast_slide {
+  animation:
+    slide 0.8s ease forwards,
+    fadeOut 0.8s ease forwards 3.6s;
+}
+.toast_background {
+  width: clamp(200px, 70%, 350px);
+  height: fit-content;
+  position: fixed;
+  top: var(--top, auto);
+  bottom: var(--bottom, auto);
+  right: var(--right, auto);
+  left: var(--left, auto);
+  margin: 20px;
+  display: flex;
+  flex-direction: var(--direction);
+  gap: 10px;
+}
+.toast_inner {
+  display: flex;
+  padding: 15px;
+  justify-content: space-between;
+}
+.content {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.title {
+  font-size: 0.8rem;
+  color: $sub-1000;
+}
+.description {
+  font-size: 0.6rem;
+  padding: 5px 0;
+  font-weight: 400;
+  color: $sub-300;
+}
+.progress {
+  height: 5px;
+  background: var(--green-400);
+  animation: onLoad 4s ease-in;
+  border-radius: 20px;
+  @keyframes onLoad {
+    from {
+      width: 100%;
+    }
+    to {
+      width: 0%;
+    }
+  }
+}
+// .toast_background {
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   height: 100vh;
+//   width: 100vw;
+//   position: fixed;
+// }
+//var(--primary-color)

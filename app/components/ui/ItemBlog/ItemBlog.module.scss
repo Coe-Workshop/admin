@@ -1,0 +1,30 @@
+.itemBlog {
+}
+.info {
+  display: flex;
+  justify-content: space-between;
+  .info_name {
+    font-size: 0.8rem;
+    text-wrap: wrap;
+    text-align: start;
+  }
+  .info_description {
+    margin: 0.2rem 0;
+    text-align: start;
+    font-size: 0.7rem;
+    color: var(--theme-600);
+  }
+  .info_number {
+    display: flex;
+    gap: 0.4rem;
+    align-items: end;
+    .info_avaliable {
+      font-weight: 400;
+      font-size: 1.4rem;
+    }
+    .info_quatity {
+      font-weight: 400;
+      padding-bottom: 0.2rem;
+    }
+  }
+}

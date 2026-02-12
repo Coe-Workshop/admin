@@ -1,27 +1,30 @@
-@use "../../styles/variables" as *;
+@use "./../../styles/_breakpoints" as *;
+@use "./../../styles/functions" as *;
+@use "./../../styles/variables" as *;
+
 .login {
   margin-top: 3rem;
 }
 .logo {
   width: 100%;
-  margin: 25px auto;
+  margin: rem(25px) auto;
   align-self: center;
 }
 .form {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  gap: 15px;
+  gap: rem(15px);
   margin-top: 1rem;
   align-items: center;
   margin-inline: auto;
   width: clamp(20rem, 90%, 24rem);
 }
 .submit {
-  margin: 10px 0;
+  margin: rem(10px)0;
   background-color: var(--theme-1000);
   border: 0;
-  padding: 8px 10px;
+  padding: rem(8px) rem(10px);
   width: 100%;
   color: var(--theme-0);
   border-radius: 0.4rem;

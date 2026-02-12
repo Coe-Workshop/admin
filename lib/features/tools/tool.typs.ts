@@ -1,12 +1,12 @@
+
 // handle enum
 export enum catagories {}
-export const enum ToolCategories {
+export enum ToolCategories {
   MACHINE = "MACHINE",
   HANDTOOL = "HANDTOOL",
   ELECTRONIC = "ELECTRONIC",
-  OTHER = "OTHER"
+  OTHER = "OTHER",
 }
-
 
 export interface Tool {
   id: number;
@@ -14,7 +14,7 @@ export interface Tool {
   description: string | null;
   imageUrl: string | null;
   category: ToolCategories;
-  categoryID: number | null;
+  categoryID?: number | null;
   assets_id: number[] | null;
 }
 
@@ -29,10 +29,26 @@ export interface ToolResponse {
   success: boolean;
   error: string | null;
 }
-export interface ToolRequest {
-  id: number;
+
+export interface ErrorResponse {
+  success: boolean;
+  error: string | null;
+}
+
+export interface ToolErrorResponse {
+  status: number;
+  data: ErrorResponse;
+}
+
+export interface ToolCreateRequest {
   name: string;
   description: string | null;
   imageUrl: string | null;
-  category: number[] | null;
+  categoryName: ToolCategories;
+  assets_id: number[] | null;
+}
+
+export interface ToolUpdateRequest {
+  id: number;
+  updatedData: ToolCreateRequest;
 }

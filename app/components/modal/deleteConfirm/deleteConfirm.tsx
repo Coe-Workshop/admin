@@ -1,4 +1,4 @@
-import { TextInput } from "../../ui/textInput/textInput";
+import { TextInput } from "@/app/components/form/TextInput/TextInput";
 import styles from "./deleteConfirm.module.scss";
 import { DeleteConfirmProps } from "./deleteConfirm.types";
 export const DeleteConfirm = ({
@@ -17,7 +17,7 @@ export const DeleteConfirm = ({
         </p>
       </div>
       <form action="">
-        <TextInput></TextInput>
+        {/* <TextInput></TextInput> */}
         <div className={styles.action}>
           <button
             className={styles.cancel}
