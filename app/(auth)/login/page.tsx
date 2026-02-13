@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import styles from "./login.module.scss";
 import { PasswordInput } from "../../components/ui/passwordInput/passwordInput";
 import { TextInput } from "@/app/components/form/TextInput/TextInput";
@@ -18,9 +17,11 @@ const Login = () => {
       ></SvgIconColor>
       <form className={styles.form} action="">
         <TextInput
-          title="ชื่อผู้ใช้งาน"
+          label="ชื่อผู้ใช้งาน"
           placeholder="ชื่อผู้ใช้ที่ลงทะเบียนไว้"
           require
+          value=
+          ""
         ></TextInput>
         <PasswordInput
           title="รหัสผ่าน"

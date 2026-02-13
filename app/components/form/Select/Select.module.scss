@@ -1,5 +1,5 @@
 @use "../../../styles/variables" as *;
-
+@use "../../../styles/functions" as *; 
 .select {
   display: flex;
   flex-direction: column;
@@ -15,7 +15,7 @@
   gap: 4rem;
   padding: 0.4rem 1rem;
   border-radius: 0.4rem;
-  border: 1px solid $sub-200;
+  border: rem(1px) solid $sub-200;
   justify-content: space-between;
   align-items: center;
 
@@ -32,7 +32,7 @@
     left: 0;
     padding: 0.4rem 0;
     background-color: var(--theme-0);
-    box-shadow: var(--theme-100) 0px 0px 0px 1px;
+    box-shadow: var(--theme-100) rem(0px) rem(0px) rem(0px) rem(1px);
     border-radius: 0.4rem;
     .input_choice {
       margin: 0.2rem 0;
@@ -53,7 +53,7 @@
 }
 
 .input_focus {
-  border: 2px solid $sub-1000;
+  border: rem(2px) solid $sub-1000;
 }
 
 .input_error {

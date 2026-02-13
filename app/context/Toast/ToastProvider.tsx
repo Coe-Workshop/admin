@@ -10,9 +10,7 @@ import {
   useState,
 } from "react";
 import { ToastContext } from "./ToastContext";
-import { Variant } from "./types";
-import { ToastContextTypeProps } from "./types";
-import { Toast } from "@/app/components/ui/Toast/Toast";
+import { ToastContextTypeProps, Variant } from "./types";
 const ToastProvider = ({ children }: { children: ReactNode }) => {
   const toastID = useRef(0);
   const [toastStack, setToastStack] = useState<
@@ -22,7 +20,6 @@ const ToastProvider = ({ children }: { children: ReactNode }) => {
   const addToastStack = useCallback(
     (title: string, description: string, variant: Variant) => {
       const id = toastID.current++;
-      console.log("ontoast");
       setToastStack((prev) => [
         ...prev,
         {
@@ -41,7 +38,6 @@ const ToastProvider = ({ children }: { children: ReactNode }) => {
   );
 
   useEffect(() => {
-    console.log("Current toastStack:", toastStack);
   }, [toastStack]);
 
   const value = useMemo<ToastContextTypeProps>(
