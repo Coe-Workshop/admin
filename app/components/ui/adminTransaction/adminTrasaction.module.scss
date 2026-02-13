@@ -117,3 +117,40 @@
     }
   }
 }
+.response {
+  margin: 8rem auto;
+  background-color: var(--theme-0);
+  width: clamp(20rem, 36rem, 90%);
+  position: relative;
+  z-index: 100;
+  padding: 1rem;
+  border-radius: 0.4rem;
+  .response_header {
+    .response_title {
+    }
+    .response_description {
+      margin-top: 0.4rem;
+      font-size: 0.8rem;
+      color: var(--theme-500);
+    }
+  }
+  .response_input {
+    margin-top: 0.4rem;
+  }
+  .response_action {
+    display: flex;
+    gap: 1rem;
+    width: fit-content;
+    margin-top: 1rem;
+    margin-left: auto;
+    .response_close {
+      padding: 0.4rem 1rem;
+    }
+    .response_submit {
+      background-color: var(--theme-1000);
+      color: var(--theme-0);
+      border-radius: 0.4rem;
+      padding: 0.4rem 1rem;
+    }
+  }
+}

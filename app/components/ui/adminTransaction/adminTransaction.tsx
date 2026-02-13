@@ -1,15 +1,26 @@
 "use client";
 
+import useDisclosure from "@/app/hook/useDisclosure";
 import { mockAdminTableTransactions } from "@/app/mockdata/mockdata";
 import { prefix } from "@/app/utils/prefix";
 import React, { useState } from "react";
 import IconSvgMono from "../../Icon/SvgIcon";
+import { ModalContainer } from "../../modal/modalContainer/modalContainer";
 import { StatusTag } from "../statusTag/statusTag";
 import { Tooltip } from "../tooltip/tooltip";
 import styles from "./adminTrasaction.module.scss";
-export const AllTransaction = () => {
+import { AreaInput } from "../../form/AreaInput/AreaInput";
+import { AdminTransactionProps, ResponseStatus } from "./adminTransaction.type";
+export const AdminTransaction = ({
+  message,
+  onChange,
+  onSubmit,
+  responseStatus,
+  setResponseStatus,
+}: AdminTransactionProps) => {
   const [openTransaction, setOpenTransaction] = useState<number[]>([]);
   const [closeTransaction, setCloseTransaction] = useState<number[]>([]);
+  const { opened, handle } = useDisclosure();
 
   const toggleTransaction = (idx: number) => {
     if (openTransaction.includes(idx)) {
@@ -80,7 +91,14 @@ export const AllTransaction = () => {
                   </div>
                 </td>
                 <td colSpan={5}>
-                  <button className={styles.allApprove} type="button">
+                  <button
+                    onClick={() => {
+                      setResponseStatus(ResponseStatus.ApproveAll);
+                      handle.open();
+                    }}
+                    className={styles.allApprove}
+                    type="button"
+                  >
                     อนุมัติทั้งหมด
                   </button>
                 </td>
@@ -108,20 +126,36 @@ export const AllTransaction = () => {
                       <td className={styles.message}>{t.message}</td>
                       <td>
                         <div className={styles.action_content}>
-                          <IconSvgMono
-                            className={styles.action_content_check}
-                            src={`${prefix}/icon/double-check.svg`}
-                            width={20}
-                            height={20}
-                            alt="check"
-                          />
-                          <IconSvgMono
-                            className={styles.action_content_stop}
-                            src={`${prefix}/icon/stop.svg`}
-                            width={20}
-                            height={20}
-                            alt="stop"
-                          />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setResponseStatus(ResponseStatus.Approve);
+                              handle.open();
+                            }}
+                          >
+                            <IconSvgMono
+                              className={styles.action_content_check}
+                              src={`${prefix}/icon/double-check.svg`}
+                              width={20}
+                              height={20}
+                              alt="check"
+                            />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setResponseStatus(ResponseStatus.Reject);
+                              handle.open();
+                            }}
+                          >
+                            <IconSvgMono
+                              className={styles.action_content_stop}
+                              src={`${prefix}/icon/stop.svg`}
+                              width={20}
+                              height={20}
+                              alt="stop"
+                            />
+                          </button>
                         </div>
                       </td>
                     </tr>
@@ -131,6 +165,50 @@ export const AllTransaction = () => {
           ))}
         </tbody>
       </table>
+      <ModalContainer opened={opened} onClose={handle.close}>
+        <div className={styles.response}>
+          <form
+            onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+              e.preventDefault;
+              onSubmit();
+            }}
+          >
+            <div className={styles.response_header}>
+              <h2 className={styles.response_title}>ส่งข้อความตอบกลับ</h2>
+              <p className={styles.response_description}>
+                สามารถทิ้งข้อความถึงผู้จองให้ทราบ เกี่ยวกับการจองอุปกรณ์ได้
+                โดยจะเป็นการบอกถึงสาเหตุที่ยกเลิก
+              </p>
+              <div className={styles.response_input}>
+                <AreaInput
+                  value={message}
+                  onChange={onChange}
+                  placeholder="ทิ้งข้อความสั้นๆ บอกถึงการจองครั้งนี้"
+                ></AreaInput>
+              </div>
+              <div className={styles.response_action}>
+                <button
+                  type="button"
+                  className={styles.response_close}
+                  onClick={() => handle.close()}
+                >
+                  ปิด
+                </button>
+                <button
+                  className={styles.response_submit}
+                  type="submit"
+                  onClick={() => {
+                    onSubmit();
+                    handle.close();
+                  }}
+                >
+                  ยืนยัน
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </ModalContainer>
     </div>
   );
 };
