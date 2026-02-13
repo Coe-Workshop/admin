@@ -3,19 +3,18 @@
 import styles from "./login.module.scss";
 import { PasswordInput } from "../../components/ui/passwordInput/passwordInput";
 import { TextInput } from "@/app/components/form/TextInput/TextInput";
-import IconSvgMono, { logo } from "@/app/components/Icon/SvgIcon";
+import SvgIconColor from "@/app/components/Icon/SvgIconColor";
 
 const Login = () => {
   return (
     <div className={styles.login}>
-      <IconSvgMono
+      <SvgIconColor
         className={styles.logo}
-        svg={logo({ a:"logo-mark", b:"logo-dot", c:"logo-mark"})}
+        src={"logo/logo.svg"}
         alt="logoAdmin"
         width={200}
         height={60}
-        fixColor={true}
-      ></IconSvgMono>
+      ></SvgIconColor>
       <form className={styles.form} action="">
         <TextInput
           label="ชื่อผู้ใช้งาน"

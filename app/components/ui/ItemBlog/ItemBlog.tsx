@@ -25,12 +25,12 @@ export const ItemBlog = ({
           </span>
         </div>
         {/* <div>
-          <IconSvgMono
+          <SvgIconMono
             src="./icon/dot.svg"
             width={14}
             height={14}
             alt="dot"
-          ></IconSvgMono>
+          ></SvgIconMono>
         </div> */}
       </section>
     </button>

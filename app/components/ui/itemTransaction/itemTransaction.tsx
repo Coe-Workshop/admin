@@ -1,6 +1,6 @@
 "use client";
 
-import IconSvgMono from "@/app/components/Icon/SvgIcon";
+import SvgIconMono from "@/app/components/Icon/SvgIconMono";
 import { mockData } from "@/app/mockdata/mockdata";
 import { Status } from "@/app/types/api/transaction";
 import { prefix } from "@/app/utils/prefix";
@@ -41,13 +41,13 @@ export const ItemTransaction = () => {
   //                       : "",
   //                   }}
   //                 >
-  //                   <IconSvgMono
+  //                   <SvgIconMono
   //                     className={styles.toggle_image}
   //                     src={`${prefix}/icon/arrow.svg`}
   //                     alt="arrow"
   //                     width={10}
   //                     height={10}
-  //                   ></IconSvgMono>
+  //                   ></SvgIconMono>
   //                 </div>
   //               </td>
   //               <td className={styles.assetID}>{item.assetId}</td>
@@ -86,13 +86,13 @@ export const ItemTransaction = () => {
   //                   : "",
   //               }}
   //             >
-  //               <IconSvgMono
+  //               <SvgIconMono
   //                 className={styles.toggle_image}
   //                 src={`${prefix}/icon/arrow.svg`}
   //                 alt="arrow"
   //                 width={10}
   //                 height={10}
-  //               ></IconSvgMono>
+  //               ></SvgIconMono>
   //             </div>
   //           </th>
   //           <th className={styles.assetId}>{item.assetId}</th>
@@ -153,13 +153,13 @@ export const ItemTransaction = () => {
                           : "rotate(-90deg)",
                       }}
                     >
-                      <IconSvgMono
+                      <SvgIconMono
                         className={styles.toggle_image}
                         src={`${prefix}/icon/arrow.svg`}
                         alt="arrow"
                         width={15}
                         height={15}
-                      ></IconSvgMono>
+                      ></SvgIconMono>
                     </div>
                   </td>
                   <td className={styles.assetID}>{item.assetId}</td>
@@ -171,13 +171,13 @@ export const ItemTransaction = () => {
                   <td className={styles.message}>{t.message}</td>
                   <td className={styles.trashSpace}>
                     {t.status == Status.Blank && (
-                      <IconSvgMono
+                      <SvgIconMono
                         className={styles.tashIcon}
                         src={`${prefix}/icon/tash.svg`}
                         width={20}
                         height={20}
                         alt="tash"
-                      ></IconSvgMono>
+                      ></SvgIconMono>
                     )}
                   </td>
                 </tr>

@@ -353,7 +353,7 @@ function CreateItem({ onClose, value }: CreateItemProps) {
                               </div>
                             </div>
                             <div onClick={() => handleRemoveFile(file.name)}>
-                              <IconSvgMono
+                              <SvgIconMono
                                 src={"/create-item/close.svg"}
                                 width={10}
                                 height={10}
@@ -367,7 +367,7 @@ function CreateItem({ onClose, value }: CreateItemProps) {
                     </div>
 
                     <label htmlFor="image-upload" className={styles.button}>
-                      <IconSvgMono
+                      <SvgIconMono
                         svg={addImageSvg_Dark}
                         alt="image"
                         width={20}
