@@ -1,28 +1,28 @@
 {
   "lockfileVersion": 1,
-  "configVersion": 0,
   "workspaces": {
     "": {
       "name": "en_w_admin",
       "dependencies": {
-        "@reduxjs/toolkit": "2.11.1",
-        "browser-image-compression": "2.0.2",
+        "@reduxjs/toolkit": "^2.11.1",
+        "browser-image-compression": "^2.0.2",
         "install": "^0.13.0",
         "next": "16.0.3",
+        "node": "20.19.5",
         "react": "19.2.0",
         "react-dom": "19.2.0",
-        "react-redux": "9.2.0",
-        "redux": "5.0.1",
-        "sass": "1.94.2",
+        "react-redux": "^9.2.0",
+        "redux": "^5.0.1",
+        "sass": "^1.94.2",
       },
       "devDependencies": {
-        "@types/node": "20",
-        "@types/react": "19",
-        "@types/react-dom": "19",
+        "@types/node": "20.19.13",
+        "@types/react": "19.1.12",
+        "@types/react-dom": "19.1.9",
         "babel-plugin-react-compiler": "1.0.0",
-        "eslint": "9",
+        "eslint": "9.35.0",
         "eslint-config-next": "16.0.3",
-        "typescript": "5",
+        "typescript": "5.9.2",
       },
     },
   },
@@ -645,7 +645,11 @@
 
     "next": ["next@16.0.3", "", { "dependencies": { "@next/env": "16.0.3", "@swc/helpers": "0.5.15", "caniuse-lite": "^1.0.30001579", "postcss": "8.4.31", "styled-jsx": "5.1.6" }, "optionalDependencies": { "@next/swc-darwin-arm64": "16.0.3", "@next/swc-darwin-x64": "16.0.3", "@next/swc-linux-arm64-gnu": "16.0.3", "@next/swc-linux-arm64-musl": "16.0.3", "@next/swc-linux-x64-gnu": "16.0.3", "@next/swc-linux-x64-musl": "16.0.3", "@next/swc-win32-arm64-msvc": "16.0.3", "@next/swc-win32-x64-msvc": "16.0.3", "sharp": "^0.34.4" }, "peerDependencies": { "@opentelemetry/api": "^1.1.0", "@playwright/test": "^1.51.1", "babel-plugin-react-compiler": "*", "react": "^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0", "react-dom": "^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0", "sass": "^1.3.0" }, "optionalPeers": ["@opentelemetry/api", "@playwright/test"], "bin": "dist/bin/next" }, "sha512-Ka0/iNBblPFcIubTA1Jjh6gvwqfjrGq1Y2MTI5lbjeLIAfmC+p5bQmojpRZqgHHVu5cG4+qdIiwXiBSm/8lZ3w=="],
 
+    "node": ["node@20.19.5", "", { "dependencies": { "node-bin-setup": "^1.0.0" }, "bin": { "node": "bin/node" } }, "sha512-9fJOHEP8AVrwpbhlUxnbudW8IbkseQVxl4yNQyI/rDfP+gNwKEmfPtBc/Luyf677i5Y0HKIBHiApiB9S9vvxKw=="],
+
     "node-addon-api": ["node-addon-api@7.1.1", "", {}, "sha512-5m3bsyrjFWE1xf7nz7YXdN4udnVtXK6/Yfgn5qnahL6bCkf2yKt4k3nuTKAtT4r3IG8JNR2ncsIMdZuAzJjHQQ=="],
+
+    "node-bin-setup": ["node-bin-setup@1.1.4", "", {}, "sha512-vWNHOne0ZUavArqPP5LJta50+S8R261Fr5SvGul37HbEDcowvLjwdvd0ZeSr0r2lTSrPxl6okq9QUw8BFGiAxA=="],
 
     "node-releases": ["node-releases@2.0.27", "", {}, "sha512-nmh3lCkYZ3grZvqcCH+fjmQ7X+H0OeZgP40OierEaAptX4XofMh5kwNbWh7lBduUzCcV/8kZ+NDLCwm2iorIlA=="],
 
