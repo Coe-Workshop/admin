@@ -11,11 +11,13 @@ import Image from "next/image";
 import React, { useRef, useState } from "react";
 import { Options } from "../../../components/ui/optionAction/types";
 import styles from "./test.module.scss";
-import { useGetToolQuery, useUpdateToolAssetsMutation } from "@/lib/features/tools/toolsApiSlice";
+import {
+  useGetToolQuery,
+  useUpdateToolAssetsMutation,
+} from "@/lib/features/tools/toolsApiSlice";
 
 const Tool = () => {
-  const [updateToolAssets, { isLoading, isError, error }] = useUpdateToolAssetsMutation();
-  const [assetIds, setAssetIds] = useState<number[]>([]);
+  const [updateToolAssets, { isLoading }] = useUpdateToolAssetsMutation();
   const { data: tool } = useGetToolQuery(1); // test สมมติ toolId = 1
 
   const [itemanme] = useState("itemName");
@@ -26,8 +28,7 @@ const Tool = () => {
   const { opened, handle } = useDisclosure();
   const { opened: openedAssetId, handle: handleAssetId } = useDisclosure();
   // const { opened: openedDelete, handle: handleDelete } = useDisclosure();
-  const handleEditItem = () => {
-  };
+  const handleEditItem = () => {};
 
   // ใช้ ref เพื่อดึงค่าออกจาก TagInput
   const tagRef = useRef<{ getValues: () => number[] }>(null);
@@ -43,7 +44,7 @@ const Tool = () => {
     }
   };
 
-  const [errors, setErrors] = useState({
+  const [errors] = useState({
     name: "",
     category: "",
   });
@@ -94,7 +95,7 @@ const Tool = () => {
               และจะไม่สามารถนำอุปกรณ์นั้นออกจากระบบได้หากมีผู้ใช้งานอยู่
             </p>
           </div>
-          <TagInput 
+          <TagInput
             ref={tagRef}
             placeholder="ป้อนเลขครุภัณฑ์ของอุปกรณ์"
             initialAssets={tool?.assets_id ?? []}
@@ -112,8 +113,8 @@ const Tool = () => {
             >
               ยกเลิก
             </button>
-            <button 
-              type="button" 
+            <button
+              type="button"
               disabled={isLoading}
               className={styles.assetId_submit}
               onClick={handleConfirmAssets}

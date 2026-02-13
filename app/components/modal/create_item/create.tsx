@@ -1,26 +1,25 @@
 "use client";
-import {
-  useCreateToolMutation,
-  useUpdateToolMutation,
-} from "@/lib/features/tools/toolsApiSlice";
+import { useToast } from "@/app/context/Toast/ToastProvider";
 import {
   ErrorResponse,
   ToolCategories,
   ToolCreateRequest,
   ToolResponse,
 } from "@/lib/features/tools/tool.typs";
+import {
+  useCreateToolMutation,
+  useUpdateToolMutation,
+} from "@/lib/features/tools/toolsApiSlice";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import imageCompression from "browser-image-compression";
 import Image from "next/image";
 import { useState } from "react";
-import { Toast } from "../../ui/Toast/Toast";
 import IconSvgMono, { addImageSvg_Dark } from "../../Icon/SvgIcon";
 import { AreaInput } from "../../form/AreaInput/AreaInput";
 import { Select } from "../../form/Select/Select";
 import { TextInput } from "../../form/TextInput/TextInput";
 import styles from "./create.module.scss";
 import { CreateItemProps } from "./types";
-import { useToast } from "@/app/context/Toast/ToastProvider";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 function CreateItem({ onClose, value }: CreateItemProps) {
   const [name, setName] = useState(value?.name || "");
   const [description, setDescription] = useState(value?.description || "");
@@ -35,12 +34,9 @@ function CreateItem({ onClose, value }: CreateItemProps) {
   const [tempFiles, setTempFiles] = useState<File[]>([]);
   const [errors, setErrors] = useState({ api: "", name: "", category: "" });
   const { addToastStack } = useToast();
-  const [createTools, { data: data, error: createError, isError }] =
+  const [createTools, { error: createError, isError }] =
     useCreateToolMutation();
-  const [
-    updateTool,
-    { data: updateData, isError: isUpdateError },
-  ] = useUpdateToolMutation();
+  const [updateTool, { isError: isUpdateError }] = useUpdateToolMutation();
   const formatFilename = (name: string, containerWidth = 290) => {
     const maxLength = Math.floor(containerWidth / 10);
     if (name.length <= maxLength) return name;
@@ -111,7 +107,7 @@ function CreateItem({ onClose, value }: CreateItemProps) {
           ...prev,
           [file.name]: "done",
         }));
-      } catch (err) {
+      } catch {
         setUploadStatus((prev) => ({
           ...prev,
           [file.name]: "error",
@@ -173,8 +169,6 @@ function CreateItem({ onClose, value }: CreateItemProps) {
       imageUrl: "https://gear.kku.ac.th/wp-content/uploads/2025/05/wasu.jpg",
     };
 
-    images.forEach((file) => {});
-
     if (value) {
       try {
         await updateTool({ updatedData: body, id: value.id }).unwrap();
@@ -196,7 +190,8 @@ function CreateItem({ onClose, value }: CreateItemProps) {
         let updateErrorMessage = "";
         const err = error as FetchBaseQueryError;
         if (err.data && typeof err.data === "object" && "error" in err.data) {
-          updateErrorMessage = (err.data as ErrorResponse).error || "something went wrong";
+          updateErrorMessage =
+            (err.data as ErrorResponse).error || "something went wrong";
         }
         setErrors((prev) => ({
           ...prev,
@@ -223,7 +218,7 @@ function CreateItem({ onClose, value }: CreateItemProps) {
         );
         onClose();
       }
-    } catch (error) {
+    } catch {
       if (createError && "data" in createError) {
         setErrors((prev) => ({
           ...prev,

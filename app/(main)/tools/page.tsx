@@ -1,16 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useGetToolsQuery } from "@/lib/features/tools/toolsApiSlice";
-import styles from "./tool.module.scss";
 import { ItemBlog } from "@/app/components/ui/ItemBlog/ItemBlog";
+import { useGetToolsQuery } from "@/lib/features/tools/toolsApiSlice";
+import { useRouter } from "next/navigation";
+import styles from "./tool.module.scss";
 const Tools = () => {
   const { data: toolsInfo } = useGetToolsQuery();
   const router = useRouter();
-  useEffect(() => {
-    const tools = JSON.stringify(Tools);
-  }, [toolsInfo]);
 
   return (
     <div>
@@ -19,7 +15,10 @@ const Tools = () => {
       </div>
       <div className={styles.tools}>
         {toolsInfo?.map((t) => (
-          <div onClick={() => router && router.push(`/tools/${t.id}`)} key={t.id}>
+          <div
+            onClick={() => router && router.push(`/tools/${t.id}`)}
+            key={t.id}
+          >
             <ItemBlog
               key={t.id}
               id={t.id}

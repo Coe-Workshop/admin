@@ -10,9 +10,7 @@ import {
   useState,
 } from "react";
 import { ToastContext } from "./ToastContext";
-import { Variant } from "./types";
-import { ToastContextTypeProps } from "./types";
-import { Toast } from "@/app/components/ui/Toast/Toast";
+import { ToastContextTypeProps, Variant } from "./types";
 const ToastProvider = ({ children }: { children: ReactNode }) => {
   const toastID = useRef(0);
   const [toastStack, setToastStack] = useState<

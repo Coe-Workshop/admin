@@ -1,13 +1,10 @@
-import { ItemBlogProps } from "./ItemBlog.types";
-import Image from "next/image";
-import IconSvgMono from "../../Icon/SvgIcon";
 import styles from "./ItemBlog.module.scss";
+import { ItemBlogProps } from "./ItemBlog.types";
 export const ItemBlog = ({
   name,
   description = "",
   avaliable,
   quatity,
-  imageUrl,
 }: ItemBlogProps) => {
   return (
     <button className={styles.itemBlog}>

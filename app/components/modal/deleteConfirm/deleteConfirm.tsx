@@ -1,4 +1,3 @@
-import { TextInput } from "@/app/components/form/TextInput/TextInput";
 import styles from "./deleteConfirm.module.scss";
 import { DeleteConfirmProps } from "./deleteConfirm.types";
 export const DeleteConfirm = ({
