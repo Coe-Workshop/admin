@@ -220,7 +220,6 @@ function CreateItem({ onClose, value }: CreateItemProps) {
         onClose();
       }
     } catch (error) {
-      console.log(error);
       let createErrorMessage = "";
       const err = error as FetchBaseQueryError;
       if (err.data && typeof err.data === "object" && "message" in err.data) {
