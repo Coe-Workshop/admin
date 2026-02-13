@@ -4,7 +4,6 @@ import {
   ErrorResponse,
   ToolCategories,
   ToolCreateRequest,
-  ToolResponse,
 } from "@/lib/features/tools/tool.typs";
 import {
   useCreateToolMutation,
@@ -35,7 +34,7 @@ function CreateItem({ onClose, value }: CreateItemProps) {
   const [tempFiles, setTempFiles] = useState<File[]>([]);
   const [errors, setErrors] = useState({ api: "", name: "", category: "" });
   const { addToastStack } = useToast();
-  const [createTools, { error: createError, isError }] =
+  const [createTools, { isError }] =
     useCreateToolMutation();
   const [updateTool, { isError: isUpdateError }] = useUpdateToolMutation();
   const formatFilename = (name: string, containerWidth = 290) => {
@@ -190,9 +189,10 @@ function CreateItem({ onClose, value }: CreateItemProps) {
       } catch (error) {
         let updateErrorMessage = "";
         const err = error as FetchBaseQueryError;
-        if (err.data && typeof err.data === "object" && "error" in err.data) {
+        if (err.data && typeof err.data === "object" && "message" in err.data) {
           updateErrorMessage =
-            (err.data as ErrorResponse).error || "something went wrong";
+            (err.data as ErrorResponse).message ||
+            "something went wrong";
         }
         setErrors((prev) => ({
           ...prev,
@@ -219,13 +219,19 @@ function CreateItem({ onClose, value }: CreateItemProps) {
         );
         onClose();
       }
-    } catch {
-      if (createError && "data" in createError) {
-        setErrors((prev) => ({
-          ...prev,
-          api: (createError.data as ToolResponse).error ?? "",
-        }));
+    } catch (error) {
+      console.log(error);
+      let createErrorMessage = "";
+      const err = error as FetchBaseQueryError;
+      if (err.data && typeof err.data === "object" && "message" in err.data) {
+        createErrorMessage =
+          (err.data as ErrorResponse).message ||
+          "something went wrong";
       }
+      setErrors((prev) => ({
+        ...prev,
+        api: createErrorMessage,
+      }));
     } finally {
       setSubmitting(false);
     }

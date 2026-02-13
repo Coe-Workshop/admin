@@ -33,6 +33,7 @@ export interface ToolResponse {
 export interface ErrorResponse {
   success: boolean;
   error: string | null;
+  message: string | null;
 }
 
 export interface ToolErrorResponse {
