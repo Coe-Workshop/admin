@@ -2,7 +2,7 @@
 
 import styles from "./Select.module.scss";
 import { SelectProps } from "./Select.types";
-import IconSvgMono from "@/app/components/Icon/SvgIcon";
+import SvgIconMono from "@/app/components/Icon/SvgIconMono";
 import { useClickOutSide } from "@/app/hook/useClickOutside";
 export const Select = <T extends string>({
   value,
@@ -27,13 +27,13 @@ export const Select = <T extends string>({
       >
         <h4 className={styles.input_value}>{!!value ? value : placeholder}</h4>
 
-        <IconSvgMono
+        <SvgIconMono
           className={`${styles.icon} ${onTop ? styles.icon_onTop : ""}`}
           src={"/icon/arrow.svg"}
           alt="arrow"
           width={12}
           height={12}
-      ></IconSvgMono>
+      ></SvgIconMono>
         {isOpen && (
           <div
             ref={ref}

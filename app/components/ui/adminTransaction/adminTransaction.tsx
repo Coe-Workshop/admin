@@ -4,8 +4,7 @@ import useDisclosure from "@/app/hook/useDisclosure";
 import { mockAdminTableTransactions } from "@/app/mockdata/mockdata";
 import { prefix } from "@/app/utils/prefix";
 import React, { useState } from "react";
-import IconSvgMono from "../../Icon/SvgIcon";
-import { ModalContainer } from "../../modal/modalContainer/modalContainer";
+import SvgIconMono from "../../Icon/SvgIconMono";
 import { StatusTag } from "../statusTag/statusTag";
 import { Tooltip } from "../tooltip/tooltip";
 import styles from "./adminTrasaction.module.scss";
@@ -78,12 +77,12 @@ export const AdminTransaction = ({
                       }}
                       onClick={() => toggleTransaction(index)}
                     >
-                      <IconSvgMono
+                      <SvgIconMono
                         src={`${prefix}/icon/arrow.svg`}
                         width={15}
                         height={15}
                         alt="arrowDown"
-                      ></IconSvgMono>
+                      ></SvgIconMono>
                     </div>
                     <Tooltip title={item.user.tel}>
                       <h2 className={styles.username}>{item.user.username}</h2>
@@ -126,36 +125,20 @@ export const AdminTransaction = ({
                       <td className={styles.message}>{t.message}</td>
                       <td>
                         <div className={styles.action_content}>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setResponseStatus(ResponseStatus.Approve);
-                              handle.open();
-                            }}
-                          >
-                            <IconSvgMono
-                              className={styles.action_content_check}
-                              src={`${prefix}/icon/double-check.svg`}
-                              width={20}
-                              height={20}
-                              alt="check"
-                            />
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setResponseStatus(ResponseStatus.Reject);
-                              handle.open();
-                            }}
-                          >
-                            <IconSvgMono
-                              className={styles.action_content_stop}
-                              src={`${prefix}/icon/stop.svg`}
-                              width={20}
-                              height={20}
-                              alt="stop"
-                            />
-                          </button>
+                          <SvgIconMono
+                            className={styles.action_content_check}
+                            src={`${prefix}/icon/double-check.svg`}
+                            width={20}
+                            height={20}
+                            alt="check"
+                          />
+                          <SvgIconMono
+                            className={styles.action_content_stop}
+                            src={`${prefix}/icon/stop.svg`}
+                            width={20}
+                            height={20}
+                            alt="stop"
+                          />
                         </div>
                       </td>
                     </tr>

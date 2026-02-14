@@ -7,11 +7,13 @@ import { OptionsAction } from "@/app/components/ui/optionAction/optionsAction";
 import { TimeTransaction } from "@/app/components/ui/timeTransaction/timeTransaction";
 import useDisclosure from "@/app/hook/useDisclosure";
 import { prefix } from "@/app/utils/prefix";
-// import { TabsOption } from "@/app/components/ui/Tabs/Tabs.type";
+import { ItemTransaction } from "@/app/components/ui/itemTransaction/itemTransaction";
+import { Tabs } from "@/app/components/ui/Tabs/Tabs";
+import { TabsOption } from "@/app/components/ui/Tabs/Tabs.type";
 import React, { useState } from "react";
 import { Options } from "../../../components/ui/optionAction/types";
 import styles from "./tool.module.scss";
-import IconSvgMono from "@/app/components/Icon/SvgIcon";
+import SvgIconMono from "@/app/components/Icon/SvgIconMono";
 import { useParams } from "next/navigation";
 import { useGetToolQuery } from "@/lib/features/tools/toolsApiSlice";
 import { ErrorResponse, type Tool } from "@/lib/features/tools/tool.typs";
@@ -33,12 +35,11 @@ const Tool = () => {
       fetchToolErrorMessage = (err.data as ErrorResponse).error || "";
     }
   }
-  
+
   const { opened, handle } = useDisclosure();
   const { opened: openedAssetId, handle: handleAssetId } = useDisclosure();
   const { opened: createItem, handle: handlecreateItem } = useDisclosure();
-  // const [isList, setIsList] = useState(true);
-  // const { opened: openedDelete, handle: handleDelete } = useDisclosure();
+  const [isList, setIsList] = useState(true);
   const handleEditItem = () => {
     handlecreateItem.open();
   };
@@ -48,22 +49,22 @@ const Tool = () => {
     { title: "เพิ่มเลขครุภัณฑ์", action: handleAssetId.open },
     { title: "ลบอุปกรณ์", action: handle.open },
   ]);
-  // const tabsOptions: TabsOption[] = [
-  //   {
-  //     options: "ลิสต์",
-  //     icon: `${prefix}/icon/book.svg`,
-  //     isSelect: isList,
-  //     action: () => {
-  //       setIsList(true);
-  //     },
-  //   },
-  //   {
-  //     options: "ตาราง",
-  //     icon: `${prefix}/icon/align-left.svg`,
-  //     isSelect: !isList,
-  //     action: () => setIsList(false),
-  //   },
-  // ];
+  const tabsOptions: TabsOption[] = [
+    {
+      options: "ลิสต์",
+      icon: `${prefix}/icon/book.svg`,
+      isSelect: isList,
+      action: () => {
+        setIsList(true);
+      },
+    },
+    {
+      options: "ตาราง",
+      icon: `${prefix}/icon/align-left.svg`,
+      isSelect: !isList,
+      action: () => setIsList(false),
+    },
+  ];
 
   return (
     <div>
@@ -82,19 +83,24 @@ const Tool = () => {
               </div>
               <div className={styles.action}>
                 <OptionsAction options={options} lastDelete={true}>
-                  <IconSvgMono
+                  <SvgIconMono
                     src={`${prefix}/icon/dot.svg`}
                     width={24}
                     height={24}
                     alt="editIcon"
-                  ></IconSvgMono>
+                  ></SvgIconMono>
                 </OptionsAction>
               </div>
             </div>
             <p className={styles.description}>{tool?.description}</p>
           </section>
           <section>
-            <TimeTransaction></TimeTransaction>
+            <Tabs TabsOptions={tabsOptions}></Tabs>
+            {isList ? (
+              <ItemTransaction></ItemTransaction>
+            ) : (
+              <TimeTransaction></TimeTransaction>
+            )}
             {/* <ItemTransaction></ItemTransaction> */}
           </section>
           <ModalContainer
@@ -133,7 +139,7 @@ const Tool = () => {
           <ModalContainer opened={opened} onClose={() => handle.close()}>
             <DeleteConfirm
               onClose={() => handle.close()}
-              confirmMessage={tool ? tool.name : "" }
+              confirmMessage={tool ? tool.name : ""}
             ></DeleteConfirm>
           </ModalContainer>
           <ModalContainer

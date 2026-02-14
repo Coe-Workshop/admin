@@ -1,6 +1,6 @@
 import { TabsProps } from "./Tabs.type";
 import styles from "./Tabs.module.scss";
-import IconSvgMono from "../../Icon/SvgIcon";
+import IconSvgMono from "../../Icon/SvgIconMono";
 export const Tabs = ({ TabsOptions }: TabsProps) => {
   return (
     <div>

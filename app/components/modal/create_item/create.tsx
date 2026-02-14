@@ -4,7 +4,6 @@ import {
   ErrorResponse,
   ToolCategories,
   ToolCreateRequest,
-  ToolResponse,
 } from "@/lib/features/tools/tool.typs";
 import {
   useCreateToolMutation,
@@ -14,7 +13,8 @@ import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import imageCompression from "browser-image-compression";
 import Image from "next/image";
 import { useState } from "react";
-import IconSvgMono, { addImageSvg_Dark } from "../../Icon/SvgIcon";
+import { addImageSvg_Dark } from "../../Icon/SvgIcon";
+import SvgIconMono from "../../Icon/SvgIconMono";
 import { AreaInput } from "../../form/AreaInput/AreaInput";
 import { Select } from "../../form/Select/Select";
 import { TextInput } from "../../form/TextInput/TextInput";
@@ -34,7 +34,7 @@ function CreateItem({ onClose, value }: CreateItemProps) {
   const [tempFiles, setTempFiles] = useState<File[]>([]);
   const [errors, setErrors] = useState({ api: "", name: "", category: "" });
   const { addToastStack } = useToast();
-  const [createTools, { error: createError, isError }] =
+  const [createTools, { isError }] =
     useCreateToolMutation();
   const [updateTool, { isError: isUpdateError }] = useUpdateToolMutation();
   const formatFilename = (name: string, containerWidth = 290) => {
@@ -189,9 +189,10 @@ function CreateItem({ onClose, value }: CreateItemProps) {
       } catch (error) {
         let updateErrorMessage = "";
         const err = error as FetchBaseQueryError;
-        if (err.data && typeof err.data === "object" && "error" in err.data) {
+        if (err.data && typeof err.data === "object" && "message" in err.data) {
           updateErrorMessage =
-            (err.data as ErrorResponse).error || "something went wrong";
+            (err.data as ErrorResponse).message ||
+            "something went wrong";
         }
         setErrors((prev) => ({
           ...prev,
@@ -218,13 +219,18 @@ function CreateItem({ onClose, value }: CreateItemProps) {
         );
         onClose();
       }
-    } catch {
-      if (createError && "data" in createError) {
-        setErrors((prev) => ({
-          ...prev,
-          api: (createError.data as ToolResponse).error ?? "",
-        }));
+    } catch (error) {
+      let createErrorMessage = "";
+      const err = error as FetchBaseQueryError;
+      if (err.data && typeof err.data === "object" && "message" in err.data) {
+        createErrorMessage =
+          (err.data as ErrorResponse).message ||
+          "something went wrong";
       }
+      setErrors((prev) => ({
+        ...prev,
+        api: createErrorMessage,
+      }));
     } finally {
       setSubmitting(false);
     }
@@ -353,7 +359,7 @@ function CreateItem({ onClose, value }: CreateItemProps) {
                               </div>
                             </div>
                             <div onClick={() => handleRemoveFile(file.name)}>
-                              <IconSvgMono
+                              <SvgIconMono
                                 src={"/create-item/close.svg"}
                                 width={10}
                                 height={10}
@@ -367,7 +373,7 @@ function CreateItem({ onClose, value }: CreateItemProps) {
                     </div>
 
                     <label htmlFor="image-upload" className={styles.button}>
-                      <IconSvgMono
+                      <SvgIconMono
                         svg={addImageSvg_Dark}
                         alt="image"
                         width={20}
