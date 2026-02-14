@@ -1,5 +1,7 @@
 export interface PasswordInputProps {
-  title?: string;
+  label?: string;
   placeholder?: string;
   require?: boolean;
+  value: string;
+  onChange?: (value: string) => void;
 }
