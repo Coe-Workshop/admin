@@ -3,18 +3,18 @@ import { User } from "./user";
 
 export interface ItemTransaction extends BaseTransaction {
   user: User;
-  startTime: string;
+  startedAt: string;
 }
 
 export interface ItemTableTransaction {
-  assetId: string;
-  itemTransaction: ItemTransaction[];
+  assetID: string;
+  transactions: ItemTransaction[];
 }
 
 interface AdminTransaction extends BaseTransaction {
   itemName: string;
-  assetId: string;
-  startTime: string;
+  assetID: string;
+  startedAt: string;
 }
 
 export interface AdminTableTransaction {

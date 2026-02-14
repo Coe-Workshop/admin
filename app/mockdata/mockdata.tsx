@@ -14,17 +14,17 @@ export const mockAdminTableTransactions: AdminTableTransaction[] = [
     adminTransactions: [
       {
         itemName: "Laptop Dell Latitude 5440",
-        assetId: "ASSET-001",
-        startTime: "2025-01-10T08:30:00Z",
-        endTime: "2025-01-10T17:30:00Z",
+        assetID: "ASSET-001",
+        startedAt: "2025-01-10T08:30:00Z",
+        endedAt: "2025-01-10T17:30:00Z",
         message: "ขอยืมใช้งานสำหรับประชุมทีม",
-        status: Status.Approved,
+        status: Status.APPROVE,
       },
       {
         itemName: "iPad Pro 11”",
-        assetId: "ASSET-002",
-        startTime: "2025-01-12T09:00:00Z",
-        endTime: "2025-01-12T18:00:00Z",
+        assetID: "ASSET-002",
+        startedAt: "2025-01-12T09:00:00Z",
+        endedAt: "2025-01-12T18:00:00Z",
         message: "ใช้สำหรับพรีเซนต์งานลูกค้า",
         status: Status.Finished,
       },
@@ -39,17 +39,17 @@ export const mockAdminTableTransactions: AdminTableTransaction[] = [
     adminTransactions: [
       {
         itemName: "Projector Epson X500",
-        assetId: "ASSET-003",
-        startTime: "2025-01-15T13:00:00Z",
-        endTime: "2025-01-15T16:00:00Z",
+        assetID: "ASSET-003",
+        startedAt: "2025-01-15T13:00:00Z",
+        endedAt: "2025-01-15T16:00:00Z",
         message: "ใช้งานอบรมภายใน",
-        status: Status.Pending,
+        status: Status.RESERVE,
       },
       {
         itemName: "Meeting Room A",
-        assetId: "ROOM-A",
-        startTime: "2025-01-18T10:00:00Z",
-        endTime: "2025-01-18T12:00:00Z",
+        assetID: "ROOM-A",
+        startedAt: "2025-01-18T10:00:00Z",
+        endedAt: "2025-01-18T12:00:00Z",
         message: "ยกเลิกเนื่องจากเลื่อนประชุม",
         status: Status.Cancel,
       },
@@ -64,17 +64,17 @@ export const mockAdminTableTransactions: AdminTableTransaction[] = [
     adminTransactions: [
       {
         itemName: "MacBook Pro M2",
-        assetId: "ASSET-004",
-        startTime: "2025-01-20T09:00:00Z",
-        endTime: "2025-01-20T17:00:00Z",
+        assetID: "ASSET-004",
+        startedAt: "2025-01-20T09:00:00Z",
+        endedAt: "2025-01-20T17:00:00Z",
         message: "ขอยืมทดสอบระบบ",
-        status: Status.Rejected,
+        status: Status.REJECT,
       },
       {
         itemName: "Camera Sony A7 III",
-        assetId: "ASSET-005",
-        startTime: "2025-01-22T08:00:00Z",
-        endTime: "2025-01-22T18:00:00Z",
+        assetID: "ASSET-005",
+        startedAt: "2025-01-22T08:00:00Z",
+        endedAt: "2025-01-22T18:00:00Z",
         message: "",
         status: Status.Blank,
       },
@@ -82,13 +82,14 @@ export const mockAdminTableTransactions: AdminTableTransaction[] = [
   },
 ];
 
+// change field ให้ตรงกับresponse ของเตอร์
 export const mockData: ItemTableTransaction[] = [
   {
-    assetId: "ASSET-001",
-    itemTransaction: [
+    assetID: "ASSET-001",
+    transactions: [
       {
-        startTime: "2025-01-10T09:00:00",
-        endTime: "2025-01-10T10:00:00",
+        startedAt: "2025-01-10T09:00:00",
+        endedAt: "2025-01-10T10:00:00",
         message: "ประชุมเช้า",
         status: Status.Finished,
         user: {
@@ -98,8 +99,8 @@ export const mockData: ItemTableTransaction[] = [
         },
       },
       {
-        startTime: "2025-01-10T10:00:00",
-        endTime: "2025-01-10T12:00:00",
+        startedAt: "2025-01-10T10:00:00",
+        endedAt: "2025-01-10T12:00:00",
         message: "ใช้งานต่อเนื่อง",
         status: Status.Finished,
         user: {
@@ -109,10 +110,10 @@ export const mockData: ItemTableTransaction[] = [
         },
       },
       {
-        startTime: "2025-01-10T13:00:00",
-        endTime: "2025-01-10T14:30:00",
+        startedAt: "2025-01-10T13:00:00",
+        endedAt: "2025-01-10T14:30:00",
         message: "ช่วงบ่าย",
-        status: Status.Pending,
+        status: Status.RESERVE,
         user: {
           tel: "0812345680",
           profileUrl: "https://randomuser.me/api/portraits/men/3.jpg",
@@ -120,8 +121,8 @@ export const mockData: ItemTableTransaction[] = [
         },
       },
       {
-        startTime: "2025-01-10T14:30:00",
-        endTime: "2025-01-10T16:00:00",
+        startedAt: "2025-01-10T14:30:00",
+        endedAt: "2025-01-10T16:00:00",
         message: "ต่อเนื่องจนเย็น",
         status: Status.Blank,
         user: {
@@ -134,11 +135,11 @@ export const mockData: ItemTableTransaction[] = [
   },
 
   {
-    assetId: "ASSET-002",
-    itemTransaction: [
+    assetID: "ASSET-002",
+    transactions: [
       {
-        startTime: "2025-01-10T09:00:00",
-        endTime: "2025-01-10T11:00:00",
+        startedAt: "2025-01-10T09:00:00",
+        endedAt: "2025-01-10T11:00:00",
         message: "พรีเซนต์",
         status: Status.Finished,
         user: {
@@ -148,8 +149,8 @@ export const mockData: ItemTableTransaction[] = [
         },
       },
       {
-        startTime: "2025-01-10T13:00:00",
-        endTime: "2025-01-10T15:00:00",
+        startedAt: "2025-01-10T13:00:00",
+        endedAt: "2025-01-10T15:00:00",
         message: "อบรม",
         status: Status.Finished,
         user: {
@@ -162,13 +163,13 @@ export const mockData: ItemTableTransaction[] = [
   },
 
   {
-    assetId: "ASSET-003",
-    itemTransaction: [
+    assetID: "ASSET-003",
+    transactions: [
       {
-        startTime: "2025-01-10T10:30:00",
-        endTime: "2025-01-10T12:00:00",
+        startedAt: "2025-01-10T10:30:00",
+        endedAt: "2025-01-10T12:00:00",
         message: "เริ่มช้า",
-        status: Status.Rejected,
+        status: Status.REJECT,
         user: {
           tel: "0830000001",
           profileUrl: "https://randomuser.me/api/portraits/men/7.jpg",
@@ -176,8 +177,8 @@ export const mockData: ItemTableTransaction[] = [
         },
       },
       {
-        startTime: "2025-01-10T14:00:00",
-        endTime: "2025-01-10T16:00:00",
+        startedAt: "2025-01-10T14:00:00",
+        endedAt: "2025-01-10T16:00:00",
         message: "ท้ายวัน",
         status: Status.Finished,
         user: {
@@ -190,13 +191,13 @@ export const mockData: ItemTableTransaction[] = [
   },
 
   {
-    assetId: "ASSET-004",
-    itemTransaction: [
+    assetID: "ASSET-004",
+    transactions: [
       {
-        startTime: "2025-01-10T09:00:00",
-        endTime: "2025-01-10T14:00:00",
+        startedAt: "2025-01-10T09:00:00",
+        endedAt: "2025-01-10T14:00:00",
         message: "จองยาว",
-        status: Status.Approved,
+        status: Status.APPROVE,
         user: {
           tel: "0840000001",
           profileUrl: "https://randomuser.me/api/portraits/men/9.jpg",
@@ -207,11 +208,11 @@ export const mockData: ItemTableTransaction[] = [
   },
 
   {
-    assetId: "ASSET-005",
-    itemTransaction: [
+    assetID: "ASSET-005",
+    transactions: [
       {
-        startTime: "2025-01-10T09:00:00",
-        endTime: "2025-01-10T09:30:00",
+        startedAt: "2025-01-10T09:00:00",
+        endedAt: "2025-01-10T09:30:00",
         message: "สั้นมาก",
         status: Status.Finished,
         user: {
@@ -221,10 +222,10 @@ export const mockData: ItemTableTransaction[] = [
         },
       },
       {
-        startTime: "2025-01-10T10:00:00",
-        endTime: "2025-01-10T10:30:00",
+        startedAt: "2025-01-10T10:00:00",
+        endedAt: "2025-01-10T10:30:00",
         message: "สั้น + เว้นช่วง",
-        status: Status.Pending,
+        status: Status.RESERVE,
         user: {
           tel: "0850000002",
           profileUrl: "https://randomuser.me/api/portraits/women/11.jpg",
@@ -232,8 +233,8 @@ export const mockData: ItemTableTransaction[] = [
         },
       },
       {
-        startTime: "2025-01-10T15:00:00",
-        endTime: "2025-01-10T16:00:00",
+        startedAt: "2025-01-10T15:00:00",
+        endedAt: "2025-01-10T16:00:00",
         message: "ท้ายวัน",
         status: Status.Finished,
         user: {
@@ -246,13 +247,13 @@ export const mockData: ItemTableTransaction[] = [
   },
 
   {
-    assetId: "ASSET-006",
-    itemTransaction: [
+    assetID: "ASSET-006",
+    transactions: [
       {
-        startTime: "2025-01-10T15:00:00",
-        endTime: "2025-01-10T16:00:00",
+        startedAt: "2025-01-10T15:00:00",
+        endedAt: "2025-01-10T16:00:00",
         message: "เต็มวัน",
-        status: Status.Approved,
+        status: Status.APPROVE,
         user: {
           tel: "0860000001",
           profileUrl: "https://randomuser.me/api/portraits/men/13.jpg",

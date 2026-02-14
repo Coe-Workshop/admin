@@ -22,13 +22,13 @@ export const ItemTransaction = () => {
   };
 
   // const tableContent: ReactNode | null = mockData.flatMap((item, index) => {
-  //   return item.itemTransaction.map((t, i) => {
+  //   return item.transactions.map((t, i) => {
   //     const now = new Date();
-  //     const target = new Date(t.endTime);
+  //     const target = new Date(t.endedAt);
   //     if (i == 0) {
   //       if (target < now) {
   //         return (
-  //           <React.Fragment key={item.assetId + i}>
+  //           <React.Fragment key={item.assetID + i}>
   //             <tr>
   //               <td
   //                 className={styles.toggle}
@@ -50,23 +50,23 @@ export const ItemTransaction = () => {
   //                   ></SvgIconMono>
   //                 </div>
   //               </td>
-  //               <td className={styles.assetID}>{item.assetId}</td>
+  //               <td className={styles.assetID}>{item.assetID}</td>
   //               <td className={styles.username}></td>
   //               <td className={styles.status}>
   //                 <StatusTag status={Status.Blank}></StatusTag>
   //               </td>
-  //               <td className={styles.endTime}></td>
+  //               <td className={styles.endedAt}></td>
   //               <td className={styles.message}></td>
   //             </tr>
   //             {openTransaction.includes(index) && (
-  //               <tr className={styles.oldTransaction} key={item.assetId + i}>
+  //               <tr className={styles.oldTransaction} key={item.assetID + i}>
   //                 <td></td>
-  //                 <td className={styles.assetID}>{item.assetId}</td>
+  //                 <td className={styles.assetID}>{item.assetID}</td>
   //                 <td className={styles.username}>{t.user.username}</td>
   //                 <td className={styles.status}>
   //                   <StatusTag status={Status.Finished}></StatusTag>
   //                 </td>
-  //                 <td className={styles.endTime}>{t.endTime}</td>
+  //                 <td className={styles.endedAt}>{t.endedAt}</td>
   //                 <td className={styles.message}>{t.message}</td>
   //               </tr>
   //             )}
@@ -74,7 +74,7 @@ export const ItemTransaction = () => {
   //         );
   //       }
   //       return (
-  //         <tr key={item.assetId + i}>
+  //         <tr key={item.assetID + i}>
   //           <th
   //             className={styles.toggle}
   //             onClick={() => toggleTransaction(index)}
@@ -95,12 +95,12 @@ export const ItemTransaction = () => {
   //               ></SvgIconMono>
   //             </div>
   //           </th>
-  //           <th className={styles.assetId}>{item.assetId}</th>
+  //           <th className={styles.assetID}>{item.assetID}</th>
   //           <th className={styles.username}>{t.user.username}</th>
   //           <th className={styles.status}>
   //             <StatusTag status={t.status}></StatusTag>
   //           </th>
-  //           <th className={styles.endTime}>{t.endTime}</th>
+  //           <th className={styles.endedAt}>{t.endedAt}</th>
   //           <th className={styles.message}>{t.message}</th>
   //         </tr>
   //       );
@@ -108,14 +108,14 @@ export const ItemTransaction = () => {
 
   //     return (
   //       openTransaction.includes(index) && (
-  //         <tr className={styles.oldTransaction} key={item.assetId + i}>
+  //         <tr className={styles.oldTransaction} key={item.assetID + i}>
   //           <td></td>
-  //           <td className={styles.assetID}>{item.assetId}</td>
+  //           <td className={styles.assetID}>{item.assetID}</td>
   //           <td className={styles.username}>{t.user.username}</td>
   //           <td className={styles.status}>
   //             <StatusTag status={t.status}></StatusTag>
   //           </td>
-  //           <td className={styles.endTime}>{t.endTime}</td>
+  //           <td className={styles.endedAt}>{t.endedAt}</td>
   //           <td className={styles.message}>{t.message}</td>
   //         </tr>
   //       )
@@ -139,7 +139,7 @@ export const ItemTransaction = () => {
         </thead>
         <tbody>
           {mockData.map((item, index) =>
-            item.itemTransaction.map((t, i) =>
+            item.transactions.map((t, i) =>
               i == 0 ? (
                 <tr className={styles.firstItem} key={i}>
                   <td
@@ -162,12 +162,12 @@ export const ItemTransaction = () => {
                       ></SvgIconMono>
                     </div>
                   </td>
-                  <td className={styles.assetID}>{item.assetId}</td>
+                  <td className={styles.assetID}>{item.assetID}</td>
                   <td className={styles.username}>{t.user.username}</td>
                   <td className={styles.status}>
                     <StatusTag status={t.status}></StatusTag>
                   </td>
-                  <td className={styles.endTime}>{t.endTime}</td>
+                  <td className={styles.endedAt}>{t.endedAt}</td>
                   <td className={styles.message}>{t.message}</td>
                   <td className={styles.trashSpace}>
                     {t.status == Status.Blank && (
@@ -189,15 +189,15 @@ export const ItemTransaction = () => {
                         ? styles.slideOut
                         : styles.slideIn
                     }`}
-                    key={item.assetId + i}
+                    key={item.assetID + i}
                   >
                     <td></td>
-                    <td className={styles.assetID}>{item.assetId}</td>
+                    <td className={styles.assetID}>{item.assetID}</td>
                     <td className={styles.username}>{t.user.username}</td>
                     <td className={styles.status}>
                       <StatusTag status={t.status}></StatusTag>
                     </td>
-                    <td className={styles.endTime}>{t.endTime}</td>
+                    <td className={styles.endedAt}>{t.endedAt}</td>
                     <td className={styles.message}>{t.message}</td>
                     <td></td>
                   </tr>

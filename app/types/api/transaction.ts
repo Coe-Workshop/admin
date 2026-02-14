@@ -1,23 +1,23 @@
 export interface BaseTransaction {
-  endTime: string;
+  endedAt: string;
   message: string;
   status: Status;
 }
 
 export enum Status {
-  "Approved",
-  "Pending",
+  "APPROVE",
+  "RESERVE",
   "Finished",
-  "Rejected",
+  "REJECT",
   "Cancel",
   "Blank",
 }
 
 export const statusVariant: Record<Status, { title: string; color: string }> = {
-  [Status.Approved]: { title: "อนุมัติ", color: "#beef6f" },
-  [Status.Pending]: { title: "รออนุมัติ", color: "#6fa7ef" },
+  [Status.APPROVE]: { title: "อนุมัติ", color: "#beef6f" },
+  [Status.RESERVE]: { title: "รออนุมัติ", color: "#6fa7ef" },
   [Status.Finished]: { title: "เสร็จสิ้น", color: "#ffadf3" },
-  [Status.Rejected]: { title: "ปฏิเสธ", color: "#efa26f" },
+  [Status.REJECT]: { title: "ปฏิเสธ", color: "#efa26f" },
   [Status.Cancel]: { title: "ยกเลิก", color: "#ef4444" },
   [Status.Blank]: { title: "ว่าง", color: "#cccccc" },
 };
