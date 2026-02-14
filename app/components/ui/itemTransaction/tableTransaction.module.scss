@@ -76,3 +76,12 @@
 .slideOut {
   animation: slideOut 0.3s ease forwards;
 }
+
+.loading {
+  display: flex;
+  justify-content: center;
+}
+
+.error {
+    text-align: center;
+}

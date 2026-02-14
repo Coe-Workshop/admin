@@ -3,8 +3,8 @@ import styles from "./transactionInfo.module.scss";
 import { TransactionInfoProps } from "./transactionInfo.types";
 export const TransactionInfo = ({
   user,
-  startTime,
-  endTime,
+  startedAt,
+  endedAt,
   message,
   status,
   onClose,
@@ -20,11 +20,11 @@ export const TransactionInfo = ({
         </div>
         <span>
           <p>ผู้ยื่นคำร้อง:</p>
-          <p>{user.username}</p>
+          <p>{user.userName}</p>
         </span>
         <span>
           <p>เบอร์โทรติดต่อ:</p>
-          <p>{user.tel}</p>
+          <p>{user.phone}</p>
         </span>
         <span>
           <p>คำร้อง:</p>
@@ -32,11 +32,11 @@ export const TransactionInfo = ({
         </span>
         <span>
           <p>เวลาเริ่ม:</p>
-          <p>{startTime}</p>
+          <p>{startedAt}</p>
         </span>
         <span>
           <p>เวลาสิ้นสุด:</p>
-          <p>{endTime}</p>
+          <p>{endedAt}</p>
         </span>
       </section>
       <hr className={styles.line} />

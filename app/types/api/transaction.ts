@@ -1,16 +1,25 @@
+import { TransactionsStatus } from "@/lib/features/transactions/transaction.types";
 export interface BaseTransaction {
   endedAt: string;
   message: string;
   status: Status;
 }
 
+// export enum Status {
+//   "APPROVE",
+//   "RESERVE",
+//   "Finished",
+//   "REJECT",
+//   "Cancel",
+//   "Blank",
+// }
 export enum Status {
-  "APPROVE",
-  "RESERVE",
-  "Finished",
-  "REJECT",
-  "Cancel",
-  "Blank",
+  REJECT = "REJECT",
+  RESERVE = "RESERVE",
+  APPROVE = "APPROVE",
+  Finished = "finished",
+  Cancel = "Cancel",
+  Blank = "Blank",
 }
 
 export const statusVariant: Record<Status, { title: string; color: string }> = {

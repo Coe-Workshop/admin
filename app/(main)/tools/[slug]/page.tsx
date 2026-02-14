@@ -97,9 +97,10 @@ const Tool = () => {
           <section>
             <Tabs TabsOptions={tabsOptions}></Tabs>
             {isList ? (
-              <ItemTransaction></ItemTransaction>
+              <ItemTransaction toolId={Number(toolId)}></ItemTransaction>
+              // <div></div>
             ) : (
-              <TimeTransaction></TimeTransaction>
+              <TimeTransaction toolId={Number(toolId)}></TimeTransaction>
             )}
             {/* <ItemTransaction></ItemTransaction> */}
           </section>

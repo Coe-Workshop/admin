@@ -5,7 +5,10 @@ import React, { useState } from "react";
 import { ModalContainer } from "../../modal/modalContainer/modalContainer";
 import { TransactionInfo } from "../../modal/transactionInfo/transactionInfo";
 import styles from "./timeTransaction.module.scss";
-export const TimeTransaction = () => {
+import { useGetToolTransactionQuery } from "@/lib/features/transactions/transactionsApiSlice";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { ErrorResponse } from "@/lib/features/transactions/transaction.types";
+export const TimeTransaction = ({ toolId = 0 }) => {
   const [timeAxis] = useState<string[]>([
     "09.00",
     "10.00",
@@ -28,7 +31,7 @@ export const TimeTransaction = () => {
 
   const toggleOpened = (idx: number) => {
     setOpened((prev) =>
-      prev.includes(idx) ? prev.filter((item) => item != idx) : [...prev, idx]
+      prev.includes(idx) ? prev.filter((item) => item != idx) : [...prev, idx],
     );
   };
 
@@ -41,8 +44,26 @@ export const TimeTransaction = () => {
       .replace(":", ".");
     return time;
   };
+  const {
+    data: toolTransaction,
+    isError,
+    error,
+    isLoading,
+  } = useGetToolTransactionQuery(Number(toolId));
+  let toolTransactionErrorMessage =
+    "There's some error occuring while try to fetching the transaction data";
+  if (error && "data" in error) {
+    const err = error as FetchBaseQueryError;
+    if (err.data && typeof err.data === "object" && "error" in err.data) {
+      toolTransactionErrorMessage = (err.data as ErrorResponse).error || "";
+    }
+  }
 
-  return (
+  return isError ? (
+    <div className={styles.error}>
+      ops! there's some error: {toolTransactionErrorMessage};
+    </div>
+  ) : (
     <div className={styles.calendarWrapper}>
       <section className={styles.header}>
         <h3 className={styles.header_blank}></h3>
@@ -60,16 +81,16 @@ export const TimeTransaction = () => {
           ))}
         </div>
         <div className={styles.tableContent}>
-          {mockData.map((item, index) => {
+          {toolTransaction?.assets.map((item, index) => {
             return (
               <div key={index} className={styles.row_container}>
                 <div className={styles.row}>
                   <h3 className={styles.assetID}>{item.assetID}</h3>
                   {(() => {
-                    if (firstColumnTime < item.transactions[0].startedAt) {
+                    if (firstColumnTime < item.transactions[0]?.startedAt) {
                       const firstGapColspan = getColspanLenght(
                         firstColumnTime,
-                        item.transactions[0].startedAt
+                        item.transactions[0].startedAt,
                       );
                       return (
                         <div
@@ -85,12 +106,12 @@ export const TimeTransaction = () => {
                   })()}
                   {item.transactions.map((event, id) => {
                     const cuerrentColSpan = getColspanLenght(
-                      event.startedAt,
-                      event.endedAt
+                      event?.startedAt,
+                      event.endedAt,
                     );
                     const gapColSpan = getColspanLenght(
                       event.endedAt,
-                      item.transactions[id + 1]?.startedAt ?? lastColumnTime
+                      item.transactions[id + 1]?.startedAt ?? lastColumnTime,
                     );
                     return (
                       <React.Fragment key={id}>
@@ -120,7 +141,7 @@ export const TimeTransaction = () => {
                             <div className={styles.event_line}></div>
                             <div>
                               <div>
-                                <h3>{event.user.username}</h3>
+                                <h3>{event.user.userName}</h3>
                               </div>
                               <p>
                                 {getTimeFormat(event.startedAt)} -
@@ -151,3 +172,5 @@ export const TimeTransaction = () => {
     </div>
   );
 };
+
+// 85, 109

@@ -7,8 +7,8 @@ import {
 export const mockAdminTableTransactions: AdminTableTransaction[] = [
   {
     user: {
-      username: "kritsada.b",
-      tel: "081-234-5678",
+      userName: "kritsada.b",
+      phone: "081-234-5678",
       profileUrl: "https://i.pravatar.cc/150?img=1",
     },
     adminTransactions: [
@@ -32,8 +32,8 @@ export const mockAdminTableTransactions: AdminTableTransaction[] = [
   },
   {
     user: {
-      username: "anan.c",
-      tel: "089-555-1122",
+      userName: "anan.c",
+      phone: "089-555-1122",
       profileUrl: "https://i.pravatar.cc/150?img=2",
     },
     adminTransactions: [
@@ -57,8 +57,8 @@ export const mockAdminTableTransactions: AdminTableTransaction[] = [
   },
   {
     user: {
-      username: "somsak.r",
-      tel: "086-888-9999",
+      userName: "somsak.r",
+      phone: "086-888-9999",
       profileUrl: "https://i.pravatar.cc/150?img=3",
     },
     adminTransactions: [
@@ -93,9 +93,9 @@ export const mockData: ItemTableTransaction[] = [
         message: "ประชุมเช้า",
         status: Status.Finished,
         user: {
-          tel: "0812345678",
+          phone: "0812345678",
           profileUrl: "https://randomuser.me/api/portraits/men/1.jpg",
-          username: "User A1",
+          userName: "User A1",
         },
       },
       {
@@ -104,9 +104,9 @@ export const mockData: ItemTableTransaction[] = [
         message: "ใช้งานต่อเนื่อง",
         status: Status.Finished,
         user: {
-          tel: "0812345679",
+          phone: "0812345679",
           profileUrl: "https://randomuser.me/api/portraits/men/2.jpg",
-          username: "User A2",
+          userName: "User A2",
         },
       },
       {
@@ -115,9 +115,9 @@ export const mockData: ItemTableTransaction[] = [
         message: "ช่วงบ่าย",
         status: Status.RESERVE,
         user: {
-          tel: "0812345680",
+          phone: "0812345680",
           profileUrl: "https://randomuser.me/api/portraits/men/3.jpg",
-          username: "User A3",
+          userName: "User A3",
         },
       },
       {
@@ -126,9 +126,9 @@ export const mockData: ItemTableTransaction[] = [
         message: "ต่อเนื่องจนเย็น",
         status: Status.Blank,
         user: {
-          tel: "0812345681",
+          phone: "0812345681",
           profileUrl: "https://randomuser.me/api/portraits/men/4.jpg",
-          username: "User A4",
+          userName: "User A4",
         },
       },
     ],
@@ -143,9 +143,9 @@ export const mockData: ItemTableTransaction[] = [
         message: "พรีเซนต์",
         status: Status.Finished,
         user: {
-          tel: "0820000001",
+          phone: "0820000001",
           profileUrl: "https://randomuser.me/api/portraits/women/5.jpg",
-          username: "User B1",
+          userName: "User B1",
         },
       },
       {
@@ -154,9 +154,9 @@ export const mockData: ItemTableTransaction[] = [
         message: "อบรม",
         status: Status.Finished,
         user: {
-          tel: "0820000002",
+          phone: "0820000002",
           profileUrl: "https://randomuser.me/api/portraits/women/6.jpg",
-          username: "User B2",
+          userName: "User B2",
         },
       },
     ],
@@ -171,9 +171,9 @@ export const mockData: ItemTableTransaction[] = [
         message: "เริ่มช้า",
         status: Status.REJECT,
         user: {
-          tel: "0830000001",
+          phone: "0830000001",
           profileUrl: "https://randomuser.me/api/portraits/men/7.jpg",
-          username: "User C1",
+          userName: "User C1",
         },
       },
       {
@@ -182,9 +182,9 @@ export const mockData: ItemTableTransaction[] = [
         message: "ท้ายวัน",
         status: Status.Finished,
         user: {
-          tel: "0830000002",
+          phone: "0830000002",
           profileUrl: "https://randomuser.me/api/portraits/men/8.jpg",
-          username: "User C2",
+          userName: "User C2",
         },
       },
     ],
@@ -199,9 +199,9 @@ export const mockData: ItemTableTransaction[] = [
         message: "จองยาว",
         status: Status.APPROVE,
         user: {
-          tel: "0840000001",
+          phone: "0840000001",
           profileUrl: "https://randomuser.me/api/portraits/men/9.jpg",
-          username: "User D1",
+          userName: "User D1",
         },
       },
     ],
@@ -216,9 +216,9 @@ export const mockData: ItemTableTransaction[] = [
         message: "สั้นมาก",
         status: Status.Finished,
         user: {
-          tel: "0850000001",
+          phone: "0850000001",
           profileUrl: "https://randomuser.me/api/portraits/women/10.jpg",
-          username: "User E1",
+          userName: "User E1",
         },
       },
       {
@@ -227,9 +227,9 @@ export const mockData: ItemTableTransaction[] = [
         message: "สั้น + เว้นช่วง",
         status: Status.RESERVE,
         user: {
-          tel: "0850000002",
+          phone: "0850000002",
           profileUrl: "https://randomuser.me/api/portraits/women/11.jpg",
-          username: "User E2",
+          userName: "User E2",
         },
       },
       {
@@ -238,9 +238,9 @@ export const mockData: ItemTableTransaction[] = [
         message: "ท้ายวัน",
         status: Status.Finished,
         user: {
-          tel: "0850000003",
+          phone: "0850000003",
           profileUrl: "https://randomuser.me/api/portraits/women/12.jpg",
-          username: "User E3",
+          userName: "User E3",
         },
       },
     ],
@@ -255,9 +255,9 @@ export const mockData: ItemTableTransaction[] = [
         message: "เต็มวัน",
         status: Status.APPROVE,
         user: {
-          tel: "0860000001",
+          phone: "0860000001",
           profileUrl: "https://randomuser.me/api/portraits/men/13.jpg",
-          username: "User F1",
+          userName: "User F1",
         },
       },
     ],

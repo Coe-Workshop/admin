@@ -7,7 +7,11 @@ import { prefix } from "@/app/utils/prefix";
 import { useState } from "react";
 import { StatusTag } from "../statusTag/statusTag";
 import styles from "./tableTransaction.module.scss";
-export const ItemTransaction = () => {
+import { useGetToolTransactionQuery } from "@/lib/features/transactions/transactionsApiSlice";
+import Loader from "../../layout/loader/loader";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { ErrorResponse } from "@/lib/features/transactions/transaction.types";
+export const ItemTransaction = ({ toolId = 0 }) => {
   const [openTransaction, setOpenTransaction] = useState<number[]>([]);
   const [closeTransaction, setCloseTransaction] = useState<number[]>([]);
   const toggleTransaction = (idx: number) => {
@@ -122,7 +126,19 @@ export const ItemTransaction = () => {
   //     );
   //   });
   // });
-
+  const {
+    data: toolTransaction,
+    isError,
+    error,
+    isLoading,
+  } = useGetToolTransactionQuery(Number(toolId));
+  let toolTransactionErrorMessage = "There's some error occuring while try to fetching the transaction data";
+  if (error && "data" in error) {
+    const err = error as FetchBaseQueryError;
+    if (err.data && typeof err.data === "object" && "error" in err.data) {
+      toolTransactionErrorMessage = (err.data as ErrorResponse).error || "";
+    }
+  }
   return (
     <div className={styles.item_transaction}>
       <table className={styles.table}>
@@ -138,7 +154,16 @@ export const ItemTransaction = () => {
           </tr>
         </thead>
         <tbody>
-          {mockData.map((item, index) =>
+          {isLoading && (
+            <tr>
+              <td colSpan={7}>
+                <div className={styles.loading}>
+                  <Loader></Loader>
+                </div>
+              </td>
+            </tr>
+          )}
+          {toolTransaction?.assets.map((item, index) =>
             item.transactions.map((t, i) =>
               i == 0 ? (
                 <tr className={styles.firstItem} key={i}>
@@ -163,7 +188,7 @@ export const ItemTransaction = () => {
                     </div>
                   </td>
                   <td className={styles.assetID}>{item.assetID}</td>
-                  <td className={styles.username}>{t.user.username}</td>
+                  <td className={styles.username}>{t.user.userName}</td>
                   <td className={styles.status}>
                     <StatusTag status={t.status}></StatusTag>
                   </td>
@@ -193,7 +218,7 @@ export const ItemTransaction = () => {
                   >
                     <td></td>
                     <td className={styles.assetID}>{item.assetID}</td>
-                    <td className={styles.username}>{t.user.username}</td>
+                    <td className={styles.username}>{t.user.userName}</td>
                     <td className={styles.status}>
                       <StatusTag status={t.status}></StatusTag>
                     </td>
@@ -204,6 +229,15 @@ export const ItemTransaction = () => {
                 )
               ),
             ),
+          )}
+          {isError && (
+            <tr>
+              <td colSpan={7}>
+                <div className={styles.error}>
+                  error: {toolTransactionErrorMessage}
+                </div>
+              </td>
+            </tr>
           )}
         </tbody>
       </table>

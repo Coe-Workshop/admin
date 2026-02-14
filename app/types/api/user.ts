@@ -1,5 +1,5 @@
 export interface User {
   tel: string;
   profileUrl: string;
-  username: string;
+  userName: string;
 }
