@@ -2,10 +2,12 @@
 
 import { PasswordInputProps } from "./tpyes";
 import styles from "./passwordInput.module.scss";
-import { useState } from "react";
+import React, { useState } from "react";
 import { EyeIcon } from "@/public/react-icon/eyeIcon";
 export const PasswordInput = ({
-  title,
+  label,
+  value,
+  onChange,
   placeholder = "",
   require = true,
 }: PasswordInputProps) => {
@@ -13,19 +15,23 @@ export const PasswordInput = ({
 
   return (
     <div className={styles.textInput}>
-      {title && (
-        <label htmlFor={title} className={styles.textInput_label}>
-          {title}
+      {label && (
+        <label htmlFor={label} className={styles.textInput_label}>
+          {label}
           <span className={styles.textInput_require}>{require ? "*" : ""}</span>
         </label>
       )}
 
       <div className={styles.inputWrapper}>
         <input
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            onChange?.(e.target.value)
+          }
+          value={value}
           className={styles.textInput_input}
           type={hide ? "password" : "text"}
-          name={title}
-          id={title}
+          name={label}
+          id={label}
           placeholder={placeholder}
         />
 
