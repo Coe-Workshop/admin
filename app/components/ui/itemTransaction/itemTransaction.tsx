@@ -1,8 +1,6 @@
 "use client";
 
 import SvgIconMono from "@/app/components/Icon/SvgIconMono";
-import { mockData } from "@/app/mockdata/mockdata";
-import { Status } from "@/app/types/api/transaction";
 import { prefix } from "@/app/utils/prefix";
 import { useState } from "react";
 import { StatusTag } from "../statusTag/statusTag";
@@ -10,7 +8,7 @@ import styles from "./tableTransaction.module.scss";
 import { useGetToolTransactionQuery } from "@/lib/features/transactions/transactionsApiSlice";
 import Loader from "../../layout/loader/loader";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import { ErrorResponse } from "@/lib/features/transactions/transaction.types";
+import { ErrorResponse, TransactionsStatus } from "@/lib/features/transactions/transaction.types";
 export const ItemTransaction = ({ toolId = 0 }) => {
   const [openTransaction, setOpenTransaction] = useState<number[]>([]);
   const [closeTransaction, setCloseTransaction] = useState<number[]>([]);
@@ -195,7 +193,7 @@ export const ItemTransaction = ({ toolId = 0 }) => {
                   <td className={styles.endedAt}>{t.endedAt}</td>
                   <td className={styles.message}>{t.message}</td>
                   <td className={styles.trashSpace}>
-                    {t.status == Status.Blank && (
+                    {t.status == TransactionsStatus.Blank && (
                       <SvgIconMono
                         className={styles.tashIcon}
                         src={`${prefix}/icon/tash.svg`}

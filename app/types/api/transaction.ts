@@ -2,7 +2,7 @@ import { TransactionsStatus } from "@/lib/features/transactions/transaction.type
 export interface BaseTransaction {
   endedAt: string;
   message: string;
-  status: Status;
+  status: TransactionsStatus;
 }
 
 // export enum Status {

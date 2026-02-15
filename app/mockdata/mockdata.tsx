@@ -1,4 +1,5 @@
-import { Status } from "../types/api/transaction";
+// import { Status } from "../types/api/transaction";
+import { TransactionsStatus } from "@/lib/features/transactions/transaction.types";
 import {
   ItemTableTransaction,
   AdminTableTransaction,
@@ -18,7 +19,7 @@ export const mockAdminTableTransactions: AdminTableTransaction[] = [
         startedAt: "2025-01-10T08:30:00Z",
         endedAt: "2025-01-10T17:30:00Z",
         message: "ขอยืมใช้งานสำหรับประชุมทีม",
-        status: Status.APPROVE,
+        status: TransactionsStatus.APPROVE,
       },
       {
         itemName: "iPad Pro 11”",
@@ -26,7 +27,7 @@ export const mockAdminTableTransactions: AdminTableTransaction[] = [
         startedAt: "2025-01-12T09:00:00Z",
         endedAt: "2025-01-12T18:00:00Z",
         message: "ใช้สำหรับพรีเซนต์งานลูกค้า",
-        status: Status.Finished,
+        status: TransactionsStatus.Finished,
       },
     ],
   },
@@ -43,7 +44,7 @@ export const mockAdminTableTransactions: AdminTableTransaction[] = [
         startedAt: "2025-01-15T13:00:00Z",
         endedAt: "2025-01-15T16:00:00Z",
         message: "ใช้งานอบรมภายใน",
-        status: Status.RESERVE,
+        status: TransactionsStatus.RESERVE,
       },
       {
         itemName: "Meeting Room A",
@@ -51,7 +52,7 @@ export const mockAdminTableTransactions: AdminTableTransaction[] = [
         startedAt: "2025-01-18T10:00:00Z",
         endedAt: "2025-01-18T12:00:00Z",
         message: "ยกเลิกเนื่องจากเลื่อนประชุม",
-        status: Status.Cancel,
+        status: TransactionsStatus.Cancel,
       },
     ],
   },
@@ -68,7 +69,7 @@ export const mockAdminTableTransactions: AdminTableTransaction[] = [
         startedAt: "2025-01-20T09:00:00Z",
         endedAt: "2025-01-20T17:00:00Z",
         message: "ขอยืมทดสอบระบบ",
-        status: Status.REJECT,
+        status: TransactionsStatus.REJECT,
       },
       {
         itemName: "Camera Sony A7 III",
@@ -76,7 +77,7 @@ export const mockAdminTableTransactions: AdminTableTransaction[] = [
         startedAt: "2025-01-22T08:00:00Z",
         endedAt: "2025-01-22T18:00:00Z",
         message: "",
-        status: Status.Blank,
+        status: TransactionsStatus.Blank,
       },
     ],
   },
@@ -91,7 +92,7 @@ export const mockData: ItemTableTransaction[] = [
         startedAt: "2025-01-10T09:00:00",
         endedAt: "2025-01-10T10:00:00",
         message: "ประชุมเช้า",
-        status: Status.Finished,
+        status: TransactionsStatus.Finished,
         user: {
           phone: "0812345678",
           profileUrl: "https://randomuser.me/api/portraits/men/1.jpg",
@@ -102,7 +103,7 @@ export const mockData: ItemTableTransaction[] = [
         startedAt: "2025-01-10T10:00:00",
         endedAt: "2025-01-10T12:00:00",
         message: "ใช้งานต่อเนื่อง",
-        status: Status.Finished,
+        status: TransactionsStatus.Finished,
         user: {
           phone: "0812345679",
           profileUrl: "https://randomuser.me/api/portraits/men/2.jpg",
@@ -113,7 +114,7 @@ export const mockData: ItemTableTransaction[] = [
         startedAt: "2025-01-10T13:00:00",
         endedAt: "2025-01-10T14:30:00",
         message: "ช่วงบ่าย",
-        status: Status.RESERVE,
+        status: TransactionsStatus.RESERVE,
         user: {
           phone: "0812345680",
           profileUrl: "https://randomuser.me/api/portraits/men/3.jpg",
@@ -124,7 +125,7 @@ export const mockData: ItemTableTransaction[] = [
         startedAt: "2025-01-10T14:30:00",
         endedAt: "2025-01-10T16:00:00",
         message: "ต่อเนื่องจนเย็น",
-        status: Status.Blank,
+        status: TransactionsStatus.Blank,
         user: {
           phone: "0812345681",
           profileUrl: "https://randomuser.me/api/portraits/men/4.jpg",
@@ -141,7 +142,7 @@ export const mockData: ItemTableTransaction[] = [
         startedAt: "2025-01-10T09:00:00",
         endedAt: "2025-01-10T11:00:00",
         message: "พรีเซนต์",
-        status: Status.Finished,
+        status: TransactionsStatus.Finished,
         user: {
           phone: "0820000001",
           profileUrl: "https://randomuser.me/api/portraits/women/5.jpg",
@@ -152,7 +153,7 @@ export const mockData: ItemTableTransaction[] = [
         startedAt: "2025-01-10T13:00:00",
         endedAt: "2025-01-10T15:00:00",
         message: "อบรม",
-        status: Status.Finished,
+        status: TransactionsStatus.Finished,
         user: {
           phone: "0820000002",
           profileUrl: "https://randomuser.me/api/portraits/women/6.jpg",
@@ -169,7 +170,7 @@ export const mockData: ItemTableTransaction[] = [
         startedAt: "2025-01-10T10:30:00",
         endedAt: "2025-01-10T12:00:00",
         message: "เริ่มช้า",
-        status: Status.REJECT,
+        status: TransactionsStatus.REJECT,
         user: {
           phone: "0830000001",
           profileUrl: "https://randomuser.me/api/portraits/men/7.jpg",
@@ -180,7 +181,7 @@ export const mockData: ItemTableTransaction[] = [
         startedAt: "2025-01-10T14:00:00",
         endedAt: "2025-01-10T16:00:00",
         message: "ท้ายวัน",
-        status: Status.Finished,
+        status: TransactionsStatus.Finished,
         user: {
           phone: "0830000002",
           profileUrl: "https://randomuser.me/api/portraits/men/8.jpg",
@@ -197,7 +198,7 @@ export const mockData: ItemTableTransaction[] = [
         startedAt: "2025-01-10T09:00:00",
         endedAt: "2025-01-10T14:00:00",
         message: "จองยาว",
-        status: Status.APPROVE,
+        status: TransactionsStatus.APPROVE,
         user: {
           phone: "0840000001",
           profileUrl: "https://randomuser.me/api/portraits/men/9.jpg",
@@ -214,7 +215,7 @@ export const mockData: ItemTableTransaction[] = [
         startedAt: "2025-01-10T09:00:00",
         endedAt: "2025-01-10T09:30:00",
         message: "สั้นมาก",
-        status: Status.Finished,
+        status: TransactionsStatus.Finished,
         user: {
           phone: "0850000001",
           profileUrl: "https://randomuser.me/api/portraits/women/10.jpg",
@@ -225,7 +226,7 @@ export const mockData: ItemTableTransaction[] = [
         startedAt: "2025-01-10T10:00:00",
         endedAt: "2025-01-10T10:30:00",
         message: "สั้น + เว้นช่วง",
-        status: Status.RESERVE,
+        status: TransactionsStatus.RESERVE,
         user: {
           phone: "0850000002",
           profileUrl: "https://randomuser.me/api/portraits/women/11.jpg",
@@ -236,7 +237,7 @@ export const mockData: ItemTableTransaction[] = [
         startedAt: "2025-01-10T15:00:00",
         endedAt: "2025-01-10T16:00:00",
         message: "ท้ายวัน",
-        status: Status.Finished,
+        status: TransactionsStatus.Finished,
         user: {
           phone: "0850000003",
           profileUrl: "https://randomuser.me/api/portraits/women/12.jpg",
@@ -253,7 +254,7 @@ export const mockData: ItemTableTransaction[] = [
         startedAt: "2025-01-10T15:00:00",
         endedAt: "2025-01-10T16:00:00",
         message: "เต็มวัน",
-        status: Status.APPROVE,
+        status: TransactionsStatus.APPROVE,
         user: {
           phone: "0860000001",
           profileUrl: "https://randomuser.me/api/portraits/men/13.jpg",

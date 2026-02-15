@@ -74,7 +74,7 @@ export const AllTransaction = () => {
                         alt="arrowDown"
                       ></SvgIconMono>
                     </div>
-                    <Tooltip title={item.user.tel}>
+                    <Tooltip title={item.user.phone}>
                       <h2 className={styles.username}>{item.user.userName}</h2>
                     </Tooltip>
                   </div>

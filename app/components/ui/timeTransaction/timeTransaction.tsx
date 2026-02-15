@@ -1,6 +1,5 @@
 "use client";
 
-import { mockData } from "@/app/mockdata/mockdata";
 import React, { useState } from "react";
 import { ModalContainer } from "../../modal/modalContainer/modalContainer";
 import { TransactionInfo } from "../../modal/transactionInfo/transactionInfo";
@@ -48,7 +47,6 @@ export const TimeTransaction = ({ toolId = 0 }) => {
     data: toolTransaction,
     isError,
     error,
-    isLoading,
   } = useGetToolTransactionQuery(Number(toolId));
   let toolTransactionErrorMessage =
     "There's some error occuring while try to fetching the transaction data";
@@ -61,7 +59,7 @@ export const TimeTransaction = ({ toolId = 0 }) => {
 
   return isError ? (
     <div className={styles.error}>
-      ops! there's some error: {toolTransactionErrorMessage};
+      <span>error:</span> {toolTransactionErrorMessage};
     </div>
   ) : (
     <div className={styles.calendarWrapper}>
