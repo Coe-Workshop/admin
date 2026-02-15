@@ -1,23 +1,32 @@
+import { TransactionsStatus } from "@/lib/features/transactions/transaction.types";
 export interface BaseTransaction {
-  endTime: string;
+  endedAt: string;
   message: string;
-  status: Status;
+  status: TransactionsStatus;
 }
 
+// export enum Status {
+//   "APPROVE",
+//   "RESERVE",
+//   "Finished",
+//   "REJECT",
+//   "Cancel",
+//   "Blank",
+// }
 export enum Status {
-  "Approved",
-  "Pending",
-  "Finished",
-  "Rejected",
-  "Cancel",
-  "Blank",
+  REJECT = "REJECT",
+  RESERVE = "RESERVE",
+  APPROVE = "APPROVE",
+  Finished = "finished",
+  Cancel = "Cancel",
+  Blank = "Blank",
 }
 
 export const statusVariant: Record<Status, { title: string; color: string }> = {
-  [Status.Approved]: { title: "อนุมัติ", color: "#beef6f" },
-  [Status.Pending]: { title: "รออนุมัติ", color: "#6fa7ef" },
+  [Status.APPROVE]: { title: "อนุมัติ", color: "#beef6f" },
+  [Status.RESERVE]: { title: "รออนุมัติ", color: "#6fa7ef" },
   [Status.Finished]: { title: "เสร็จสิ้น", color: "#ffadf3" },
-  [Status.Rejected]: { title: "ปฏิเสธ", color: "#efa26f" },
+  [Status.REJECT]: { title: "ปฏิเสธ", color: "#efa26f" },
   [Status.Cancel]: { title: "ยกเลิก", color: "#ef4444" },
   [Status.Blank]: { title: "ว่าง", color: "#cccccc" },
 };

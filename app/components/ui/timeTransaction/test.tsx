@@ -15,9 +15,9 @@ export const TimeTransaction = () => {
     "15.00",
   ]);
 
-  const getColspanLenght = (startTime: string, endTime: string): number => {
-    const t1 = new Date(startTime);
-    const t2 = new Date(endTime);
+  const getColspanLenght = (startedAt: string, endedAt: string): number => {
+    const t1 = new Date(startedAt);
+    const t2 = new Date(endedAt);
     const timeDiff = t2.getTime() - t1.getTime();
     return Math.ceil(timeDiff / (1000 * 60) / 30);
   };
@@ -46,37 +46,37 @@ export const TimeTransaction = () => {
             const firstColumnTime = "2025-01-10T09:00:00";
             const lastColumnTime = "2025-01-10T16:00:00";
             return (
-              <tr key={item.assetId}>
+              <tr key={item.assetID}>
                 {(() => {
                   const firstColSpan = getColspanLenght(
                     firstColumnTime,
-                    item.itemTransaction[0].startTime,
+                    item.transactions[0].startedAt,
                   );
                   if (firstColSpan != 0)
                     return <td colSpan={firstColSpan}>{firstColSpan}</td>;
                 })()}
-                {item.itemTransaction.map((t, i) => {
+                {item.transactions.map((t, i) => {
                   const currentColSpan = getColspanLenght(
-                    item.itemTransaction[i].startTime,
-                    item.itemTransaction[i].endTime,
+                    item.transactions[i].startedAt,
+                    item.transactions[i].endedAt,
                   );
                   const nextColspan = getColspanLenght(
-                    item.itemTransaction[i].endTime,
-                    item.itemTransaction[i + 1]?.startTime ?? lastColumnTime,
+                    item.transactions[i].endedAt,
+                    item.transactions[i + 1]?.startedAt ?? lastColumnTime,
                   );
                   return (
                     <React.Fragment key={i}>
                       <td colSpan={currentColSpan}>
                         {getColspanLenght(
-                          item.itemTransaction[i].startTime,
-                          item.itemTransaction[i].endTime,
+                          item.transactions[i].startedAt,
+                          item.transactions[i].endedAt,
                         )}
                       </td>
                       {nextColspan != 0 && (
                         <td colSpan={nextColspan}>
                           {getColspanLenght(
-                            item.itemTransaction[i].endTime,
-                            item.itemTransaction[i + 1]?.startTime ??
+                            item.transactions[i].endedAt,
+                            item.transactions[i + 1]?.startedAt ??
                               "2025-01-10T16:00:00",
                           )}
                         </td>

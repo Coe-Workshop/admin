@@ -1,11 +1,13 @@
 "use client";
 
-import { mockData } from "@/app/mockdata/mockdata";
 import React, { useState } from "react";
 import { ModalContainer } from "../../modal/modalContainer/modalContainer";
 import { TransactionInfo } from "../../modal/transactionInfo/transactionInfo";
 import styles from "./timeTransaction.module.scss";
-export const TimeTransaction = () => {
+import { useGetToolTransactionQuery } from "@/lib/features/transactions/transactionsApiSlice";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { ErrorResponse } from "@/lib/features/transactions/transaction.types";
+export const TimeTransaction = ({ toolId = 0 }) => {
   const [timeAxis] = useState<string[]>([
     "09.00",
     "10.00",
@@ -18,9 +20,9 @@ export const TimeTransaction = () => {
   const firstColumnTime = "2025-01-10T09:00:00";
   const lastColumnTime = "2025-01-10T16:00:00";
   const [opened, setOpened] = useState<number[]>([]);
-  const getColspanLenght = (startTime: string, endTime: string): number => {
-    const t1 = new Date(startTime);
-    const t2 = new Date(endTime);
+  const getColspanLenght = (startedAt: string, endedAt: string): number => {
+    const t1 = new Date(startedAt);
+    const t2 = new Date(endedAt);
     const timeDiff = t2.getTime() - t1.getTime();
 
     return Math.ceil(timeDiff / (1000 * 60) / 30);
@@ -28,7 +30,7 @@ export const TimeTransaction = () => {
 
   const toggleOpened = (idx: number) => {
     setOpened((prev) =>
-      prev.includes(idx) ? prev.filter((item) => item != idx) : [...prev, idx]
+      prev.includes(idx) ? prev.filter((item) => item != idx) : [...prev, idx],
     );
   };
 
@@ -41,8 +43,25 @@ export const TimeTransaction = () => {
       .replace(":", ".");
     return time;
   };
+  const {
+    data: toolTransaction,
+    isError,
+    error,
+  } = useGetToolTransactionQuery(Number(toolId));
+  let toolTransactionErrorMessage =
+    "There's some error occuring while try to fetching the transaction data";
+  if (error && "data" in error) {
+    const err = error as FetchBaseQueryError;
+    if (err.data && typeof err.data === "object" && "error" in err.data) {
+      toolTransactionErrorMessage = (err.data as ErrorResponse).error || "";
+    }
+  }
 
-  return (
+  return isError ? (
+    <div className={styles.error}>
+      <span>error:</span> {toolTransactionErrorMessage};
+    </div>
+  ) : (
     <div className={styles.calendarWrapper}>
       <section className={styles.header}>
         <h3 className={styles.header_blank}></h3>
@@ -60,16 +79,16 @@ export const TimeTransaction = () => {
           ))}
         </div>
         <div className={styles.tableContent}>
-          {mockData.map((item, index) => {
+          {toolTransaction?.assets.map((item, index) => {
             return (
               <div key={index} className={styles.row_container}>
                 <div className={styles.row}>
-                  <h3 className={styles.assetId}>{item.assetId}</h3>
+                  <h3 className={styles.assetID}>{item.assetID}</h3>
                   {(() => {
-                    if (firstColumnTime < item.itemTransaction[0].startTime) {
+                    if (firstColumnTime < item.transactions[0]?.startedAt) {
                       const firstGapColspan = getColspanLenght(
                         firstColumnTime,
-                        item.itemTransaction[0].startTime
+                        item.transactions[0].startedAt,
                       );
                       return (
                         <div
@@ -83,14 +102,14 @@ export const TimeTransaction = () => {
                       );
                     }
                   })()}
-                  {item.itemTransaction.map((event, id) => {
+                  {item.transactions.map((event, id) => {
                     const cuerrentColSpan = getColspanLenght(
-                      event.startTime,
-                      event.endTime
+                      event?.startedAt,
+                      event.endedAt,
                     );
                     const gapColSpan = getColspanLenght(
-                      event.endTime,
-                      item.itemTransaction[id + 1]?.startTime ?? lastColumnTime
+                      event.endedAt,
+                      item.transactions[id + 1]?.startedAt ?? lastColumnTime,
                     );
                     return (
                       <React.Fragment key={id}>
@@ -101,8 +120,8 @@ export const TimeTransaction = () => {
                           <TransactionInfo
                             onClose={() => toggleOpened(id)}
                             user={event.user}
-                            startTime={event.startTime}
-                            endTime={event.endTime}
+                            startedAt={event.startedAt}
+                            endedAt={event.endedAt}
                             message={event.message}
                             status={event.status}
                           ></TransactionInfo>
@@ -120,11 +139,11 @@ export const TimeTransaction = () => {
                             <div className={styles.event_line}></div>
                             <div>
                               <div>
-                                <h3>{event.user.username}</h3>
+                                <h3>{event.user.userName}</h3>
                               </div>
                               <p>
-                                {getTimeFormat(event.startTime)} -
-                                {getTimeFormat(event.endTime)}
+                                {getTimeFormat(event.startedAt)} -
+                                {getTimeFormat(event.endedAt)}
                               </p>
                             </div>
                           </div>
@@ -151,3 +170,5 @@ export const TimeTransaction = () => {
     </div>
   );
 };
+
+// 85, 109

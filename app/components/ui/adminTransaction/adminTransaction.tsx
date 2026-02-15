@@ -85,8 +85,8 @@ export const AdminTransaction = ({
                         alt="arrowDown"
                       ></SvgIconMono>
                     </div>
-                    <Tooltip title={item.user.tel}>
-                      <h2 className={styles.username}>{item.user.username}</h2>
+                    <Tooltip title={item.user.phone}>
+                      <h2 className={styles.username}>{item.user.userName}</h2>
                     </Tooltip>
                   </div>
                 </td>
@@ -108,7 +108,7 @@ export const AdminTransaction = ({
                 (t) =>
                   openTransaction.includes(index) && (
                     <tr
-                      key={t.assetId}
+                      key={t.assetID}
                       className={`${styles.transactionRow}  ${
                         closeTransaction.includes(index)
                           ? styles.slideOut
@@ -116,12 +116,12 @@ export const AdminTransaction = ({
                       }`}
                     >
                       <td>{t.itemName}</td>
-                      <td>{t.assetId}</td>
+                      <td>{t.assetID}</td>
                       <td className={styles.status}>
                         <StatusTag status={t.status} />
                       </td>
                       <td className={styles.endTime}>
-                        {formatHourMinute(t.endTime)}
+                        {formatHourMinute(t.endedAt)}
                       </td>
                       <td className={styles.message}>{t.message}</td>
                       <td>

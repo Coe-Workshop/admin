@@ -1,4 +1,5 @@
-import { Status } from "../types/api/transaction";
+// import { Status } from "../types/api/transaction";
+import { TransactionsStatus } from "@/lib/features/transactions/transaction.types";
 import {
   ItemTableTransaction,
   AdminTableTransaction,
@@ -7,256 +8,257 @@ import {
 export const mockAdminTableTransactions: AdminTableTransaction[] = [
   {
     user: {
-      username: "kritsada.b",
-      tel: "081-234-5678",
+      userName: "kritsada.b",
+      phone: "081-234-5678",
       profileUrl: "https://i.pravatar.cc/150?img=1",
     },
     adminTransactions: [
       {
         itemName: "Laptop Dell Latitude 5440",
-        assetId: "ASSET-001",
-        startTime: "2025-01-10T08:30:00Z",
-        endTime: "2025-01-10T17:30:00Z",
+        assetID: "ASSET-001",
+        startedAt: "2025-01-10T08:30:00Z",
+        endedAt: "2025-01-10T17:30:00Z",
         message: "ขอยืมใช้งานสำหรับประชุมทีม",
-        status: Status.Approved,
+        status: TransactionsStatus.APPROVE,
       },
       {
         itemName: "iPad Pro 11”",
-        assetId: "ASSET-002",
-        startTime: "2025-01-12T09:00:00Z",
-        endTime: "2025-01-12T18:00:00Z",
+        assetID: "ASSET-002",
+        startedAt: "2025-01-12T09:00:00Z",
+        endedAt: "2025-01-12T18:00:00Z",
         message: "ใช้สำหรับพรีเซนต์งานลูกค้า",
-        status: Status.Finished,
+        status: TransactionsStatus.Finished,
       },
     ],
   },
   {
     user: {
-      username: "anan.c",
-      tel: "089-555-1122",
+      userName: "anan.c",
+      phone: "089-555-1122",
       profileUrl: "https://i.pravatar.cc/150?img=2",
     },
     adminTransactions: [
       {
         itemName: "Projector Epson X500",
-        assetId: "ASSET-003",
-        startTime: "2025-01-15T13:00:00Z",
-        endTime: "2025-01-15T16:00:00Z",
+        assetID: "ASSET-003",
+        startedAt: "2025-01-15T13:00:00Z",
+        endedAt: "2025-01-15T16:00:00Z",
         message: "ใช้งานอบรมภายใน",
-        status: Status.Pending,
+        status: TransactionsStatus.RESERVE,
       },
       {
         itemName: "Meeting Room A",
-        assetId: "ROOM-A",
-        startTime: "2025-01-18T10:00:00Z",
-        endTime: "2025-01-18T12:00:00Z",
+        assetID: "ROOM-A",
+        startedAt: "2025-01-18T10:00:00Z",
+        endedAt: "2025-01-18T12:00:00Z",
         message: "ยกเลิกเนื่องจากเลื่อนประชุม",
-        status: Status.Cancel,
+        status: TransactionsStatus.Cancel,
       },
     ],
   },
   {
     user: {
-      username: "somsak.r",
-      tel: "086-888-9999",
+      userName: "somsak.r",
+      phone: "086-888-9999",
       profileUrl: "https://i.pravatar.cc/150?img=3",
     },
     adminTransactions: [
       {
         itemName: "MacBook Pro M2",
-        assetId: "ASSET-004",
-        startTime: "2025-01-20T09:00:00Z",
-        endTime: "2025-01-20T17:00:00Z",
+        assetID: "ASSET-004",
+        startedAt: "2025-01-20T09:00:00Z",
+        endedAt: "2025-01-20T17:00:00Z",
         message: "ขอยืมทดสอบระบบ",
-        status: Status.Rejected,
+        status: TransactionsStatus.REJECT,
       },
       {
         itemName: "Camera Sony A7 III",
-        assetId: "ASSET-005",
-        startTime: "2025-01-22T08:00:00Z",
-        endTime: "2025-01-22T18:00:00Z",
+        assetID: "ASSET-005",
+        startedAt: "2025-01-22T08:00:00Z",
+        endedAt: "2025-01-22T18:00:00Z",
         message: "",
-        status: Status.Blank,
+        status: TransactionsStatus.Blank,
       },
     ],
   },
 ];
 
+// change field ให้ตรงกับresponse ของเตอร์
 export const mockData: ItemTableTransaction[] = [
   {
-    assetId: "ASSET-001",
-    itemTransaction: [
+    assetID: "ASSET-001",
+    transactions: [
       {
-        startTime: "2025-01-10T09:00:00",
-        endTime: "2025-01-10T10:00:00",
+        startedAt: "2025-01-10T09:00:00",
+        endedAt: "2025-01-10T10:00:00",
         message: "ประชุมเช้า",
-        status: Status.Finished,
+        status: TransactionsStatus.Finished,
         user: {
-          tel: "0812345678",
+          phone: "0812345678",
           profileUrl: "https://randomuser.me/api/portraits/men/1.jpg",
-          username: "User A1",
+          userName: "User A1",
         },
       },
       {
-        startTime: "2025-01-10T10:00:00",
-        endTime: "2025-01-10T12:00:00",
+        startedAt: "2025-01-10T10:00:00",
+        endedAt: "2025-01-10T12:00:00",
         message: "ใช้งานต่อเนื่อง",
-        status: Status.Finished,
+        status: TransactionsStatus.Finished,
         user: {
-          tel: "0812345679",
+          phone: "0812345679",
           profileUrl: "https://randomuser.me/api/portraits/men/2.jpg",
-          username: "User A2",
+          userName: "User A2",
         },
       },
       {
-        startTime: "2025-01-10T13:00:00",
-        endTime: "2025-01-10T14:30:00",
+        startedAt: "2025-01-10T13:00:00",
+        endedAt: "2025-01-10T14:30:00",
         message: "ช่วงบ่าย",
-        status: Status.Pending,
+        status: TransactionsStatus.RESERVE,
         user: {
-          tel: "0812345680",
+          phone: "0812345680",
           profileUrl: "https://randomuser.me/api/portraits/men/3.jpg",
-          username: "User A3",
+          userName: "User A3",
         },
       },
       {
-        startTime: "2025-01-10T14:30:00",
-        endTime: "2025-01-10T16:00:00",
+        startedAt: "2025-01-10T14:30:00",
+        endedAt: "2025-01-10T16:00:00",
         message: "ต่อเนื่องจนเย็น",
-        status: Status.Blank,
+        status: TransactionsStatus.Blank,
         user: {
-          tel: "0812345681",
+          phone: "0812345681",
           profileUrl: "https://randomuser.me/api/portraits/men/4.jpg",
-          username: "User A4",
+          userName: "User A4",
         },
       },
     ],
   },
 
   {
-    assetId: "ASSET-002",
-    itemTransaction: [
+    assetID: "ASSET-002",
+    transactions: [
       {
-        startTime: "2025-01-10T09:00:00",
-        endTime: "2025-01-10T11:00:00",
+        startedAt: "2025-01-10T09:00:00",
+        endedAt: "2025-01-10T11:00:00",
         message: "พรีเซนต์",
-        status: Status.Finished,
+        status: TransactionsStatus.Finished,
         user: {
-          tel: "0820000001",
+          phone: "0820000001",
           profileUrl: "https://randomuser.me/api/portraits/women/5.jpg",
-          username: "User B1",
+          userName: "User B1",
         },
       },
       {
-        startTime: "2025-01-10T13:00:00",
-        endTime: "2025-01-10T15:00:00",
+        startedAt: "2025-01-10T13:00:00",
+        endedAt: "2025-01-10T15:00:00",
         message: "อบรม",
-        status: Status.Finished,
+        status: TransactionsStatus.Finished,
         user: {
-          tel: "0820000002",
+          phone: "0820000002",
           profileUrl: "https://randomuser.me/api/portraits/women/6.jpg",
-          username: "User B2",
+          userName: "User B2",
         },
       },
     ],
   },
 
   {
-    assetId: "ASSET-003",
-    itemTransaction: [
+    assetID: "ASSET-003",
+    transactions: [
       {
-        startTime: "2025-01-10T10:30:00",
-        endTime: "2025-01-10T12:00:00",
+        startedAt: "2025-01-10T10:30:00",
+        endedAt: "2025-01-10T12:00:00",
         message: "เริ่มช้า",
-        status: Status.Rejected,
+        status: TransactionsStatus.REJECT,
         user: {
-          tel: "0830000001",
+          phone: "0830000001",
           profileUrl: "https://randomuser.me/api/portraits/men/7.jpg",
-          username: "User C1",
+          userName: "User C1",
         },
       },
       {
-        startTime: "2025-01-10T14:00:00",
-        endTime: "2025-01-10T16:00:00",
+        startedAt: "2025-01-10T14:00:00",
+        endedAt: "2025-01-10T16:00:00",
         message: "ท้ายวัน",
-        status: Status.Finished,
+        status: TransactionsStatus.Finished,
         user: {
-          tel: "0830000002",
+          phone: "0830000002",
           profileUrl: "https://randomuser.me/api/portraits/men/8.jpg",
-          username: "User C2",
+          userName: "User C2",
         },
       },
     ],
   },
 
   {
-    assetId: "ASSET-004",
-    itemTransaction: [
+    assetID: "ASSET-004",
+    transactions: [
       {
-        startTime: "2025-01-10T09:00:00",
-        endTime: "2025-01-10T14:00:00",
+        startedAt: "2025-01-10T09:00:00",
+        endedAt: "2025-01-10T14:00:00",
         message: "จองยาว",
-        status: Status.Approved,
+        status: TransactionsStatus.APPROVE,
         user: {
-          tel: "0840000001",
+          phone: "0840000001",
           profileUrl: "https://randomuser.me/api/portraits/men/9.jpg",
-          username: "User D1",
+          userName: "User D1",
         },
       },
     ],
   },
 
   {
-    assetId: "ASSET-005",
-    itemTransaction: [
+    assetID: "ASSET-005",
+    transactions: [
       {
-        startTime: "2025-01-10T09:00:00",
-        endTime: "2025-01-10T09:30:00",
+        startedAt: "2025-01-10T09:00:00",
+        endedAt: "2025-01-10T09:30:00",
         message: "สั้นมาก",
-        status: Status.Finished,
+        status: TransactionsStatus.Finished,
         user: {
-          tel: "0850000001",
+          phone: "0850000001",
           profileUrl: "https://randomuser.me/api/portraits/women/10.jpg",
-          username: "User E1",
+          userName: "User E1",
         },
       },
       {
-        startTime: "2025-01-10T10:00:00",
-        endTime: "2025-01-10T10:30:00",
+        startedAt: "2025-01-10T10:00:00",
+        endedAt: "2025-01-10T10:30:00",
         message: "สั้น + เว้นช่วง",
-        status: Status.Pending,
+        status: TransactionsStatus.RESERVE,
         user: {
-          tel: "0850000002",
+          phone: "0850000002",
           profileUrl: "https://randomuser.me/api/portraits/women/11.jpg",
-          username: "User E2",
+          userName: "User E2",
         },
       },
       {
-        startTime: "2025-01-10T15:00:00",
-        endTime: "2025-01-10T16:00:00",
+        startedAt: "2025-01-10T15:00:00",
+        endedAt: "2025-01-10T16:00:00",
         message: "ท้ายวัน",
-        status: Status.Finished,
+        status: TransactionsStatus.Finished,
         user: {
-          tel: "0850000003",
+          phone: "0850000003",
           profileUrl: "https://randomuser.me/api/portraits/women/12.jpg",
-          username: "User E3",
+          userName: "User E3",
         },
       },
     ],
   },
 
   {
-    assetId: "ASSET-006",
-    itemTransaction: [
+    assetID: "ASSET-006",
+    transactions: [
       {
-        startTime: "2025-01-10T15:00:00",
-        endTime: "2025-01-10T16:00:00",
+        startedAt: "2025-01-10T15:00:00",
+        endedAt: "2025-01-10T16:00:00",
         message: "เต็มวัน",
-        status: Status.Approved,
+        status: TransactionsStatus.APPROVE,
         user: {
-          tel: "0860000001",
+          phone: "0860000001",
           profileUrl: "https://randomuser.me/api/portraits/men/13.jpg",
-          username: "User F1",
+          userName: "User F1",
         },
       },
     ],
