@@ -10,6 +10,7 @@ import { Tooltip } from "../tooltip/tooltip";
 import styles from "./adminTrasaction.module.scss";
 import { AreaInput } from "../../form/AreaInput/AreaInput";
 import { AdminTransactionProps, ResponseStatus } from "./adminTransaction.type";
+import { ModalContainer } from "../../modal/modalContainer/modalContainer";
 export const AdminTransaction = ({
   message,
   onChange,
