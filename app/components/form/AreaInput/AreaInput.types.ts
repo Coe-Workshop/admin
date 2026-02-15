@@ -1,5 +1,5 @@
 export interface AreaInputProps {
-  label: string;
+  label?: string;
   placeholder: string;
   require?: boolean;
   value: string;
