@@ -7,7 +7,7 @@ export const apiSliceWithTransactions = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getToolTransaction: builder.query<ToolTransactionData, number>({
       query: (toolId) => `/transactions?item=${toolId}`,
-      keepUnusedDataFor: 120,
+      keepUnusedDataFor: 300,
       transformResponse(res: ToolTransactionResponse) {
         return res.data;
       },
