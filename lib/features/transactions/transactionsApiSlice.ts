@@ -13,8 +13,17 @@ export const apiSliceWithTransactions = apiSlice.injectEndpoints({
       },
       // providesTags:
     }),
+    // ทำเผื่อ
+    getAllTransactions: builder.query<ToolTransactionData, void>({
+      query: () => `/transactions`, // ตรวจสอบ path กับ Backend อีกที (เช่น /transactions หรือ /admin/transactions)
+      keepUnusedDataFor: 300,
+      transformResponse(res: ToolTransactionResponse) {
+        return res.data;
+      },
+      providesTags: ["Transaction"],
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetToolTransactionQuery } = apiSliceWithTransactions;
+export const { useGetToolTransactionQuery, useGetAllTransactionsQuery } = apiSliceWithTransactions;

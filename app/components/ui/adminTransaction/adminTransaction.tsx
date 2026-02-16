@@ -1,7 +1,7 @@
 "use client";
 
 import useDisclosure from "@/app/hook/useDisclosure";
-import { mockAdminTableTransactions } from "@/app/mockdata/mockdata";
+// import { mockAdminTableTransactions } from "@/app/mockdata/mockdata";
 import { prefix } from "@/app/utils/prefix";
 import React, { useState } from "react";
 import SvgIconMono from "../../Icon/SvgIconMono";
@@ -11,6 +11,9 @@ import styles from "./adminTrasaction.module.scss";
 import { AreaInput } from "../../form/AreaInput/AreaInput";
 import { AdminTransactionProps, ResponseStatus } from "./adminTransaction.type";
 import { ModalContainer } from "../../modal/modalContainer/modalContainer";
+import { useGetAllTransactionsQuery, useGetToolTransactionQuery } from "@/lib/features/transactions/transactionsApiSlice";
+import { useSearchParams } from "next/navigation";
+
 export const AdminTransaction = ({
   message,
   onChange,
@@ -22,6 +25,13 @@ export const AdminTransaction = ({
   const [closeTransaction, setCloseTransaction] = useState<number[]>([]);
   const { opened, handle } = useDisclosure();
 
+  // ใช้ param => /tranactions?item=__
+  const searchParams = useSearchParams();
+  const [item] = useState<number>(parseInt(searchParams.get("item") || "0", 0));
+
+  const { data: toolTransaction, isLoading, isError } = useGetToolTransactionQuery(item);
+  // const { data: toolTransaction, isLoading, isError } = useGetAllTransactionsQuery();
+
   const toggleTransaction = (idx: number) => {
     if (openTransaction.includes(idx)) {
       setCloseTransaction((prev) => [...prev, idx]);
@@ -29,8 +39,9 @@ export const AdminTransaction = ({
         setOpenTransaction((prev) => prev.filter((item) => item !== idx));
         setCloseTransaction((prev) => prev.filter((item) => item !== idx));
       }, 300);
+    } else {
+      setOpenTransaction((prev) => [...prev, idx]);
     }
-    setOpenTransaction((prev) => [...prev, idx]);
   };
 
   const formatHourMinute = (iso: string): string => {
@@ -65,7 +76,21 @@ export const AdminTransaction = ({
         </thead>
 
         <tbody>
-          {mockAdminTableTransactions.map((item, index) => (
+          {isLoading && (
+            <tr>
+              <td colSpan={6} style={{ textAlign: "center", padding: "20px" }}>
+                กำลังโหลดข้อมูล...
+              </td>
+            </tr>
+          )}
+          {isError && (
+            <tr>
+              <td colSpan={6} style={{ textAlign: "center", padding: "20px", color: "red" }}>
+                เกิดข้อผิดพลาดในการดึงข้อมูล
+              </td>
+            </tr>
+          )}
+          {toolTransaction?.assets.map((item, index) => (
             <React.Fragment key={index}>
               <tr className={styles.userRow}>
                 <td colSpan={1}>
@@ -85,8 +110,8 @@ export const AdminTransaction = ({
                         alt="arrowDown"
                       ></SvgIconMono>
                     </div>
-                    <Tooltip title={item.user.phone}>
-                      <h2 className={styles.username}>{item.user.userName}</h2>
+                    <Tooltip title={item.transactions?.[0]?.user.phone}>
+                      <h2 className={styles.username}>{item.transactions?.[0]?.user?.userName}</h2>
                     </Tooltip>
                   </div>
                 </td>
@@ -104,19 +129,18 @@ export const AdminTransaction = ({
                 </td>
               </tr>
 
-              {item.adminTransactions.map(
-                (t) =>
+              {item.transactions.map(
+                (t, tIdx) =>
                   openTransaction.includes(index) && (
                     <tr
-                      key={t.assetID}
+                      key={tIdx}
                       className={`${styles.transactionRow}  ${
                         closeTransaction.includes(index)
                           ? styles.slideOut
                           : styles.slideIn
                       }`}
                     >
-                      <td>{t.itemName}</td>
-                      <td>{t.assetID}</td>
+                      <td>{item.assetID}</td>
                       <td className={styles.status}>
                         <StatusTag status={t.status} />
                       </td>
@@ -126,20 +150,24 @@ export const AdminTransaction = ({
                       <td className={styles.message}>{t.message}</td>
                       <td>
                         <div className={styles.action_content}>
-                          <SvgIconMono
-                            className={styles.action_content_check}
-                            src={`${prefix}/icon/double-check.svg`}
-                            width={20}
-                            height={20}
-                            alt="check"
-                          />
-                          <SvgIconMono
-                            className={styles.action_content_stop}
-                            src={`${prefix}/icon/stop.svg`}
-                            width={20}
-                            height={20}
-                            alt="stop"
-                          />
+                          <div style={{cursor: 'pointer'}}>
+                            <SvgIconMono
+                                className={styles.action_content_check}
+                                src={`${prefix}/icon/double-check.svg`}
+                                width={20}
+                                height={20}
+                                alt="check"
+                            />
+                          </div>
+                          <div style={{cursor: 'pointer'}}>
+                            <SvgIconMono
+                                className={styles.action_content_stop}
+                                src={`${prefix}/icon/stop.svg`}
+                                width={20}
+                                height={20}
+                                alt="stop"
+                            />
+                          </div>
                         </div>
                       </td>
                     </tr>
