@@ -3,7 +3,7 @@ import Link from "next/link";
 const Hello = () => {
   return (
     <div className={styles.hello}>
-      <Link href={"/landing"} className={styles.message}>
+      <Link href={"/transaction"} className={styles.message}>
         EN Workshop Admin is on. 😎
       </Link>
     </div>
