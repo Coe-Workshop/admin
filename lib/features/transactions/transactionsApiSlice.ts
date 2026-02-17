@@ -23,7 +23,7 @@ export const apiSliceWithTransactions = apiSlice.injectEndpoints({
       providesTags: ["Transaction"],
     }),
   }),
-  overrideExisting: false,
+  overrideExisting: true,
 });
 
 export const { useGetToolTransactionQuery, useGetAllTransactionsQuery } = apiSliceWithTransactions;

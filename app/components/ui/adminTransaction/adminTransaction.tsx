@@ -78,14 +78,14 @@ export const AdminTransaction = ({
         <tbody>
           {isLoading && (
             <tr>
-              <td colSpan={6} style={{ textAlign: "center", padding: "20px" }}>
+              <td colSpan={6} style={{ textAlign: "left", padding: "20px" }}>
                 กำลังโหลดข้อมูล...
               </td>
             </tr>
           )}
           {isError && (
             <tr>
-              <td colSpan={6} style={{ textAlign: "center", padding: "20px", color: "red" }}>
+              <td colSpan={6} style={{ textAlign: "left", padding: "20px", color: "red" }}>
                 เกิดข้อผิดพลาดในการดึงข้อมูล
               </td>
             </tr>
