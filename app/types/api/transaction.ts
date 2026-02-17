@@ -5,12 +5,12 @@ export interface BaseTransaction {
 }
 
 export enum Status {
-  "Approved",
-  "Pending",
-  "Finished",
-  "Rejected",
-  "Cancel",
-  "Blank",
+  Approved = "Approved",
+  Pending = "Pending",
+  Finished = "Finished",
+  Rejected = "Rejected",
+  Cancel = "Cancel",
+  Blank = "Blank",
 }
 
 export const statusVariant: Record<Status, { title: string; color: string }> = {
