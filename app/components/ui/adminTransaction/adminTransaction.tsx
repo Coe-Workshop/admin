@@ -11,8 +11,9 @@ import styles from "./adminTrasaction.module.scss";
 import { AreaInput } from "../../form/AreaInput/AreaInput";
 import { AdminTransactionProps, ResponseStatus } from "./adminTransaction.type";
 import { ModalContainer } from "../../modal/modalContainer/modalContainer";
-import { useGetAllTransactionsQuery, useGetToolTransactionQuery } from "@/lib/features/transactions/transactionsApiSlice";
+import { useGetToolTransactionQuery } from "@/lib/features/transactions/transactionsApiSlice";
 import { useSearchParams } from "next/navigation";
+import { ISODateString } from "@/lib/features/transactions/transaction.types";
 
 export const AdminTransaction = ({
   message,
@@ -27,10 +28,17 @@ export const AdminTransaction = ({
 
   // ใช้ param => /tranactions?item=__
   const searchParams = useSearchParams();
-  const [item] = useState<number>(parseInt(searchParams.get("item") || "0", 0));
+  const [itemQuery] = useState<number>(parseInt(searchParams.get("item") || "0", 0));
+  const [userQuery] = useState<string>(searchParams.get("user") || "");
+  const [dateQuery] = useState<ISODateString>((searchParams.get("date") || null) as ISODateString);
+  const [pageQuery] = useState<number>(parseInt(searchParams.get("page") || "0", 0));
 
-  const { data: toolTransaction, isLoading, isError } = useGetToolTransactionQuery(item);
-  // const { data: toolTransaction, isLoading, isError } = useGetAllTransactionsQuery();
+  const { data: toolTransaction, isLoading, isError } = useGetToolTransactionQuery(
+    {toolId:itemQuery, 
+     userId:userQuery, 
+     date:dateQuery,
+     page:pageQuery
+    });
 
   const toggleTransaction = (idx: number) => {
     if (openTransaction.includes(idx)) {

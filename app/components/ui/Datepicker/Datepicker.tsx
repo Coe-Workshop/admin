@@ -218,9 +218,11 @@ const DatePicker = ({
     if (isSameDate) {
       setSelectedDate(null);
       setPrevSelectedDate(null);
+      onChange?.(null);
     } else {
       setSelectedDate(updatedDate);
       setPrevSelectedDate(updatedDate);
+      onChange?.(updatedDate);
     }
     setView(ViewMode.CLOSED);
   };

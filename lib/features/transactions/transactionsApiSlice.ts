@@ -1,12 +1,29 @@
 import { apiSlice } from "../apiSlice";
 import {
+  ISODateString,
   ToolTransactionData,
   ToolTransactionResponse,
 } from "./transaction.types";
+
+function querySent(
+  toolId?: number|null, 
+  userId?: string|null, 
+  date?: ISODateString|null, 
+  page?: number|null) {
+    const params = new URLSearchParams();
+
+    if (toolId) params.set("item", String(toolId));
+    if (userId) params.set("user", userId);
+    if (date) params.set("date", date);
+    if (page) params.set("page", String(page));
+
+    return `/transactions?${params.toString()}`;
+}
+
 export const apiSliceWithTransactions = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getToolTransaction: builder.query<ToolTransactionData, number>({
-      query: (toolId) => `/transactions?item=${toolId}`,
+    getToolTransaction: builder.query<ToolTransactionData, { toolId:number; userId:string; date:ISODateString; page:number}>({
+      query: ({toolId, userId, date, page}) => querySent(toolId, userId, date, page),
       keepUnusedDataFor: 300,
       transformResponse(res: ToolTransactionResponse) {
         return res.data;
