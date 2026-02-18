@@ -1,3 +1,4 @@
+import { prefix } from "@/app/utils/prefix";
 import { apiSlice } from "../apiSlice";
 import {
   ToolTransactionData,
@@ -6,7 +7,7 @@ import {
 export const apiSliceWithTransactions = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getToolTransaction: builder.query<ToolTransactionData, number>({
-      query: (toolId) => `/transactions?item=${toolId}`,
+      query: (toolId) => `${prefix}/api/v1/transactions?item=${toolId}`,
       keepUnusedDataFor: 300,
       transformResponse(res: ToolTransactionResponse) {
         return res.data;

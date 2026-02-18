@@ -1,3 +1,4 @@
+import { prefix } from "@/app/utils/prefix";
 import { apiSlice } from "../apiSlice";
 import { loginStart } from "./authSlice";
 
@@ -5,7 +6,7 @@ export const apiSliceWithAuth = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (credentials) => ({
-        url: "/auth/login",
+        url: `${prefix}/api/v1/auth/login`,
         method: "POST",
         body: credentials,
       }),
