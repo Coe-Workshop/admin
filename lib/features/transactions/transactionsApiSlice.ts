@@ -17,7 +17,7 @@ function querySent(
     if (date) params.set("date", date);
     if (page) params.set("page", String(page));
 
-    return `/transactions?${params.toString()}`;
+    return `/admin/api/v1/transactions?${params.toString()}`;
 }
 
 export const apiSliceWithTransactions = apiSlice.injectEndpoints({
