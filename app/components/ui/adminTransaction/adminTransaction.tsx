@@ -1,7 +1,7 @@
 "use client";
 
 import useDisclosure from "@/app/hook/useDisclosure";
-import { mockAdminTableTransactions } from "@/app/mockdata/mockdata";
+// import { mockAdminTableTransactions } from "@/app/mockdata/mockdata";
 import { prefix } from "@/app/utils/prefix";
 import React, { useState } from "react";
 import SvgIconMono from "../../Icon/SvgIconMono";
@@ -98,18 +98,18 @@ export const AdminTransaction = ({
               </td>
             </tr>
           )}
-          {toolTransaction?.assets.map((item, index) => (
-            <React.Fragment key={index}>
+          {toolTransaction?.assets.map((assets, assetsIndex) => (
+            <React.Fragment key={assetsIndex}>
               <tr className={styles.userRow}>
                 <td colSpan={1}>
                   <div className={styles.userInfo}>
                     <div
                       style={{
-                        transform: openTransaction.includes(index)
+                        transform: openTransaction.includes(assetsIndex)
                           ? ""
                           : "rotate(-90deg)",
                       }}
-                      onClick={() => toggleTransaction(index)}
+                      onClick={() => toggleTransaction(assetsIndex)}
                     >
                       <SvgIconMono
                         src={`${prefix}/icon/arrow.svg`}
@@ -118,8 +118,8 @@ export const AdminTransaction = ({
                         alt="arrowDown"
                       ></SvgIconMono>
                     </div>
-                    <Tooltip title={item.transactions?.[0]?.user.phone}>
-                      <h2 className={styles.username}>{item.transactions?.[0]?.user?.userName}</h2>
+                    <Tooltip title={assets.transactions?.[0]?.user.phone}>
+                      <h2 className={styles.username}>{assets.transactions?.[0]?.user?.userName}</h2>
                     </Tooltip>
                   </div>
                 </td>
@@ -137,49 +137,49 @@ export const AdminTransaction = ({
                 </td>
               </tr>
 
-              {item.transactions.map(
-                (t, tIdx) =>
-                  openTransaction.includes(index) && (
-                    <tr
-                      key={tIdx}
-                      className={`${styles.transactionRow}  ${
-                        closeTransaction.includes(index)
-                          ? styles.slideOut
-                          : styles.slideIn
-                      }`}
-                    >
-                      <td>{item.assetID}</td>
-                      <td className={styles.status}>
-                        <StatusTag status={t.status} />
-                      </td>
-                      <td className={styles.endTime}>
-                        {formatHourMinute(t.endedAt)}
-                      </td>
-                      <td className={styles.message}>{t.message}</td>
-                      <td>
-                        <div className={styles.action_content}>
-                          <div style={{cursor: 'pointer'}}>
-                            <SvgIconMono
-                                className={styles.action_content_check}
-                                src={`${prefix}/icon/double-check.svg`}
-                                width={20}
-                                height={20}
-                                alt="check"
-                            />
-                          </div>
-                          <div style={{cursor: 'pointer'}}>
-                            <SvgIconMono
-                                className={styles.action_content_stop}
-                                src={`${prefix}/icon/stop.svg`}
-                                width={20}
-                                height={20}
-                                alt="stop"
-                            />
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  ),
+              {assets.transactions.map((transactions, transactionsIndex) => 
+              openTransaction.includes(assetsIndex) && (
+                <tr
+                  key={transactionsIndex}
+                  className={`${styles.transactionRow}  ${
+                    closeTransaction.includes(assetsIndex)
+                      ? styles.slideOut
+                      : styles.slideIn
+                  }`}
+                >
+                  <td>{"TEMP ITEM NAME"}</td> {/* ช่วยปลอบใจดวงนี้ ที่ยังคงคอย และยังรอคอย เธอกลับมาหา */}
+                  <td>{assets.assetID}</td>
+                  <td className={styles.status}>
+                    <StatusTag status={transactions.status} />
+                  </td>
+                  <td className={styles.endTime}>
+                    {formatHourMinute(transactions.endedAt)}
+                  </td>
+                  <td className={styles.message}>{transactions.message}</td>
+                  <td>
+                    <div className={styles.action_content}>
+                      <div style={{cursor: 'pointer'}}>
+                        <SvgIconMono
+                            className={styles.action_content_check}
+                            src={`${prefix}/icon/double-check.svg`}
+                            width={20}
+                            height={20}
+                            alt="check"
+                        />
+                      </div>
+                      <div style={{cursor: 'pointer'}}>
+                        <SvgIconMono
+                            className={styles.action_content_stop}
+                            src={`${prefix}/icon/stop.svg`}
+                            width={20}
+                            height={20}
+                            alt="stop"
+                        />
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              ),
               )}
             </React.Fragment>
           ))}
