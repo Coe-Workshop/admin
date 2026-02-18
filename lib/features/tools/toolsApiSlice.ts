@@ -74,7 +74,7 @@ export const apiSliceWithTools = apiSlice.injectEndpoints({
 
     updateTool: builder.mutation<Tool, ToolUpdateRequest>({
       query: (tool) => ({
-        url: `/items/${tool.id}`,
+        url: `/admin/api/v1/items/${tool.id}`,
         method: "PATCH",
         body: tool.updatedData,
       }),
@@ -89,7 +89,7 @@ export const apiSliceWithTools = apiSlice.injectEndpoints({
 
     updateToolAssets: builder.mutation<Tool, { toolId: number; assets_id: number[] | null }>({
       query: ({ toolId, assets_id }) => ({
-        url: `/items/${toolId}/assets`,
+        url: `/admin/api/v1/items/${toolId}/assets`,
         method: "PATCH",
         body: { assets_id },
       }),
