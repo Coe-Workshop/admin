@@ -1,4 +1,10 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { 
+  BaseQueryFn, 
+  createApi, FetchArgs, 
+  fetchBaseQuery, 
+  FetchBaseQueryError 
+} from "@reduxjs/toolkit/query/react";
+import HttpStatus from "http-status";
 import { prefix } from "@/app/utils/prefix";
 
 const baseQuery = fetchBaseQuery({ 
@@ -7,14 +13,21 @@ const baseQuery = fetchBaseQuery({
 });
 
 // สร้าง Custom Base Query เพื่อดัก Error
-const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
-  let result = await baseQuery(args, api, extraOptions);
+const baseQueryWithReauth: BaseQueryFn<
+  string | FetchArgs,
+  unknown,
+  FetchBaseQueryError
+> = async (args, api, extraOptions) => {
+  const result = await baseQuery(args, api, extraOptions);
 
-  // ถ้า Backend ตอบกลับมาว่า 401 (Unauthorized / ไม่มีคุกกี้ หรือ คุกกี้หมดอายุ)
-  if (result.error && result.error.status === 401) {
-    console.warn("Cookie หมดอายุ หรือยังไม่ได้ Login");    
-    // บังคับเปลี่ยนหน้าไปที่ /login
-    window.location.href = '/login'; 
+  if (result.error) {
+    if (result.error.status === HttpStatus.UNAUTHORIZED) {
+      console.warn("Session หมดอายุ ไปหน้า Login");
+      window.location.href = '/login'; 
+    } else if (result.error.status === HttpStatus.FORBIDDEN) {
+      console.warn("ไม่มีสิทธิ์เข้าถึง");
+      window.location.href = '/forbidden'; 
+    }
   }
   return result;
 };
