@@ -28,17 +28,18 @@ export const AdminTransaction = ({
 
   // ใช้ param => /tranactions?item=__
   const searchParams = useSearchParams();
-  const [itemQuery] = useState<number>(parseInt(searchParams.get("item") || "0", 0));
-  const [userQuery] = useState<string>(searchParams.get("user") || "");
-  const [dateQuery] = useState<ISODateString>((searchParams.get("date") || null) as ISODateString);
-  const [pageQuery] = useState<number>(parseInt(searchParams.get("page") || "0", 0));
+  const itemQuery = parseInt(searchParams.get("item") || "0", 10);
+  const userQuery = searchParams.get("user") || "";
+  const dateQuery = searchParams.get("date") as ISODateString;
+  const pageQuery = parseInt(searchParams.get("page") || "0", 10);
 
-  const { data: toolTransaction, isLoading, isError } = useGetToolTransactionQuery(
-    {toolId:itemQuery, 
-     userId:userQuery, 
-     date:dateQuery,
-     page:pageQuery
-    });
+  const { data: toolTransaction, isLoading, isError, isFetching } = useGetToolTransactionQuery({
+    toolId: itemQuery,
+    userId: userQuery,
+    date: dateQuery,
+    page: pageQuery,
+  });
+
 
   const toggleTransaction = (idx: number) => {
     if (openTransaction.includes(idx)) {
@@ -91,97 +92,103 @@ export const AdminTransaction = ({
               </td>
             </tr>
           )}
-          {isError && (
+          {isFetching ? (
+            <tr>
+              <td colSpan={6}>กำลังโหลดข้อมูลใหม่...</td>
+            </tr>
+          ) : (
+            isError ? (
             <tr>
               <td colSpan={6} style={{ textAlign: "left", padding: "20px", color: "red" }}>
                 เกิดข้อผิดพลาดในการดึงข้อมูล
               </td>
-            </tr>
-          )}
-          {toolTransaction?.assets.map((assets, assetsIndex) => (
-            <React.Fragment key={assetsIndex}>
-              <tr className={styles.userRow}>
-                <td colSpan={1}>
-                  <div className={styles.userInfo}>
-                    <div
-                      style={{
-                        transform: openTransaction.includes(assetsIndex)
-                          ? ""
-                          : "rotate(-90deg)",
+            </tr> 
+          ) : (
+            toolTransaction?.assets.map((assets, assetsIndex) => (
+              <React.Fragment key={assetsIndex}>
+                <tr className={styles.userRow}>
+                  <td colSpan={1}>
+                    <div className={styles.userInfo}>
+                      <div
+                        style={{
+                          transform: openTransaction.includes(assetsIndex)
+                            ? ""
+                            : "rotate(-90deg)",
+                        }}
+                        onClick={() => toggleTransaction(assetsIndex)}
+                      >
+                        <SvgIconMono
+                          src={`${prefix}/icon/arrow.svg`}
+                          width={15}
+                          height={15}
+                          alt="arrowDown"
+                        ></SvgIconMono>
+                      </div>
+                      <Tooltip title={assets.transactions?.[0]?.user.phone}>
+                        <h2 className={styles.username}>{assets.transactions?.[0]?.user?.userName}</h2>
+                      </Tooltip>
+                    </div>
+                  </td>
+                  <td colSpan={5}>
+                    <button
+                      onClick={() => {
+                        setResponseStatus(ResponseStatus.ApproveAll);
+                        handle.open();
                       }}
-                      onClick={() => toggleTransaction(assetsIndex)}
+                      className={styles.allApprove}
+                      type="button"
                     >
-                      <SvgIconMono
-                        src={`${prefix}/icon/arrow.svg`}
-                        width={15}
-                        height={15}
-                        alt="arrowDown"
-                      ></SvgIconMono>
-                    </div>
-                    <Tooltip title={assets.transactions?.[0]?.user.phone}>
-                      <h2 className={styles.username}>{assets.transactions?.[0]?.user?.userName}</h2>
-                    </Tooltip>
-                  </div>
-                </td>
-                <td colSpan={5}>
-                  <button
-                    onClick={() => {
-                      setResponseStatus(ResponseStatus.ApproveAll);
-                      handle.open();
-                    }}
-                    className={styles.allApprove}
-                    type="button"
-                  >
-                    อนุมัติทั้งหมด
-                  </button>
-                </td>
-              </tr>
-
-              {assets.transactions.map((transactions, transactionsIndex) => 
-              openTransaction.includes(assetsIndex) && (
-                <tr
-                  key={transactionsIndex}
-                  className={`${styles.transactionRow}  ${
-                    closeTransaction.includes(assetsIndex)
-                      ? styles.slideOut
-                      : styles.slideIn
-                  }`}
-                >
-                  <td>{"TEMP ITEM NAME"}</td> {/* ช่วยปลอบใจดวงนี้ ที่ยังคงคอย และยังรอคอย เธอกลับมาหา */}
-                  <td>{assets.assetID}</td>
-                  <td className={styles.status}>
-                    <StatusTag status={transactions.status} />
-                  </td>
-                  <td className={styles.endTime}>
-                    {formatHourMinute(transactions.endedAt)}
-                  </td>
-                  <td className={styles.message}>{transactions.message}</td>
-                  <td>
-                    <div className={styles.action_content}>
-                      <div style={{cursor: 'pointer'}}>
-                        <SvgIconMono
-                            className={styles.action_content_check}
-                            src={`${prefix}/icon/double-check.svg`}
-                            width={20}
-                            height={20}
-                            alt="check"
-                        />
-                      </div>
-                      <div style={{cursor: 'pointer'}}>
-                        <SvgIconMono
-                            className={styles.action_content_stop}
-                            src={`${prefix}/icon/stop.svg`}
-                            width={20}
-                            height={20}
-                            alt="stop"
-                        />
-                      </div>
-                    </div>
+                      อนุมัติทั้งหมด
+                    </button>
                   </td>
                 </tr>
-              ),
+  
+                {assets.transactions.map((transactions, transactionsIndex) => 
+                openTransaction.includes(assetsIndex) && (
+                  <tr
+                    key={transactionsIndex}
+                    className={`${styles.transactionRow}  ${
+                      closeTransaction.includes(assetsIndex)
+                        ? styles.slideOut
+                        : styles.slideIn
+                    }`}
+                  >
+                    <td>{"TEMP ITEM NAME"}</td> {/* ช่วยปลอบใจดวงนี้ ที่ยังคงคอย และยังรอคอย เธอกลับมาหา */}
+                    <td>{assets.assetID}</td>
+                    <td className={styles.status}>
+                      <StatusTag status={transactions.status} />
+                    </td>
+                    <td className={styles.endTime}>
+                      {formatHourMinute(transactions.endedAt)}
+                    </td>
+                    <td className={styles.message}>{transactions.message}</td>
+                    <td>
+                      <div className={styles.action_content}>
+                        <div style={{cursor: 'pointer'}}>
+                          <SvgIconMono
+                              className={styles.action_content_check}
+                              src={`${prefix}/icon/double-check.svg`}
+                              width={20}
+                              height={20}
+                              alt="check"
+                          />
+                        </div>
+                        <div style={{cursor: 'pointer'}}>
+                          <SvgIconMono
+                              className={styles.action_content_stop}
+                              src={`${prefix}/icon/stop.svg`}
+                              width={20}
+                              height={20}
+                              alt="stop"
+                          />
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                ),
               )}
             </React.Fragment>
+            ))
           ))}
         </tbody>
       </table>

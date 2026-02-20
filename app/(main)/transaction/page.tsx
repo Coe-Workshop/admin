@@ -9,10 +9,12 @@ import { ResponseStatus } from "@/app/components/ui/adminTransaction/adminTransa
 import { ISODateString } from "@/lib/features/transactions/transaction.types";
 import { useSetQuery } from "@/app/hook/SearchQuery";
 import { toISODateStringOrNull } from "@/app/utils/ISODateStringHandle";
+import { TextInput } from "@/app/components/form/TextInput/TextInput";
 
 const Transaction = () => {
   const setQuery = useSetQuery();
 
+  const [itemId, setItemId] = useState<string>("");
   const [responseStatus, setResponseStatus] = useState<ResponseStatus>(
     ResponseStatus.Approve,
   );
@@ -33,6 +35,16 @@ const Transaction = () => {
   return (
     <div>
       <div className={styles.filter}>
+        <TextInput
+          label="ไอดีของอุปกรณ์"
+          placeholder="กด 1 เพื่อขึ้นเรือ, 47 เพื่อเทส"
+          require
+          value={itemId}
+          onChange={(newVar) => {
+            setItemId(newVar);
+            setQuery("item", newVar);
+          }}
+        ></TextInput>
         <DatePicker 
           placeholder="--/--/----" 
           required={true}
