@@ -37,4 +37,17 @@
   width: 100%;
   color: var(--theme-0);
   border-radius: 0.4rem;
+  transition: background-color 0.3s ease;
+}
+.submit:hover {
+  background-color: var(--theme-1000);
+}
+.error {
+  color: var(--warning-red);
+}
+.errorButton {
+  background-color: var(--theme-1000);
+}
+.errorButton:hover {
+  background-color: var(--warning-red);
 }
