@@ -27,3 +27,11 @@
     border-radius: 0.4rem;
   }
 }
+
+.errorMessage {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--warning-red);
+  top: 76%;
+  right: 4%;
+}

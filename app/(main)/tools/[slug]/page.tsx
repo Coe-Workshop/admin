@@ -141,6 +141,7 @@ const Tool = () => {
             <DeleteConfirm
               onClose={() => handle.close()}
               confirmMessage={tool ? tool.name : ""}
+              toolId={tool?.id}
             ></DeleteConfirm>
           </ModalContainer>
           <ModalContainer
