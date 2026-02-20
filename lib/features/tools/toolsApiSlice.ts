@@ -19,7 +19,7 @@ export const initialState: Tools = [];
 export const apiSliceWithTools = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getTools: builder.query<Tools, void>({
-      query: () => "/admin/api/v1/items",
+      query: () => `/items`,
       keepUnusedDataFor: 300,
       transformResponse(res: ToolsResponse) {
         return res.data;
@@ -62,7 +62,7 @@ export const apiSliceWithTools = apiSlice.injectEndpoints({
 
     createTool: builder.mutation<Tool, ToolCreateRequest>({
       query: (tool) => ({
-        url: `/admin/api/v1/items`,
+        url: `$/items`,
         method: "POST",
         body: tool,
       }),

@@ -3,3 +3,8 @@ export interface User {
   profileUrl: string;
   userName: string;
 }
+
+export enum UserRole {
+  RESERVER = "RESERVER",
+  ADMIN = 'ADMIN',
+}
