@@ -4,7 +4,7 @@ import styles from "./login.module.scss";
 import { PasswordInput } from "../../components/ui/passwordInput/passwordInput";
 import { TextInput } from "@/app/components/form/TextInput/TextInput";
 import SvgIconColor from "@/app/components/Icon/SvgIconColor";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import { useLoginMutation } from "@/lib/features/auth/authApi";
 import { useDispatch } from "react-redux";
 import { loginFailure } from "@/lib/features/auth/authSlice";
@@ -16,7 +16,7 @@ const Login = () => {
   const router = useRouter();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [login, { isLoading, error }] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleLogin = async () => {
@@ -26,12 +26,13 @@ const Login = () => {
       const userData = await login(credentials).unwrap();
       console.log(userData);
       setErrorMessage(null);
-      router.push(dashboard); 
+      router.push(dashboard);
     } catch (err) {
       let apiMessage = "Login failed";
 
       if (typeof err === "object" && err != null && "data" in err) {
-        apiMessage = (err as { data?: { message?: string } }).data?.message || apiMessage;
+        apiMessage =
+          (err as { data?: { message?: string } }).data?.message || apiMessage;
       }
       dispatch(loginFailure(apiMessage));
       setErrorMessage(apiMessage);
@@ -73,7 +74,10 @@ const Login = () => {
             setPassword(newVar);
           }}
         ></PasswordInput>
-        <button type="submit" className={`${styles.submit} ${errorMessage ? styles.errorButton : ""}`}>
+        <button
+          type="submit"
+          className={`${styles.submit} ${errorMessage ? styles.errorButton : ""}`}
+        >
           {isLoading ? "กำลังเข้าสู่ระบบ..." : "ยืนยัน"}
         </button>
         {errorMessage && (

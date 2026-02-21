@@ -15,7 +15,6 @@ export const AdminTransaction = ({
   message,
   onChange,
   onSubmit,
-  responseStatus,
   setResponseStatus,
 }: AdminTransactionProps) => {
   const [openTransaction, setOpenTransaction] = useState<number[]>([]);
@@ -153,7 +152,7 @@ export const AdminTransaction = ({
         <div className={styles.response}>
           <form
             onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
-              e.preventDefault;
+              e.preventDefault();
               onSubmit();
             }}
           >
