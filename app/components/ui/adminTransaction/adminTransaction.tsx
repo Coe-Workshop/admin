@@ -14,6 +14,7 @@ import { ModalContainer } from "../../modal/modalContainer/modalContainer";
 import { useGetToolTransactionQuery } from "@/lib/features/transactions/transactionsApiSlice";
 import { useSearchParams } from "next/navigation";
 import { ISODateString } from "@/lib/features/transactions/transaction.types";
+import { useScrollToRightEnd } from "@/app/hook/useScrollToRightEnd";
 
 export const AdminTransaction = ({
   message,
@@ -40,6 +41,7 @@ export const AdminTransaction = ({
     page: pageQuery,
   });
 
+  const { scrollRef, isScrolledToRightEnd, handleScroll } = useScrollToRightEnd<HTMLDivElement>([toolTransaction]);
 
   const toggleTransaction = (idx: number) => {
     if (openTransaction.includes(idx)) {
@@ -62,7 +64,11 @@ export const AdminTransaction = ({
   };
 
   return (
-    <div className={styles.tableWrapper}>
+    <div 
+      className={`${styles.tableWrapper} ${isScrolledToRightEnd ? styles.isAtRightEnd : ""}`}
+      ref={scrollRef}
+      onScroll={handleScroll}
+    >
       <table className={styles.table}>
         <colgroup>
           <col className={styles.itemName} />
@@ -108,14 +114,15 @@ export const AdminTransaction = ({
               <React.Fragment key={assetsIndex}>
                 <tr className={styles.userRow}>
                   <td colSpan={1}>
-                    <div className={styles.userInfo}>
+                    <div 
+                      className={styles.userInfo}
+                      onClick={() => toggleTransaction(assetsIndex)}>
                       <div
                         style={{
                           transform: openTransaction.includes(assetsIndex)
                             ? ""
                             : "rotate(-90deg)",
                         }}
-                        onClick={() => toggleTransaction(assetsIndex)}
                       >
                         <SvgIconMono
                           src={`${prefix}/icon/arrow.svg`}
@@ -162,7 +169,7 @@ export const AdminTransaction = ({
                       {formatHourMinute(transactions.endedAt)}
                     </td>
                     <td className={styles.message}>{transactions.message}</td>
-                    <td>
+                    <td className={styles.stickyAction}>
                       <div className={styles.action_content}>
                         <div style={{cursor: 'pointer'}}>
                           <SvgIconMono
