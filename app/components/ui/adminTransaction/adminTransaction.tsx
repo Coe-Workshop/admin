@@ -128,14 +128,14 @@ export const AdminTransaction = ({
         <tbody>
           {(isLoading || isFetching) ? (
             <tr>
-              <td colSpan={6} style={{ textAlign: "left", padding: "20px" }}>
+              <td colSpan={6} className={styles.tableCellLoading}>
                 กำลังโหลดข้อมูล...
               </td>
             </tr>
           ) : (
           isError ? (
             <tr>
-              <td colSpan={6} style={{ textAlign: "left", padding: "20px", color: "red" }}>
+              <td colSpan={6} className={styles.tableCellError}>
                 เกิดข้อผิดพลาดในการดึงข้อมูล
               </td>
             </tr> 
@@ -148,15 +148,14 @@ export const AdminTransaction = ({
                       className={styles.userInfo}
                       onClick={() => toggleTransaction(assetsIndex)}>
                       <div
-                        style={{
-                          transform: openTransaction.includes(assetsIndex)
-                            ? "translateY(12.5%)"
-                            : "rotate(-90deg) translateY(0)",
-                          transition: "all ease 0.1s",
-                        }}
+                        className={`${styles.userArrow} ${
+                          openTransaction.includes(assetsIndex)
+                            ? styles.userArrowOpen
+                            : styles.userArrowClosed
+                        }`}
                       >
                         <SvgIconMono
-                          src={`${prefix}/icon/arrow.svg`}
+                          src={`/icon/arrow.svg`}
                           width={15}
                           height={15}
                           alt="arrowDown"
@@ -204,7 +203,7 @@ export const AdminTransaction = ({
                     <td className={styles.stickyAction}>
                       <div className={styles.action_content}>
                         <div 
-                          style={{cursor: 'pointer'}}
+                          className={styles.action_pointer}
                           onClick={() => {
                             setSelectedTxId(transactions.id);
                             setResponseStatus(ResponseStatus.Approve);
@@ -213,12 +212,12 @@ export const AdminTransaction = ({
                         >
                           <SvgIconMono 
                             className={styles.action_content_check}
-                            src={`${prefix}/icon/double-check.svg`} 
+                            src={`/icon/double-check.svg`} 
                             width={20} height={20} alt="check" 
                           />
                         </div>
                         <div 
-                          style={{cursor: 'pointer'}}
+                          className={styles.action_pointer}
                           onClick={() => {
                             setSelectedTxId(transactions.id);
                             setResponseStatus(ResponseStatus.Reject);
@@ -227,7 +226,7 @@ export const AdminTransaction = ({
                         >
                           <SvgIconMono 
                             className={styles.action_content_stop}
-                            src={`${prefix}/icon/stop.svg`} 
+                            src={`/icon/stop.svg`} 
                             width={20} height={20} alt="stop" 
                           />
                         </div>

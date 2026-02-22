@@ -8,7 +8,7 @@ import styles from "./transaction.module.scss";
 import { ResponseStatus } from "@/app/components/ui/adminTransaction/adminTransaction.type";
 import { ISODateString } from "@/lib/features/transactions/transaction.types";
 import { useSetQuery } from "@/app/hook/SearchQuery";
-import { toISODateStringOrNull } from "@/app/utils/ISODateStringHandle";
+import { toISODateStringOrNull, toISODateStringOrUndefined } from "@/app/utils/ISODateStringHandle";
 import { TextInput } from "@/app/components/form/TextInput/TextInput";
 
 const Transaction = () => {
@@ -22,11 +22,11 @@ const Transaction = () => {
   const hadleStutusChange = () => {
     console.log("submit");
   };
-  const [dateFilter, setDateFilter] = useState<ISODateString | null>(null);
-  const [statusFilter, setStatusFilter] = useState<Status | null>(null);
+  const [dateFilter, setDateFilter] = useState<ISODateString | undefined>(undefined);
+  const [statusFilter, setStatusFilter] = useState<Status | undefined>(undefined);
 
   const handleDateChange = (newDate: Date | null | undefined) => {
-    setDateFilter(toISODateStringOrNull(newDate));
+    setDateFilter(toISODateStringOrUndefined(newDate));
     // idk why it เลื่อนไปข้างหลังวันนึง
     newDate?.setDate(newDate.getDate()+1);
     setQuery("date", toISODateStringOrNull(newDate));
@@ -53,8 +53,8 @@ const Transaction = () => {
         <Select
           placeholder="ตัวกรองสถานะ"
           onChange={(newValue) => {
-            setStatusFilter(newValue);
-            setQuery("status", newValue);
+            setStatusFilter(newValue as Status | undefined);
+            setQuery("status", newValue as Status | null);
           }}
           value={statusFilter}
           options={Object.keys(Status)}

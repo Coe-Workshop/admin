@@ -20,6 +20,7 @@ import { Select } from "../../form/Select/Select";
 import { TextInput } from "../../form/TextInput/TextInput";
 import styles from "./create.module.scss";
 import { CreateItemProps } from "./types";
+import { prefix } from "@/app/utils/prefix";
 function CreateItem({ onClose, value }: CreateItemProps) {
   const [name, setName] = useState(value?.name || "");
   const [description, setDescription] = useState(value?.description || "");
@@ -291,7 +292,7 @@ function CreateItem({ onClose, value }: CreateItemProps) {
                   <>
                     <div>
                       <Image
-                        src={"/create-item/upload.svg"}
+                        src={`${prefix}/create-item/upload.svg`}
                         alt="upload"
                         width={80}
                         height={80}
@@ -311,6 +312,7 @@ function CreateItem({ onClose, value }: CreateItemProps) {
                       onChange={handleFileChange}
                       disabled={submitting}
                       className={styles.imageFileMain}
+                      aria-label="เลือกรูปภาพ"
                     />
                   </>
                 ) : (
@@ -331,8 +333,8 @@ function CreateItem({ onClose, value }: CreateItemProps) {
                               <Image
                                 src={
                                   uploadStatus[file.name] === "error"
-                                    ? "/create-item/error.svg"
-                                    : "/create-item/image.svg"
+                                    ? `${prefix}/create-item/error.svg`
+                                    : `${prefix}/create-item/image.svg`
                                 }
                                 width={30}
                                 height={30}

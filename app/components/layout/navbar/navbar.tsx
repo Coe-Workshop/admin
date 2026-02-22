@@ -49,7 +49,7 @@ function Navbar() {
       <Link key={index} className={styles.button_list} href={item.url}>
         <SvgIconMono
           className={styles.blog_image}
-          src={`${prefix}${item.cover}`}
+          src={`${item.cover}`}
           width={22}
           height={22}
           alt={item.title}
@@ -90,7 +90,7 @@ function Navbar() {
                 width={120}
                 height={120}
                 alt="hamberger_icon"
-                src={`${prefix}/navbar/hamberger.svg`}
+                src={`/navbar/hamberger.svg`}
                 fixColor={true}
               ></SvgIconMono>
             </div>
@@ -113,7 +113,7 @@ function Navbar() {
           </div>
           <SvgIconMono
             className={styles.blog_icon}
-            src={`${prefix}${Admin.icon}`}
+            src={`${Admin.icon}`}
             width={20}
             height={20}
             alt={Admin.title}

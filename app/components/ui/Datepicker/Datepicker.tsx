@@ -311,7 +311,7 @@ const DatePicker = ({
             }}>
             <SvgIconMono
               className={styles.placeholder_img}
-              src={`${prefix}/icon/arrow.svg`}
+              src={`/icon/arrow.svg`}
               alt="arrow"
               width={12}
               height={12}
@@ -327,7 +327,7 @@ const DatePicker = ({
           <div className={styles.header}>
             <button className={styles.prev_button} onClick={() => prev(view)}>
               <SvgIconMono
-                src={`${prefix}/icon/arrow.svg`}
+                src={`/icon/arrow.svg`}
                 alt={"prev"}
                 width={14}
                 height={14}
@@ -364,7 +364,7 @@ const DatePicker = ({
             </div>
             <button className={styles.next_button} onClick={() => next(view)}>
               <SvgIconMono
-                src={`${prefix}/icon/arrow.svg`}
+                src={`/icon/arrow.svg`}
                 alt={"next"}
                 width={14}
                 height={14}

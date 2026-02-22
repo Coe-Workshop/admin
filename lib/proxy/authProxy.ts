@@ -5,7 +5,7 @@ import { prefix } from "@/app/utils/prefix";
 export function checkAuthSession(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl;
   // ข้ามการเช็คพวกนี้
-  if (pathname.match(/\.(svg|png|jpg|jpeg|gif|webp|ico|css|js)$/)) {return NextResponse.next();}
+  if (pathname.match(/\.(png|jpg|jpeg|gif|webp|ico|css|js|map)$/)) {return NextResponse.next();}
   if (pathname.startsWith('/api') || pathname.includes('/api/')) {return NextResponse.next();}
   // เช็คแค่ว่ามีคุกกี้ connect.sid อยู่ในเครื่องไหม
   const hasSession = request.cookies.has("connect.sid");

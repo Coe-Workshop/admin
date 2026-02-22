@@ -5,7 +5,7 @@ import styles from "./Select.module.scss";
 import { SelectProps } from "./Select.types";
 import SvgIconMono from "@/app/components/Icon/SvgIconMono";
 import { useClickOutSide } from "@/app/hook/useClickOutside";
-export const Select = ({
+export const Select = <T extends string>({
   value,
   label,
   require = false,
@@ -14,7 +14,7 @@ export const Select = ({
   errorMessage,
   onTop = false,
   onChange,
-}: SelectProps) => {
+}: SelectProps<T>) => {
   const { ref, isOpen, setIsopen } = useClickOutSide();
 
   return (
@@ -30,7 +30,7 @@ export const Select = ({
 
         <SvgIconMono
           className={`${styles.icon} ${onTop ? styles.icon_onTop : ""} ${isOpen ? styles.icon_focus : ""}`}
-          src={`${prefix}/icon/arrow.svg`}
+          src={`/icon/arrow.svg`}
           alt="arrow"
           width={12}
           height={12}

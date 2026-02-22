@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Props } from "./Type";
+import { prefix } from "@/app/utils/prefix";
 
 /**
  * @brief แปลง raw SVG string หรือโหลดจาก src แล้วปรับแต่งสี/ขนาด
@@ -83,7 +84,13 @@ export default function SvgIconMono({
                 if (svg) {
                     await process(svg);
                 } else if (src) {
-                    const res = await fetch(src);
+                    let finalSrc = src;
+                    if (!finalSrc.startsWith(prefix)) {
+                        finalSrc = `${prefix}/` + finalSrc;
+                    } else if (!finalSrc.startsWith("/")) {
+                        finalSrc = "/" + finalSrc;
+                    }
+                    const res = await fetch(finalSrc);
                     if (!res.ok) {
                         console.warn("Failed to fetch svg:", src, res.status);
                         return;

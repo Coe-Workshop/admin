@@ -17,6 +17,16 @@
   }
 }
 
+.tableCellLoading {
+  text-align: left;
+  padding: 20px;
+}
+
+.tableCellError {
+  text-align: left;
+  padding: 20px;
+  color: var(--warning-red);
+}
 
 .table {
   width: 100%;
@@ -39,6 +49,16 @@
   color: var(--text-fade-mid);
   font-weight: lighter;
 }
+.userArrow {
+  transition: all ease 0.1s;
+}
+.userArrowOpen {
+  transform: translateY(12.5%);
+}
+.userArrowClosed {
+  transform: rotate(-90deg) translateY(0);
+}
+
 .itemName {
   width: 15rem;
 }
@@ -118,6 +138,9 @@
     justify-content: center;
     align-items: center;
     gap: 1rem;
+    .action_pointer {
+      cursor: pointer;
+    }
     .action_content_check {
       display: flex;
       color: var(--icon);

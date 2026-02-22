@@ -178,7 +178,7 @@ export const ItemTransaction = ({ toolId = 0 }) => {
                     >
                       <SvgIconMono
                         className={styles.toggle_image}
-                        src={`${prefix}/icon/arrow.svg`}
+                        src={`/icon/arrow.svg`}
                         alt="arrow"
                         width={15}
                         height={15}
@@ -196,7 +196,7 @@ export const ItemTransaction = ({ toolId = 0 }) => {
                     {t.status == TransactionsStatus.Blank && (
                       <SvgIconMono
                         className={styles.tashIcon}
-                        src={`${prefix}/icon/tash.svg`}
+                        src={`/icon/tash.svg`}
                         width={20}
                         height={20}
                         alt="tash"
