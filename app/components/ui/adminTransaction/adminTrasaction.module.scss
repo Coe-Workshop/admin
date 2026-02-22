@@ -46,7 +46,14 @@
 .assetID {
   width: 12rem;
 }
-
+.itemNameText {
+  white-space: normal;
+  word-wrap: break-word
+}
+.assetText {
+  white-space: normal;
+  word-wrap: break-word
+}
 .status {
   width: 8rem;
   color: $sub-1000;
@@ -186,6 +193,12 @@ tr:hover .stickyAction {
     width: fit-content;
     margin-top: 1rem;
     margin-left: auto;
+    .response_error {
+      display: flex;
+      align-items: center;
+      font-size: small;
+      color: var(--warning-red);
+    }
     .response_close {
       padding: 0.4rem 1rem;
     }
@@ -194,6 +207,9 @@ tr:hover .stickyAction {
       color: var(--theme-0);
       border-radius: 0.4rem;
       padding: 0.4rem 1rem;
+    }
+    .error_response_submit {
+      background-color: var(--warning-red);
     }
   }
 }

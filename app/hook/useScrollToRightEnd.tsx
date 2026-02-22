@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 
-export const useScrollToRightEnd = <T extends HTMLElement>(dependencies: any[] = []) => {
+export const useScrollToRightEnd = <T extends HTMLElement>(dependencies: unknown[] = []) => {
   const [isScrolledToRightEnd, setIsScrolledToRightEnd] = useState(false);
   const scrollRef = useRef<T>(null);
 

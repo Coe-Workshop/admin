@@ -11,9 +11,9 @@ import styles from "./adminTrasaction.module.scss";
 import { AreaInput } from "../../form/AreaInput/AreaInput";
 import { AdminTransactionProps, ResponseStatus } from "./adminTransaction.type";
 import { ModalContainer } from "../../modal/modalContainer/modalContainer";
-import { useGetToolTransactionQuery } from "@/lib/features/transactions/transactionsApiSlice";
+import { useGetToolTransactionQuery, useUpdateTransactionStatusMutation } from "@/lib/features/transactions/transactionsApiSlice";
 import { useSearchParams } from "next/navigation";
-import { ISODateString } from "@/lib/features/transactions/transaction.types";
+import { ErrorResponse, ISODateString, TransactionsStatus } from "@/lib/features/transactions/transaction.types";
 import { useScrollToRightEnd } from "@/app/hook/useScrollToRightEnd";
 
 export const AdminTransaction = ({
@@ -52,6 +52,41 @@ export const AdminTransaction = ({
       }, 300);
     } else {
       setOpenTransaction((prev) => [...prev, idx]);
+    }
+  };
+
+  const [errorUpdateStatus, setErrorUpdateStatus] = useState<string | null>(null);
+  const [selectedTxId, setSelectedTxId] = useState<number | null>(null);
+  const [updateStatus, { isLoading: isUpdating }] = useUpdateTransactionStatusMutation();
+
+  const handleModalSubmit = async () => {
+    try {
+      let backendStatus: TransactionsStatus;
+      if (responseStatus === ResponseStatus.Reject) {
+        backendStatus = TransactionsStatus.REJECT;
+      } else {
+        backendStatus = TransactionsStatus.APPROVE; 
+      }
+
+      await updateStatus({
+        transactionId: selectedTxId !== null ? selectedTxId : undefined,
+        status: backendStatus,
+        message: message, 
+      }).unwrap();
+
+      handle.close();
+      onChange(""); 
+      setSelectedTxId(null);
+      if (onSubmit) onSubmit();
+
+    } catch (err: unknown) {
+      const rtkError = err as { data?: ErrorResponse };
+      
+      if (rtkError?.data?.error) {
+        setErrorUpdateStatus(rtkError.data.error);
+      } else {
+        setErrorUpdateStatus("เกิดข้อผิดพลาดในการทำรายการ กรุณาลองใหม่อีกครั้ง");
+      }
     }
   };
 
@@ -135,6 +170,7 @@ export const AdminTransaction = ({
                   <td colSpan={5}>
                     <button
                       onClick={() => {
+                        setSelectedTxId(null);
                         setResponseStatus(ResponseStatus.ApproveAll);
                         handle.open();
                       }}
@@ -156,8 +192,8 @@ export const AdminTransaction = ({
                         : styles.slideIn
                     }`}
                   >
-                    <td>{"TEMP ITEM NAME"}</td> {/* ช่วยปลอบใจดวงนี้ ที่ยังคงคอย และยังรอคอย เธอกลับมาหา */}
-                    <td>{assets.assetID}</td>
+                    <td className={styles.itemNameText}>{transactions.itemName ?? "N/A"}</td> {/* ช่วยปลอบใจดวงนี้ ที่ยังคงคอย และยังรอคอย เธอกลับมาหา */}
+                    <td className={styles.assetsText}>{assets.assetID ?? "N/A"}</td>
                     <td className={styles.status}>
                       <StatusTag status={transactions.status} />
                     </td>
@@ -167,22 +203,32 @@ export const AdminTransaction = ({
                     <td className={styles.message}>{transactions.message}</td>
                     <td className={styles.stickyAction}>
                       <div className={styles.action_content}>
-                        <div style={{cursor: 'pointer'}}>
-                          <SvgIconMono
-                              className={styles.action_content_check}
-                              src={`${prefix}/icon/double-check.svg`}
-                              width={20}
-                              height={20}
-                              alt="check"
+                        <div 
+                          style={{cursor: 'pointer'}}
+                          onClick={() => {
+                            setSelectedTxId(transactions.id);
+                            setResponseStatus(ResponseStatus.Approve);
+                            handle.open();
+                          }}
+                        >
+                          <SvgIconMono 
+                            className={styles.action_content_check}
+                            src={`${prefix}/icon/double-check.svg`} 
+                            width={20} height={20} alt="check" 
                           />
                         </div>
-                        <div style={{cursor: 'pointer'}}>
-                          <SvgIconMono
-                              className={styles.action_content_stop}
-                              src={`${prefix}/icon/stop.svg`}
-                              width={20}
-                              height={20}
-                              alt="stop"
+                        <div 
+                          style={{cursor: 'pointer'}}
+                          onClick={() => {
+                            setSelectedTxId(transactions.id);
+                            setResponseStatus(ResponseStatus.Reject);
+                            handle.open();
+                          }}
+                        >
+                          <SvgIconMono 
+                            className={styles.action_content_stop}
+                            src={`${prefix}/icon/stop.svg`} 
+                            width={20} height={20} alt="stop" 
                           />
                         </div>
                       </div>
@@ -200,41 +246,53 @@ export const AdminTransaction = ({
         <div className={styles.response}>
           <form
             onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
-              e.preventDefault;
-              onSubmit();
+              e.preventDefault();
+              handleModalSubmit();
             }}
           >
             <div className={styles.response_header}>
-              <h2 className={styles.response_title}>ส่งข้อความตอบกลับ</h2>
+              <h2 className={styles.response_title}>
+                {responseStatus === ResponseStatus.Reject
+                  ? "ไม่อนุมัติคำร้อง"
+                  : responseStatus === ResponseStatus.ApproveAll
+                  ? "ยืนยันการอนุมัติทั้งหมด"
+                  : "ยืนยันการอนุมัติ"}
+              </h2>
               <p className={styles.response_description}>
                 สามารถทิ้งข้อความถึงผู้จองให้ทราบ เกี่ยวกับการจองอุปกรณ์ได้
-                โดยจะเป็นการบอกถึงสาเหตุที่ยกเลิก
               </p>
               <div className={styles.response_input}>
                 <AreaInput
                   value={message}
                   onChange={onChange}
-                  placeholder="ทิ้งข้อความสั้นๆ บอกถึงการจองครั้งนี้"
+                  placeholder={
+                    responseStatus === ResponseStatus.Reject
+                      ? "ระบุสาเหตุที่ไม่อนุมัติการจอง..."
+                      : "ทิ้งข้อความสั้นๆ ถึงผู้จอง (ไม่บังคับ)..."
+                  }
                 ></AreaInput>
               </div>
               <div className={styles.response_action}>
-                <button
-                  type="button"
-                  className={styles.response_close}
-                  onClick={() => handle.close()}
+                {errorUpdateStatus && (
+                  <div className={styles.response_error}>
+                    {errorUpdateStatus}
+                  </div>
+                )}
+                <button 
+                  type="button" 
+                  className={styles.response_close} 
+                  onClick={() => { handle.close(); onChange(""); setErrorUpdateStatus(null);}}
+                  disabled={isUpdating} // กันกดตอนโหลด
                 >
                   ปิด
                 </button>
-                <button
-                  className={styles.response_submit}
+                <button 
+                  className={`${styles.response_submit} ${errorUpdateStatus ? styles.error_response_submit : ""}`} 
                   type="submit"
-                  onClick={() => {
-                    onSubmit();
-                    handle.close();
-                  }}
-                >
-                  ยืนยัน
-                </button>
+                  disabled={isUpdating}
+               >
+                 {isUpdating ? "กำลังบันทึก..." : "ยืนยัน"}
+               </button>
               </div>
             </div>
           </form>

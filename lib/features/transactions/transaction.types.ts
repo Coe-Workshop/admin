@@ -18,6 +18,7 @@ export interface User {
 }
 
 export interface AssetTransactionRecord {
+  id: number;
   user: User;
   status: TransactionsStatus;
   endedAt: ISODateString;
@@ -53,6 +54,19 @@ export type ToolTransactionsByDate = ToolTransactionByDate[];
 export interface ErrorResponse {
   success: boolean;
   error: string;
+}
+
+export interface SentTransactionStatus { 
+  transactionId?: number | string;
+  status: TransactionsStatus;
+  message: string;
+}
+
+export interface TranactionQueryElement {
+  toolId?: number|null, 
+  userId?: string|null, 
+  date?: ISODateString|null, 
+  page?: number|null
 }
 
 // request success

@@ -1,29 +1,29 @@
+import { ResponseStatus } from "@/app/components/ui/adminTransaction/adminTransaction.type";
 import { apiSlice } from "../apiSlice";
 import {
   ISODateString,
+  SentTransactionStatus,
   ToolTransactionData,
   ToolTransactionResponse,
+  TranactionQueryElement,
 } from "./transaction.types";
+import { prefix } from "@/app/utils/prefix";
 
-function querySent(
-  toolId?: number|null, 
-  userId?: string|null, 
-  date?: ISODateString|null, 
-  page?: number|null) {
+function querySent(query: TranactionQueryElement) {
     const params = new URLSearchParams();
 
-    if (toolId) params.set("item", String(toolId));
-    if (userId) params.set("user", userId);
-    if (date) params.set("date", date);
-    if (page) params.set("page", String(page));
+    if (query.toolId) params.set("item", String(query.toolId));
+    if (query.userId) params.set("user", query.userId);
+    if (query.date) params.set("date", query.date);
+    if (query.page) params.set("page", String(query.page));
 
     return `/transactions?${params.toString()}`;
 }
 
 export const apiSliceWithTransactions = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getToolTransaction: builder.query<ToolTransactionData, { toolId:number; userId:string; date:ISODateString; page:number}>({
-      query: ({toolId, userId, date, page}) => querySent(toolId, userId, date, page),
+    getToolTransaction: builder.query<ToolTransactionData, TranactionQueryElement>({
+      query: (args) => querySent(args),
       keepUnusedDataFor: 300,
       transformResponse(res: ToolTransactionResponse) {
         return res.data;
@@ -39,8 +39,26 @@ export const apiSliceWithTransactions = apiSlice.injectEndpoints({
       },
       providesTags: ["Transaction"],
     }),
+    // wait to complete and adjust it
+    updateTransactionStatus: builder.mutation<
+      ToolTransactionResponse, 
+      SentTransactionStatus
+    >(
+      {
+      query: (body) => ({
+        url: `/transactions/status`, // THIS will update later (wait back)
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["Transaction"], 
+      }
+    ),
   }),
   overrideExisting: true,
 });
 
-export const { useGetToolTransactionQuery, useGetAllTransactionsQuery } = apiSliceWithTransactions;
+export const { 
+  useGetToolTransactionQuery, 
+  useGetAllTransactionsQuery,
+  useUpdateTransactionStatusMutation,
+} = apiSliceWithTransactions;
