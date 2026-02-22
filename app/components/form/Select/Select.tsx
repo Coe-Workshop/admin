@@ -1,5 +1,6 @@
 "use client";
 
+import { prefix } from "@/app/utils/prefix";
 import styles from "./Select.module.scss";
 import { SelectProps } from "./Select.types";
 import SvgIconMono from "@/app/components/Icon/SvgIconMono";
@@ -28,8 +29,8 @@ export const Select = ({
         <h4 className={styles.input_value}>{!!value ? value : placeholder}</h4>
 
         <SvgIconMono
-          className={`${styles.icon} ${onTop ? styles.icon_onTop : ""}`}
-          src={"/icon/arrow.svg"}
+          className={`${styles.icon} ${onTop ? styles.icon_onTop : ""} ${isOpen ? styles.icon_focus : ""}`}
+          src={`${prefix}/icon/arrow.svg`}
           alt="arrow"
           width={12}
           height={12}

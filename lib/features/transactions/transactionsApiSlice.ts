@@ -32,7 +32,7 @@ export const apiSliceWithTransactions = apiSlice.injectEndpoints({
     }),
     // ทำเผื่อ
     getAllTransactions: builder.query<ToolTransactionData, void>({
-      query: () => `/transactions`, // ตรวจสอบ path กับ Backend อีกที (เช่น /transactions หรือ /admin/transactions)
+      query: () => `/transactions`,
       keepUnusedDataFor: 300,
       transformResponse(res: ToolTransactionResponse) {
         return res.data;

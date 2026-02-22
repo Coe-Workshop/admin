@@ -64,3 +64,8 @@
 .errorMessage {
   color: $red-500;
 }
+
+.icon_focus {
+  transform: rotate(-180deg);
+  display: flex;
+}

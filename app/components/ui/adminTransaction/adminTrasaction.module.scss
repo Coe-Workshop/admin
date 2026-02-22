@@ -34,6 +34,11 @@
   position: relative;
   z-index: 1;
 }
+.username::before {
+  content: "ผู้ขอ ";
+  color: var(--text-fade-mid);
+  font-weight: lighter;
+}
 .itemName {
   width: 15rem;
 }

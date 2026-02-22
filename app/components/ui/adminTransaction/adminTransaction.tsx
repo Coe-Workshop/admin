@@ -91,19 +91,14 @@ export const AdminTransaction = ({
         </thead>
 
         <tbody>
-          {isLoading && (
+          {(isLoading || isFetching) ? (
             <tr>
               <td colSpan={6} style={{ textAlign: "left", padding: "20px" }}>
                 กำลังโหลดข้อมูล...
               </td>
             </tr>
-          )}
-          {isFetching ? (
-            <tr>
-              <td colSpan={6}>กำลังโหลดข้อมูลใหม่...</td>
-            </tr>
           ) : (
-            isError ? (
+          isError ? (
             <tr>
               <td colSpan={6} style={{ textAlign: "left", padding: "20px", color: "red" }}>
                 เกิดข้อผิดพลาดในการดึงข้อมูล
@@ -120,8 +115,9 @@ export const AdminTransaction = ({
                       <div
                         style={{
                           transform: openTransaction.includes(assetsIndex)
-                            ? ""
-                            : "rotate(-90deg)",
+                            ? "translateY(12.5%)"
+                            : "rotate(-90deg) translateY(0)",
+                          transition: "all ease 0.1s",
                         }}
                       >
                         <SvgIconMono
@@ -196,7 +192,8 @@ export const AdminTransaction = ({
               )}
             </React.Fragment>
             ))
-          ))}
+          ))
+        }
         </tbody>
       </table>
       <ModalContainer opened={opened} onClose={handle.close}>
