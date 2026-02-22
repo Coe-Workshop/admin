@@ -15,10 +15,11 @@ export const DeleteConfirm = ({
 }: DeleteConfirmProps) => {
   const router = useRouter();
   const [repeatAfter, setRepeatAfter] = useState<string>("");
-  const [deleteTool, {}] = useDeleteToolMutation();
+  const [deleteTool, { isLoading }] = useDeleteToolMutation();
   const [errors, setErrors] = useState({ name: "", api: "" });
   const { addToastStack } = useToast();
   const handleOnDelete = async () => {
+    setErrors((prev) =>({...prev, name:"", api:""}))
     if (typeof toolId === "undefined") {
       return;
     }
@@ -45,7 +46,6 @@ export const DeleteConfirm = ({
         errMessage = (err.data as ErrorResponse).error || errMessage;
       }
       setErrors((prev) => ({ ...prev, api: errMessage }));
-    } finally {
     }
   };
 
@@ -84,12 +84,18 @@ export const DeleteConfirm = ({
         <div className={styles.action}>
           <button
             className={styles.cancel}
+            disabled={isLoading}
             onClick={() => onClose()}
-            type="button"
           >
             ยกเลิก
           </button>
-          <button className={styles.confirm}>ลบรายการ</button>
+          <button
+            className={styles.confirm}
+            type="submit"
+            disabled={isLoading}
+          >
+            {isLoading ? "กำลังลบรายการ..." : "ลบรายการ"}
+          </button>
         </div>
       </form>
       <div></div>
