@@ -1,33 +1,104 @@
 import styles from "./deleteConfirm.module.scss";
 import { DeleteConfirmProps } from "./deleteConfirm.types";
+import { TextInput } from "../../form/TextInput/TextInput";
+import { useState } from "react";
+import { useDeleteToolMutation } from "@/lib/features/tools/toolsApiSlice";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { ErrorResponse } from "@/lib/features/tools/tool.typs";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/app/context/Toast/ToastProvider";
+
 export const DeleteConfirm = ({
   onClose,
   confirmMessage,
+  toolId,
 }: DeleteConfirmProps) => {
+  const router = useRouter();
+  const [repeatAfter, setRepeatAfter] = useState<string>("");
+  const [deleteTool, { isLoading }] = useDeleteToolMutation();
+  const [errors, setErrors] = useState({ name: "", api: "" });
+  const { addToastStack } = useToast();
+  const handleOnDelete = async () => {
+    setErrors((prev) =>({...prev, name:"", api:""}))
+    if (typeof toolId === "undefined") {
+      return;
+    }
+    if (repeatAfter !== confirmMessage) {
+      setErrors((prev) => ({
+        ...prev,
+        name: "กรุณาพิมพ์ชื่ออุปกรณ์ให้ถูกต้อง",
+      }));
+      return;
+    }
+    try {
+      await deleteTool({ toolId: Number(toolId) }).unwrap();
+      router.push("/tools");
+      addToastStack(
+        "ลบอุปกรณ์สำเร็จ",
+        "เลขครุภัณฑ์จะถูกลบไปอย่างถาวร ประวัติหรือข้อมูลอื่นๆ ที่เกี่ยวข้องจะไม่สามารถย้อนกลับได้อีก",
+        "success",
+      );
+      onClose();
+    } catch (error) {
+      let errMessage = "something went wrong";
+      const err = error as FetchBaseQueryError;
+      if (err.data && typeof err.data === "object" && "error" in err.data) {
+        errMessage = (err.data as ErrorResponse).error || errMessage;
+      }
+      setErrors((prev) => ({ ...prev, api: errMessage }));
+    }
+  };
+
   return (
     <div className={styles.deleteConfirm}>
       <div className={styles.header}>
-        <h2>ยืนยันการลบเลขครุภัณฑ์</h2>
+        <h2>ยืนยันการลบอุปกรณ์</h2>
         <p>
-          เลขครุภัณฑ์จะถูกลบไปอย่างถาวร ประวัติหรือข้อมูลอื่นๆ
+          อุปกรณ์จะถูกลบไปอย่างถาวร ประวัติหรือข้อมูลอื่นๆ
           ที่เกี่ยวข้องจะไม่สามารถย้อนกลับได้อีก กรุณาพิม{" "}
           <span>{confirmMessage + " "}</span>
           เพื่อยืนยันการลบ
         </p>
       </div>
-      <form action="">
-        {/* <TextInput></TextInput> */}
+      <form
+        action=""
+        onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+          e.preventDefault();
+          handleOnDelete();
+        }}
+      >
+        <TextInput
+          onChange={(value) => setRepeatAfter(value)}
+          label="ชื่ออุปกรณ์"
+          placeholder="ระบุชื่ออุปกรณ์"
+          require
+          value={repeatAfter}
+          errorMessage={errors.name}
+        ></TextInput>
+
+        {errors.api && (
+          <span className={styles.errorMessage}>
+            ไม่สามารถสร้างรายการได้ : {errors.api}
+          </span>
+        )}
         <div className={styles.action}>
           <button
             className={styles.cancel}
+            disabled={isLoading}
             onClick={() => onClose()}
-            type="button"
           >
             ยกเลิก
           </button>
-          <button className={styles.confirm}>ลบรายการ</button>
+          <button
+            className={styles.confirm}
+            type="submit"
+            disabled={isLoading}
+          >
+            {isLoading ? "กำลังลบรายการ..." : "ลบรายการ"}
+          </button>
         </div>
       </form>
+      <div></div>
     </div>
   );
 };
