@@ -9,7 +9,6 @@ import type {
 } from "./Datepicker.type";
 import { ViewMode } from "./Datepicker.type";
 import SvgIconMono from "../../Icon/SvgIconMono";
-import { prefix } from "@/app/utils/prefix";
 const today = new Date();
 today.setHours(0, 0, 0, 0);
 

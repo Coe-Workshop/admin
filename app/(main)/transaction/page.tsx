@@ -6,9 +6,8 @@ import { Status } from "@/app/types/api/transaction";
 import { useState } from "react";
 import styles from "./transaction.module.scss";
 import { ResponseStatus } from "@/app/components/ui/adminTransaction/adminTransaction.type";
-import { ISODateString } from "@/lib/features/transactions/transaction.types";
 import { useSetQuery } from "@/app/hook/SearchQuery";
-import { toISODateStringOrNull, toISODateStringOrUndefined } from "@/app/utils/ISODateStringHandle";
+import { toISODateStringOrNull } from "@/app/utils/ISODateStringHandle";
 import { TextInput } from "@/app/components/form/TextInput/TextInput";
 
 const Transaction = () => {
@@ -22,11 +21,11 @@ const Transaction = () => {
   const hadleStutusChange = () => {
     console.log("submit");
   };
-  const [dateFilter, setDateFilter] = useState<ISODateString | undefined>(undefined);
+  // const [dateFilter, setDateFilter] = useState<ISODateString | undefined>(undefined);
   const [statusFilter, setStatusFilter] = useState<Status | undefined>(undefined);
 
   const handleDateChange = (newDate: Date | null | undefined) => {
-    setDateFilter(toISODateStringOrUndefined(newDate));
+    // setDateFilter(toISODateStringOrUndefined(newDate));
     // idk why it เลื่อนไปข้างหลังวันนึง
     newDate?.setDate(newDate.getDate()+1);
     setQuery("date", toISODateStringOrNull(newDate));

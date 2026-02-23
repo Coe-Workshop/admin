@@ -1,6 +1,5 @@
 "use client";
 
-import { prefix } from "@/app/utils/prefix";
 import styles from "./Select.module.scss";
 import { SelectProps } from "./Select.types";
 import SvgIconMono from "@/app/components/Icon/SvgIconMono";

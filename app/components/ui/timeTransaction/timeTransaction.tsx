@@ -47,7 +47,7 @@ export const TimeTransaction = ({ toolId = 0 }) => {
     data: toolTransaction,
     isError,
     error,
-  } = useGetToolTransactionQuery(Number(toolId));
+  } = useGetToolTransactionQuery({toolId: Number(toolId)});
   let toolTransactionErrorMessage =
     "There's some error occuring while try to fetching the transaction data";
   if (error && "data" in error) {

@@ -1,7 +1,6 @@
 "use client";
 
 import SvgIconMono from "@/app/components/Icon/SvgIconMono";
-import { prefix } from "@/app/utils/prefix";
 import { useState } from "react";
 import { StatusTag } from "../statusTag/statusTag";
 import styles from "./tableTransaction.module.scss";
@@ -9,7 +8,6 @@ import { useGetToolTransactionQuery } from "@/lib/features/transactions/transact
 import Loader from "../../layout/loader/loader";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { ErrorResponse, TransactionsStatus } from "@/lib/features/transactions/transaction.types";
-import { NULL } from "sass";
 export const ItemTransaction = ({ toolId = 0 }) => {
   const [openTransaction, setOpenTransaction] = useState<number[]>([]);
   const [closeTransaction, setCloseTransaction] = useState<number[]>([]);
