@@ -9,6 +9,7 @@ import { useGetToolTransactionQuery } from "@/lib/features/transactions/transact
 import Loader from "../../layout/loader/loader";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { ErrorResponse, TransactionsStatus } from "@/lib/features/transactions/transaction.types";
+import { NULL } from "sass";
 export const ItemTransaction = ({ toolId = 0 }) => {
   const [openTransaction, setOpenTransaction] = useState<number[]>([]);
   const [closeTransaction, setCloseTransaction] = useState<number[]>([]);
@@ -129,7 +130,7 @@ export const ItemTransaction = ({ toolId = 0 }) => {
     isError,
     error,
     isLoading,
-  } = useGetToolTransactionQuery(Number(toolId));
+  } = useGetToolTransactionQuery({toolId: Number(toolId)});
   let toolTransactionErrorMessage = "There's some error occuring while try to fetching the transaction data";
   if (error && "data" in error) {
     const err = error as FetchBaseQueryError;

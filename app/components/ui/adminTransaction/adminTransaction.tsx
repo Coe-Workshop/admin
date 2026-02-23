@@ -20,6 +20,7 @@ export const AdminTransaction = ({
   message,
   onChange,
   onSubmit,
+  responseStatus,
   setResponseStatus,
 }: AdminTransactionProps) => {
   const [openTransaction, setOpenTransaction] = useState<number[]>([]);
@@ -190,7 +191,7 @@ export const AdminTransaction = ({
                         : styles.slideIn
                     }`}
                   >
-                    <td className={styles.itemNameText}>{transactions.itemName ?? "N/A"}</td> {/* ช่วยปลอบใจดวงนี้ ที่ยังคงคอย และยังรอคอย เธอกลับมาหา */}
+                    <td className={styles.itemNameText}>{transactions.id ?? "N/A"}</td> {/* รอแบค */}
                     <td className={styles.assetsText}>{assets.assetID ?? "N/A"}</td>
                     <td className={styles.status}>
                       <StatusTag status={transactions.status} />
@@ -245,7 +246,7 @@ export const AdminTransaction = ({
           <form
             onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
               e.preventDefault();
-              onSubmit();
+              handleModalSubmit();
             }}
           >
             <div className={styles.response_header}>
