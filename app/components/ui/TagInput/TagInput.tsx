@@ -38,7 +38,6 @@ export const TagInput = forwardRef<unknown, TagInputProps>(({ placeholder, initi
   const onDeleteTag = (idx: number): void => {
     const tagElement = document.querySelectorAll(`.${styles.tag_body}`)[idx];
     tagElement?.classList.add(styles.tag_removing);
-    setTag((prev) => prev.filter((_, i) => i !== idx));
 
     setTimeout(() => {
       setTag((prev) => prev.filter((_, i) => idx !== i));

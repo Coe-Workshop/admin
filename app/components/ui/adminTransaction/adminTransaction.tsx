@@ -1,7 +1,7 @@
 "use client";
 
 import useDisclosure from "@/app/hook/useDisclosure";
-import { mockAdminTableTransactions } from "@/app/mockdata/mockdata";
+// import { mockAdminTableTransactions } from "@/app/mockdata/mockdata";
 import { prefix } from "@/app/utils/prefix";
 import React, { useState } from "react";
 import SvgIconMono from "../../Icon/SvgIconMono";
@@ -11,6 +11,11 @@ import styles from "./adminTrasaction.module.scss";
 import { AreaInput } from "../../form/AreaInput/AreaInput";
 import { AdminTransactionProps, ResponseStatus } from "./adminTransaction.type";
 import { ModalContainer } from "../../modal/modalContainer/modalContainer";
+import { useGetToolTransactionQuery, useUpdateTransactionStatusMutation } from "@/lib/features/transactions/transactionsApiSlice";
+import { useSearchParams } from "next/navigation";
+import { ErrorResponse, ISODateString, TransactionsStatus } from "@/lib/features/transactions/transaction.types";
+import { useScrollToRightEnd } from "@/app/hook/useScrollToRightEnd";
+
 export const AdminTransaction = ({
   message,
   onChange,
@@ -21,6 +26,22 @@ export const AdminTransaction = ({
   const [closeTransaction, setCloseTransaction] = useState<number[]>([]);
   const { opened, handle } = useDisclosure();
 
+  // ใช้ param => /tranactions?item=__
+  const searchParams = useSearchParams();
+  const itemQuery = parseInt(searchParams.get("item") || "0", 10);
+  const userQuery = searchParams.get("user") || "";
+  const dateQuery = searchParams.get("date") as ISODateString;
+  const pageQuery = parseInt(searchParams.get("page") || "0", 10);
+
+  const { data: toolTransaction, isLoading, isError, isFetching } = useGetToolTransactionQuery({
+    toolId: itemQuery,
+    userId: userQuery,
+    date: dateQuery,
+    page: pageQuery,
+  });
+
+  const { scrollRef, isScrolledToRightEnd, handleScroll } = useScrollToRightEnd<HTMLDivElement>([toolTransaction]);
+
   const toggleTransaction = (idx: number) => {
     if (openTransaction.includes(idx)) {
       setCloseTransaction((prev) => [...prev, idx]);
@@ -28,8 +49,44 @@ export const AdminTransaction = ({
         setOpenTransaction((prev) => prev.filter((item) => item !== idx));
         setCloseTransaction((prev) => prev.filter((item) => item !== idx));
       }, 300);
+    } else {
+      setOpenTransaction((prev) => [...prev, idx]);
     }
-    setOpenTransaction((prev) => [...prev, idx]);
+  };
+
+  const [errorUpdateStatus, setErrorUpdateStatus] = useState<string | null>(null);
+  const [selectedTxId, setSelectedTxId] = useState<number | null>(null);
+  const [updateStatus, { isLoading: isUpdating }] = useUpdateTransactionStatusMutation();
+
+  const handleModalSubmit = async () => {
+    try {
+      let backendStatus: TransactionsStatus;
+      if (responseStatus === ResponseStatus.Reject) {
+        backendStatus = TransactionsStatus.REJECT;
+      } else {
+        backendStatus = TransactionsStatus.APPROVE; 
+      }
+
+      await updateStatus({
+        transactionId: selectedTxId !== null ? selectedTxId : undefined,
+        status: backendStatus,
+        message: message, 
+      }).unwrap();
+
+      handle.close();
+      onChange(""); 
+      setSelectedTxId(null);
+      if (onSubmit) onSubmit();
+
+    } catch (err: unknown) {
+      const rtkError = err as { data?: ErrorResponse };
+      
+      if (rtkError?.data?.error) {
+        setErrorUpdateStatus(rtkError.data.error);
+      } else {
+        setErrorUpdateStatus("เกิดข้อผิดพลาดในการทำรายการ กรุณาลองใหม่อีกครั้ง");
+      }
+    }
   };
 
   const formatHourMinute = (iso: string): string => {
@@ -41,7 +98,11 @@ export const AdminTransaction = ({
   };
 
   return (
-    <div className={styles.tableWrapper}>
+    <div 
+      className={`${styles.tableWrapper} ${isScrolledToRightEnd ? styles.isAtRightEnd : ""}`}
+      ref={scrollRef}
+      onScroll={handleScroll}
+    >
       <table className={styles.table}>
         <colgroup>
           <col className={styles.itemName} />
@@ -64,88 +125,119 @@ export const AdminTransaction = ({
         </thead>
 
         <tbody>
-          {mockAdminTableTransactions.map((item, index) => (
-            <React.Fragment key={index}>
-              <tr className={styles.userRow}>
-                <td colSpan={1}>
-                  <div className={styles.userInfo}>
-                    <div
-                      style={{
-                        transform: openTransaction.includes(index)
-                          ? ""
-                          : "rotate(-90deg)",
-                      }}
-                      onClick={() => toggleTransaction(index)}
-                    >
-                      <SvgIconMono
-                        src={`${prefix}/icon/arrow.svg`}
-                        width={15}
-                        height={15}
-                        alt="arrowDown"
-                      ></SvgIconMono>
+          {(isLoading || isFetching) ? (
+            <tr>
+              <td colSpan={6} className={styles.tableCellLoading}>
+                กำลังโหลดข้อมูล...
+              </td>
+            </tr>
+          ) : (
+          isError ? (
+            <tr>
+              <td colSpan={6} className={styles.tableCellError}>
+                เกิดข้อผิดพลาดในการดึงข้อมูล
+              </td>
+            </tr> 
+          ) : (
+            toolTransaction?.assets.map((assets, assetsIndex) => (
+              <React.Fragment key={assetsIndex}>
+                <tr className={styles.userRow}>
+                  <td colSpan={1}>
+                    <div 
+                      className={styles.userInfo}
+                      onClick={() => toggleTransaction(assetsIndex)}>
+                      <div
+                        className={`${styles.userArrow} ${
+                          openTransaction.includes(assetsIndex)
+                            ? styles.userArrowOpen
+                            : styles.userArrowClosed
+                        }`}
+                      >
+                        <SvgIconMono
+                          src={`/icon/arrow.svg`}
+                          width={15}
+                          height={15}
+                          alt="arrowDown"
+                        ></SvgIconMono>
+                      </div>
+                      <Tooltip title={assets.transactions?.[0]?.user.phone}>
+                        <h2 className={styles.username}>{assets.transactions?.[0]?.user?.userName}</h2>
+                      </Tooltip>
                     </div>
-                    <Tooltip title={item.user.phone}>
-                      <h2 className={styles.username}>{item.user.userName}</h2>
-                    </Tooltip>
-                  </div>
-                </td>
-                <td colSpan={5}>
-                  <button
-                    onClick={() => {
-                      setResponseStatus(ResponseStatus.ApproveAll);
-                      handle.open();
-                    }}
-                    className={styles.allApprove}
-                    type="button"
-                  >
-                    อนุมัติทั้งหมด
-                  </button>
-                </td>
-              </tr>
-
-              {item.adminTransactions.map(
-                (t) =>
-                  openTransaction.includes(index) && (
-                    <tr
-                      key={t.assetID}
-                      className={`${styles.transactionRow}  ${
-                        closeTransaction.includes(index)
-                          ? styles.slideOut
-                          : styles.slideIn
-                      }`}
+                  </td>
+                  <td colSpan={5}>
+                    <button
+                      onClick={() => {
+                        setSelectedTxId(null);
+                        setResponseStatus(ResponseStatus.ApproveAll);
+                        handle.open();
+                      }}
+                      className={styles.allApprove}
+                      type="button"
                     >
-                      <td>{t.itemName}</td>
-                      <td>{t.assetID}</td>
-                      <td className={styles.status}>
-                        <StatusTag status={t.status} />
-                      </td>
-                      <td className={styles.endTime}>
-                        {formatHourMinute(t.endedAt)}
-                      </td>
-                      <td className={styles.message}>{t.message}</td>
-                      <td>
-                        <div className={styles.action_content}>
-                          <SvgIconMono
+                      อนุมัติทั้งหมด
+                    </button>
+                  </td>
+                </tr>
+  
+                {assets.transactions.map((transactions, transactionsIndex) => 
+                openTransaction.includes(assetsIndex) && (
+                  <tr
+                    key={transactionsIndex}
+                    className={`${styles.transactionRow}  ${
+                      closeTransaction.includes(assetsIndex)
+                        ? styles.slideOut
+                        : styles.slideIn
+                    }`}
+                  >
+                    <td className={styles.itemNameText}>{transactions.itemName ?? "N/A"}</td> {/* ช่วยปลอบใจดวงนี้ ที่ยังคงคอย และยังรอคอย เธอกลับมาหา */}
+                    <td className={styles.assetsText}>{assets.assetID ?? "N/A"}</td>
+                    <td className={styles.status}>
+                      <StatusTag status={transactions.status} />
+                    </td>
+                    <td className={styles.endTime}>
+                      {formatHourMinute(transactions.endedAt)}
+                    </td>
+                    <td className={styles.message}>{transactions.message}</td>
+                    <td className={styles.stickyAction}>
+                      <div className={styles.action_content}>
+                        <div 
+                          className={styles.action_pointer}
+                          onClick={() => {
+                            setSelectedTxId(transactions.id);
+                            setResponseStatus(ResponseStatus.Approve);
+                            handle.open();
+                          }}
+                        >
+                          <SvgIconMono 
                             className={styles.action_content_check}
-                            src={`${prefix}/icon/double-check.svg`}
-                            width={20}
-                            height={20}
-                            alt="check"
-                          />
-                          <SvgIconMono
-                            className={styles.action_content_stop}
-                            src={`${prefix}/icon/stop.svg`}
-                            width={20}
-                            height={20}
-                            alt="stop"
+                            src={`/icon/double-check.svg`} 
+                            width={20} height={20} alt="check" 
                           />
                         </div>
-                      </td>
-                    </tr>
-                  ),
+                        <div 
+                          className={styles.action_pointer}
+                          onClick={() => {
+                            setSelectedTxId(transactions.id);
+                            setResponseStatus(ResponseStatus.Reject);
+                            handle.open();
+                          }}
+                        >
+                          <SvgIconMono 
+                            className={styles.action_content_stop}
+                            src={`/icon/stop.svg`} 
+                            width={20} height={20} alt="stop" 
+                          />
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                ),
               )}
             </React.Fragment>
-          ))}
+            ))
+          ))
+        }
         </tbody>
       </table>
       <ModalContainer opened={opened} onClose={handle.close}>
@@ -157,36 +249,48 @@ export const AdminTransaction = ({
             }}
           >
             <div className={styles.response_header}>
-              <h2 className={styles.response_title}>ส่งข้อความตอบกลับ</h2>
+              <h2 className={styles.response_title}>
+                {responseStatus === ResponseStatus.Reject
+                  ? "ไม่อนุมัติคำร้อง"
+                  : responseStatus === ResponseStatus.ApproveAll
+                  ? "ยืนยันการอนุมัติทั้งหมด"
+                  : "ยืนยันการอนุมัติ"}
+              </h2>
               <p className={styles.response_description}>
                 สามารถทิ้งข้อความถึงผู้จองให้ทราบ เกี่ยวกับการจองอุปกรณ์ได้
-                โดยจะเป็นการบอกถึงสาเหตุที่ยกเลิก
               </p>
               <div className={styles.response_input}>
                 <AreaInput
                   value={message}
                   onChange={onChange}
-                  placeholder="ทิ้งข้อความสั้นๆ บอกถึงการจองครั้งนี้"
+                  placeholder={
+                    responseStatus === ResponseStatus.Reject
+                      ? "ระบุสาเหตุที่ไม่อนุมัติการจอง..."
+                      : "ทิ้งข้อความสั้นๆ ถึงผู้จอง (ไม่บังคับ)..."
+                  }
                 ></AreaInput>
               </div>
               <div className={styles.response_action}>
-                <button
-                  type="button"
-                  className={styles.response_close}
-                  onClick={() => handle.close()}
+                {errorUpdateStatus && (
+                  <div className={styles.response_error}>
+                    {errorUpdateStatus}
+                  </div>
+                )}
+                <button 
+                  type="button" 
+                  className={styles.response_close} 
+                  onClick={() => { handle.close(); onChange(""); setErrorUpdateStatus(null);}}
+                  disabled={isUpdating} // กันกดตอนโหลด
                 >
                   ปิด
                 </button>
-                <button
-                  className={styles.response_submit}
+                <button 
+                  className={`${styles.response_submit} ${errorUpdateStatus ? styles.error_response_submit : ""}`} 
                   type="submit"
-                  onClick={() => {
-                    onSubmit();
-                    handle.close();
-                  }}
-                >
-                  ยืนยัน
-                </button>
+                  disabled={isUpdating}
+               >
+                 {isUpdating ? "กำลังบันทึก..." : "ยืนยัน"}
+               </button>
               </div>
             </div>
           </form>

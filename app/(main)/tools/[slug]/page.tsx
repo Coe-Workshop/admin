@@ -84,7 +84,7 @@ const Tool = () => {
               <div className={styles.action}>
                 <OptionsAction options={options} lastDelete={true}>
                   <SvgIconMono
-                    src={`${prefix}/icon/dot.svg`}
+                    src={"/icon/dot.svg"}
                     width={24}
                     height={24}
                     alt="editIcon"

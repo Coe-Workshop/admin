@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Props } from "./Type";
+import { prefix } from "@/app/utils/prefix";
 
 /**
  * เพิ่ม className ให้กับทุก element ที่มี fill/stroke
@@ -130,7 +131,13 @@ export default function SvgIconColor({
         if (svg) {
           await process(svg);
         } else if (src) {
-          const res = await fetch(src);
+          let finalSrc = src;
+          if (!finalSrc.startsWith(prefix)) {
+              finalSrc = `${prefix}/` + finalSrc;
+          } else if (!finalSrc.startsWith("/")) {
+              finalSrc = "/" + finalSrc;
+          }
+          const res = await fetch(finalSrc);
           if (!res.ok) {
             console.warn("Failed to fetch svg:", src, res.status);
             return;

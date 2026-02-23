@@ -1,0 +1,377 @@
+@use "../../../styles/_breakpoints" as *;
+@use "../../../styles/functions" as *;
+@use "../../../styles/variables" as *;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  color: var(--text-normal);
+}
+
+.label span {
+  color: var(--warning-red);
+}
+
+.datepicker_container {
+  position: relative;
+  border-radius: 0.4rem;
+  border-width: rem(1px);
+  border: rem(1px) solid var(--theme-200);
+  width: rem(236);
+  height: rem(32);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-normal);
+  @include respond-to-max(xs) {
+    gap: rem(1);
+  }
+}
+
+.datepicker button,
+.datepicker_onTop button {
+  cursor: pointer;
+  border: none;
+  border-radius: 50px;
+  transition: 0.3s;
+  color: var(--text-normal);
+}
+
+.datepicker_onTop {
+  position: absolute;
+  bottom: calc(100% + 5px);
+  color: var(--text-normal);
+  padding: rem(5px);
+  z-index: 98;
+  transition: 0.3s;
+  opacity: 1;
+  width: rem(249px);
+  border-radius: rem(15px);
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: end;
+  align-items: center;
+  padding-bottom: rem(10px);
+  box-shadow: 0px rem(1px) rem(4px) var(--theme-400);
+}
+
+.datepicker {
+  position: absolute;
+  top: calc(100% + 5px);
+  background-color: var(--theme-0);
+  color: var(--text-normal);
+  padding: rem(5px);
+  z-index: 98;
+  transition: 0.3s;
+  opacity: 1;
+  width: rem(249px);
+  height: fit-content;
+  border-radius: rem(15px);
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  padding-top: rem(10px);
+  box-shadow: 0px rem(1px) rem(4px) var(--theme-200);
+}
+
+.datepicker_closed {
+  opacity: 1;
+  pointer-events: none;
+  top: 100%;
+  left: 0;
+  transform-origin: top;
+  pointer-events: none;
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
+  position: fixed;
+  right: 0;
+  top: 100%;
+}
+
+.datepicker .header,
+.datepicker_onTop .header {
+  gap: rem(20px);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  color: red;
+  @include respond-to-max(lg) {
+    font-size: rem(14px);
+  }
+  @include respond-to-max(md) {
+    font-size: rem(14px);
+    gap: rem(1px);
+  }
+  @include respond-to-max(sm) {
+    font-size: rem(14px);
+    gap: rem(1px);
+  }
+  @include respond-to-max(xs) {
+    font-size: rem(14px);
+  }
+}
+
+.change_table {
+  display: flex;
+  flex-direction: row;
+  gap: rem(4px);
+  cursor: pointer;
+  border-radius: rem(15px);
+  font-weight: 500;
+  font-style: Medium;
+  color: red;
+
+  :hover {
+    border-radius: rem(15px);
+    background-color: var(--box-hover);
+  }
+}
+
+.change_table div {
+  display: flex;
+  flex-direction: row;
+  gap: rem(4px);
+  color: var(--theme-1000);
+}
+
+.confirm_datepicker_overlay {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 97;
+}
+
+.placeholder {
+  position: static;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: rem(3px);
+  text-align: center;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: rem(14.56px);
+  opacity: 1;
+
+  background-color: transparent;
+  color: var(--theme-1000);
+
+  width: 100%;
+  cursor: pointer;
+  @include respond-to-max(lg) {
+    font-size: rem(13.5px);
+  }
+  @include respond-to-max(md) {
+    font-size: rem(12px);
+    gap: rem(1px);
+  }
+  @include respond-to-max(sm) {
+    font-size: rem(10.5px);
+    gap: rem(1px);
+  }
+  @include respond-to-max(xs) {
+    font-size: rem(9px);
+    gap: rem(1px);
+  }
+}
+
+.placeholder input,
+.placeholder input::placeholder {
+  outline: none;
+  border: none;
+  caret-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+.placeholder_img {
+  margin-right: rem(16);
+}
+
+.days span {
+  text-align: center;
+  pointer-events: none;
+}
+
+.days,
+.dates_input {
+  display: grid;
+  grid-template-columns: repeat(7, rem(25px));
+  gap: rem(7px);
+  margin-bottom: rem(9px);
+  background-color: var(--theme-0);
+}
+
+.datepicker_date {
+  opacity: 1;
+  padding: rem(10px);
+  transition: 0.3s;
+}
+
+.datepicker_date_closed {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 100%;
+}
+
+.days {
+  color: var(--text-normal);
+}
+
+.dates_input button,
+.month_input button,
+.year_input button {
+  width: rem(21);
+  height: rem(21);
+  justify-self: center;
+  align-self: center;
+}
+
+.month_input button,
+.year_input button {
+  width: rem(51);
+  height: rem(20);
+}
+
+.month_input button.selected,
+.year_input button.selected,
+.dates_input button.selected {
+  background-color: var(--theme-1000);
+  color: var(--theme-0);
+}
+
+.dates_input button:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  user-select: none;
+}
+
+.dates_input button:hover,
+.month_input button:hover,
+.year_input button:hover {
+  color: var(--theme-0);
+  background-color: var(--theme-400);
+}
+
+.datepicker_month {
+  transition: 0.3s;
+  opacity: 1;
+}
+
+.datepicker_month_closed {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  right: 100%;
+}
+
+.month_input,
+.year_input {
+  display: grid;
+  grid-template-columns: repeat(3, rem(60px));
+  grid-template-rows: repeat(4, rem(40px));
+  gap: rem(10px);
+  color: var(--text-normal);
+}
+
+.datepicker_year {
+  transition: 0.3s;
+  opacity: 1;
+}
+
+.datepicker_year_closed {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 100%;
+}
+
+.placeholder_closed {
+  width: rem(160);
+  opacity: 1;
+  pointer-events: none;
+  position: static;
+  height: rem(42);
+  border-radius: 0.4rem;
+  border-width: rem(1px);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: rem(3px);
+  border: rem(1px) solid var(--theme-400);
+  text-align: center;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: rem(14.56px);
+  color: var(--text-normal);
+  @include respond-to-max(lg) {
+    font-size: rem(13.5px);
+    height: rem(33px);
+    border-radius: rem(15px);
+  }
+  @include respond-to-max(md) {
+    font-size: rem(12px);
+    height: rem(33px);
+    gap: rem(1px);
+  }
+  @include respond-to-max(sm) {
+    font-size: rem(10.5px);
+    width: rem(120px);
+    height: rem(35px);
+    gap: rem(1px);
+  }
+  @include respond-to-max(xs) {
+    font-size: rem(9px);
+    width: rem(100px);
+    height: rem(35px);
+    gap: rem(1px);
+  }
+}
+
+.prev_button,
+.next_button {
+  color: var(--text-normal);
+  position: absolute;
+  :active {
+    transform: translateY(rem(1px));
+  }
+}
+
+.prev_button {
+  rotate: 90deg;
+  left: rem(20px);
+}
+
+.next_button {
+  rotate: -90deg;
+  right: rem(20px);
+}
+
+.clear {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  position: absolute;
+  top: rem(249px);
+  left: rem(110px);
+  background-color: var(--box-background);
+  padding: rem(1px);
+  border-radius: rem(9px);
+  box-shadow: rem(1px) rem(1px) rem(4px) var(--box-shadow);
+  cursor: pointer;
+}

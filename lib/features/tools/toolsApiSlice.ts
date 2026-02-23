@@ -62,7 +62,7 @@ export const apiSliceWithTools = apiSlice.injectEndpoints({
 
     createTool: builder.mutation<Tool, ToolCreateRequest>({
       query: (tool) => ({
-        url: `$/items`,
+        url: `/items`,
         method: "POST",
         body: tool,
       }),
