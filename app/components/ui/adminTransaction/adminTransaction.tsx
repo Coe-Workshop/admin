@@ -20,7 +20,6 @@ export const AdminTransaction = ({
   message,
   onChange,
   onSubmit,
-  responseStatus,
   setResponseStatus,
 }: AdminTransactionProps) => {
   const [openTransaction, setOpenTransaction] = useState<number[]>([]);
@@ -246,7 +245,7 @@ export const AdminTransaction = ({
           <form
             onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
               e.preventDefault();
-              handleModalSubmit();
+              onSubmit();
             }}
           >
             <div className={styles.response_header}>
