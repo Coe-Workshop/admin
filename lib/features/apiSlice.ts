@@ -23,10 +23,10 @@ const baseQueryWithReauth: BaseQueryFn<
   if (result.error) {
     if (result.error.status === HttpStatus.UNAUTHORIZED) {
       console.warn("Session หมดอายุ ไปหน้า Login");
-      window.location.href = `${prefix}/login`; 
+      // window.location.href = `${prefix}/login`; 
     } else if (result.error.status === HttpStatus.FORBIDDEN) {
       console.warn("ไม่มีสิทธิ์เข้าถึง");
-      window.location.href = `${prefix}/forbidden`; 
+      // window.location.href = `${prefix}/forbidden`; 
     }
   }
   return result;

@@ -1,0 +1,28 @@
+@use "../../../styles/variables" as *;
+
+.container {
+  display: flex;
+  background-color: var(--theme-200);
+  border-radius: 999px;
+  padding: 4px;
+  width: fit-content;  
+}
+.button {
+    padding: 0.3rem 1rem;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.7rem;
+    background-color: transparent;
+    color: var(--theme-1000);
+    transition: all 0.2s;
+
+}
+
+.active {
+    background-color: var(--theme-1000);
+    color: var(--theme-0);
+        }  
+
+
