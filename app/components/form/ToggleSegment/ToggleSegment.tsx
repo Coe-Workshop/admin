@@ -1,19 +1,43 @@
 "use client";
 import styles from "./ToggleSegment.module.scss";
+import { useState, useRef, useEffect } from "react";
 
-export const ToggleSegment = ({ value, onChange, data }: ToggleSegmentProps) => {
+interface Props {
+  value: string;
+  onChange: (v: string) => void;
+  data: string[];
+}
+
+export function ToggleSegment({ value, onChange, data }: Props) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, transform: "translateX(0px)" });
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const activeBtn = container.querySelector<HTMLButtonElement>(`[data-value="${value}"]`);
+    if (!activeBtn) return;
+    const containerRect = container.getBoundingClientRect();
+    const btnRect = activeBtn.getBoundingClientRect();
+    setIndicatorStyle({
+      width: btnRect.width,
+      transform: `translateX(${btnRect.left - containerRect.left - 3}px)`,
+    });
+  }, [value]);
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} ref={containerRef}>
+      <div className={styles.indicator} style={indicatorStyle} />
       {data.map((item) => (
         <button
-          key={item.value}
-          type="button"
-          onClick={() => onChange(item.value)}
-          className={`${styles.button} ${value === item.value ? styles.active : ""}`}
+          key={item}
+          data-value={item}
+          className={`${styles.button} ${value === item ? styles.active : ""}`}
+          onClick={() => onChange(item)}
         >
-          {item.label}
+          {item}
         </button>
       ))}
     </div>
   );
-};
+}

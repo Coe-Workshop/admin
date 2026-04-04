@@ -28,8 +28,9 @@ function Tools() {
                 value={selected}
                 onChange={setSelected}
                 data={[
-                    { label: "select1", value: "select1" },
-                    { label: "select2", value: "selct2" },
+                    "select1" ,
+                     "selct2" ,
+                     "ทดสอบความยาว 101 "
                 ]}
             />
             <li>OPERATIONAL STATUS: {mockTool.status}</li>
