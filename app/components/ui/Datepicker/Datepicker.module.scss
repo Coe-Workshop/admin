@@ -160,10 +160,8 @@
   font-style: Regular;
   font-size: rem(14.56px);
   opacity: 1;
-
   background-color: transparent;
   color: var(--theme-1000);
-
   width: 100%;
   cursor: pointer;
   @include respond-to-max(lg) {

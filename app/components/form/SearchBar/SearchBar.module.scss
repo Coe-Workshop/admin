@@ -1,0 +1,23 @@
+@use "../../../styles/variables" as *;
+
+
+.searchBar{
+    padding:0.2rem 0.4rem;
+    display: flex;
+    gap: 0.4rem; // distance between icon
+    background-color: $sub-100;
+    border-radius:0.2rem ;
+    transition: all 0.3 ease ;
+    &.canFocus{
+        &:focus-within{
+            border: 0.1rem solid $sub-1000; 
+        }
+    }
+}
+
+.input{
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}

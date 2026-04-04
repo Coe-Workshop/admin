@@ -1,4 +1,5 @@
 "use client";
+import SearchBar from "@/app/components/form/SearchBar/SearchBar";
 import { Select } from "@/app/components/form/Select/Select";
 import DatePicker from "@/app/components/ui/Datepicker/Datepicker";
 import { AdminTransaction } from "@/app/components/ui/adminTransaction/adminTransaction";
@@ -36,18 +37,13 @@ export const Transaction = () => {
   return (
     <div>
       <div className={styles.filter}>
-        <TextInput
-          label="ไอดีของอุปกรณ์"
-          placeholder="กด 1 เพื่อขึ้นเรือ, 47 เพื่อเทส"
-          require
-          value={itemId}
-          onChange={(newVar) => {
-            setItemId(newVar);
-            setQuery("item", newVar);
-          }}
-        ></TextInput>
+            <h2>ประวัติการจองอุปกรณ์</h2>
+        <div className={styles.filter_action}>
+            <div className="">
+              <SearchBar placeholder="ตัวกรองค้นหา"></SearchBar>
+        </div>
         <DatePicker
-          placeholder="--/--/----"
+          placeholder="ค้นหาจากวันที่"
           required={true}
           onChange={handleDateChange}
         ></DatePicker>
@@ -61,6 +57,7 @@ export const Transaction = () => {
           options={Object.keys(Status)}
         ></Select>
       </div>
+            </div>
 
       <AdminTransaction
         message={message}
