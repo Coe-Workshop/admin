@@ -1,17 +1,18 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: 'standalone',
   reactCompiler: true,
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH,
   images: {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "fakestoreapi.com", // ดึง api ภายนอกมาใช้ ค่อยลบ
+        hostname: "fakestoreapi.com",
         pathname: "/img/**",
       },
     ],
   },
-  basePath: process.env.NEXT_PUBLIC_BASE_PATH,
 };
 
 export default nextConfig;

@@ -40,7 +40,7 @@ export const Transaction = () => {
             <h2>ประวัติการจองอุปกรณ์</h2>
         <div className={styles.filter_action}>
             <div className="">
-              <SearchBar placeholder="ตัวกรองค้นหา"></SearchBar>
+              <SearchBar placeholder="ตัวกรองค้นหา" value={itemId} setValue={setItemId}></SearchBar>
         </div>
         <DatePicker
           placeholder="ค้นหาจากวันที่"
