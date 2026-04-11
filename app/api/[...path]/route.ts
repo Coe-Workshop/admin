@@ -1,6 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const BASE_URL = "https://dev-coe.ionize13.com/api";
+// const BASE_URL = "http://localhost:8080/api";
+
+function getCookieHeader(request: NextRequest): string {
+  const cookies = request.cookies.getAll();
+  return cookies.map(c => `${c.name}=${c.value}`).join("; ");
+}
 
 export async function GET(
   request: NextRequest,
@@ -12,7 +18,7 @@ export async function GET(
   const response = await fetch(url, {
     method: "GET",
     headers: {
-      cookie: request.headers.get("cookie") || "",
+      cookie: getCookieHeader(request),
     },
     credentials: "include",
   });
@@ -22,7 +28,7 @@ export async function GET(
   const data = await response.json();
 
   const nextResponse = NextResponse.json(data, { status: response.status });
-  
+
   if (cookie) {
     nextResponse.headers.set("set-cookie", cookie);
   }
@@ -37,24 +43,33 @@ export async function POST(
   const { path } = await params;
   const url = `${BASE_URL}/${path.join("/")}`;
 
-  const body = await request.json();
+  const contentType = request.headers.get("content-type") || "";
+  let body: BodyInit;
+  let headers: Record<string, string> = {
+    cookie: getCookieHeader(request),
+  };
+
+  if (contentType.includes("multipart/form-data")) {
+    body = await request.formData();
+  } else {
+    headers["Content-Type"] = "application/json";
+    const jsonBody = await request.json();
+    body = JSON.stringify(jsonBody);
+  }
 
   const response = await fetch(url, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      cookie: request.headers.get("cookie") || "",
-    },
-    body: JSON.stringify(body),
+    headers,
+    body,
     credentials: "include",
   });
 
-  const headers = new Headers(response.headers);
-  const cookie = headers.get("set-cookie");
+  const responseHeaders = new Headers(response.headers);
+  const cookie = responseHeaders.get("set-cookie");
   const data = await response.json();
 
   const nextResponse = NextResponse.json(data, { status: response.status });
-  
+
   if (cookie) {
     nextResponse.headers.set("set-cookie", cookie);
   }
@@ -69,24 +84,33 @@ export async function PUT(
   const { path } = await params;
   const url = `${BASE_URL}/${path.join("/")}`;
 
-  const body = await request.json();
+  const contentType = request.headers.get("content-type") || "";
+  let body: BodyInit;
+  let headers: Record<string, string> = {
+    cookie: getCookieHeader(request),
+  };
+
+  if (contentType.includes("multipart/form-data")) {
+    body = await request.formData();
+  } else {
+    headers["Content-Type"] = "application/json";
+    const jsonBody = await request.json();
+    body = JSON.stringify(jsonBody);
+  }
 
   const response = await fetch(url, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      cookie: request.headers.get("cookie") || "",
-    },
-    body: JSON.stringify(body),
+    headers,
+    body,
     credentials: "include",
   });
 
-  const headers = new Headers(response.headers);
-  const cookie = headers.get("set-cookie");
+  const responseHeaders = new Headers(response.headers);
+  const cookie = responseHeaders.get("set-cookie");
   const data = await response.json();
 
   const nextResponse = NextResponse.json(data, { status: response.status });
-  
+
   if (cookie) {
     nextResponse.headers.set("set-cookie", cookie);
   }
@@ -101,24 +125,33 @@ export async function PATCH(
   const { path } = await params;
   const url = `${BASE_URL}/${path.join("/")}`;
 
-  const body = await request.json();
+  const contentType = request.headers.get("content-type") || "";
+  let body: BodyInit;
+  let headers: Record<string, string> = {
+    cookie: getCookieHeader(request),
+  };
+
+  if (contentType.includes("multipart/form-data")) {
+    body = await request.formData();
+  } else {
+    headers["Content-Type"] = "application/json";
+    const jsonBody = await request.json();
+    body = JSON.stringify(jsonBody);
+  }
 
   const response = await fetch(url, {
     method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      cookie: request.headers.get("cookie") || "",
-    },
-    body: JSON.stringify(body),
+    headers,
+    body,
     credentials: "include",
   });
 
-  const headers = new Headers(response.headers);
-  const cookie = headers.get("set-cookie");
+  const responseHeaders = new Headers(response.headers);
+  const cookie = responseHeaders.get("set-cookie");
   const data = await response.json();
 
   const nextResponse = NextResponse.json(data, { status: response.status });
-  
+
   if (cookie) {
     nextResponse.headers.set("set-cookie", cookie);
   }
@@ -136,7 +169,7 @@ export async function DELETE(
   const response = await fetch(url, {
     method: "DELETE",
     headers: {
-      cookie: request.headers.get("cookie") || "",
+      cookie: getCookieHeader(request),
     },
     credentials: "include",
   });
@@ -146,7 +179,7 @@ export async function DELETE(
   const data = await response.json();
 
   const nextResponse = NextResponse.json(data, { status: response.status });
-  
+
   if (cookie) {
     nextResponse.headers.set("set-cookie", cookie);
   }

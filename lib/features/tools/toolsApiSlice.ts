@@ -60,11 +60,12 @@ export const apiSliceWithTools = apiSlice.injectEndpoints({
       ],
     }),
 
-    createTool: builder.mutation<Tool, ToolCreateRequest>({
-      query: (tool) => ({
+    createTool: builder.mutation<Tool, FormData>({
+      query: (formData) => ({
         url: `/items`,
         method: "POST",
-        body: tool,
+        body: formData,
+        headers: {},
       }),
       transformResponse(res: ToolResponse) {
         return res.data;
@@ -72,11 +73,12 @@ export const apiSliceWithTools = apiSlice.injectEndpoints({
       invalidatesTags: [{ type: "Tools" as const, id: "LIST" }],
     }),
 
-    updateTool: builder.mutation<Tool, ToolUpdateRequest>({
-      query: (tool) => ({
-        url: `/items/${tool.id}`,
+    updateTool: builder.mutation<Tool, { id: number; formData: FormData }>({
+      query: ({ id, formData }) => ({
+        url: `/items/${id}`,
         method: "PATCH",
-        body: tool.updatedData,
+        body: formData,
+        headers: {},
       }),
       transformResponse(res: ToolResponse) {  
         return res.data;

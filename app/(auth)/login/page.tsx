@@ -9,7 +9,6 @@ import { useLoginMutation } from "@/lib/features/auth/authApi";
 import { useDispatch } from "react-redux";
 import { loginFailure } from "@/lib/features/auth/authSlice";
 import { useRouter } from "next/navigation";
-import { dashboard } from "@/app/utils/prefix";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -26,7 +25,7 @@ const Login = () => {
       const userData = await login(credentials).unwrap();
       console.log(userData);
       setErrorMessage(null);
-      router.push(dashboard);
+      router.push(`/test`);
     } catch (err) {
       let apiMessage = "Login failed";
 

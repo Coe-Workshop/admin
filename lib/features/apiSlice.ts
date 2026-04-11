@@ -21,12 +21,19 @@ const baseQueryWithReauth: BaseQueryFn<
   const result = await baseQuery(args, api, extraOptions);
 
   if (result.error) {
-    if (result.error.status === HttpStatus.UNAUTHORIZED) {
-      console.warn("Session หมดอายุ ไปหน้า Login");
+    if (result.error.status === HttpStatus.UNAUTHORIZED || result.error.status === HttpStatus.FORBIDDEN) {
+      console.warn("Session หมดอายุ หรือไม่มีสิทธิ์เข้าถึง - กำลังเคลียร์ session");
+      
+      try {
+        await fetch(`${prefix}/api/v1/auth/logout`, {
+          method: "POST",
+          credentials: "include",
+        });
+      } catch (e) {
+        console.log("Logout request failed, proceeding to login anyway");
+      }
+      
       window.location.href = `${prefix}/login`; 
-    } else if (result.error.status === HttpStatus.FORBIDDEN) {
-      console.warn("ไม่มีสิทธิ์เข้าถึง");
-      window.location.href = `${prefix}/forbidden`; 
     }
   }
   return result;

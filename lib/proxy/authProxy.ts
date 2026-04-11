@@ -25,9 +25,5 @@ export function checkAuthSession(request: NextRequest) {
       new URL(`${prefix}${loginRoute}`, request.url),
     );
   }
-  // มี Session อยู่แล้ว แต่เข้าหน้า Login -> ไปหน้า admin
-  if (isLoginRoute && hasSession) {
-    return NextResponse.redirect(new URL(`${prefix}`, request.url));
-  }
   return NextResponse.next();
 }

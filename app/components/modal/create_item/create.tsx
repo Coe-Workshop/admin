@@ -158,35 +158,43 @@ function CreateItem({ onClose, value }: CreateItemProps) {
       return;
     }
 
-    setSubmitting(true);
     if (!category) {
       return;
     }
-    const body: ToolCreateRequest = {
-      name: name,
-      description: description,
-      categoryName: category, //category
-      assets_id: null,
-      imageUrl: "https://gear.kku.ac.th/wp-content/uploads/2025/05/wasu.jpg",
-    };
+
+    setSubmitting(true);
+
+    addToastStack(
+      "กำลังอัปโหลด",
+      "กำลังอัปโหลดข้อมูลอุปกรณ์ กรุณารอสักครู่...",
+      "warning",
+    );
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("categoryName", category);
+    
+    if (images.length > 0) {
+      formData.append("image", images[0]);
+    }
 
     if (value) {
       try {
-        await updateTool({ updatedData: body, id: value.id }).unwrap();
+        await updateTool({ id: value.id, formData }).unwrap();
 
         setName("");
         setDescription("");
         setImages([]);
         setTempFiles([]);
         setUploadStatus({});
-        if (!isUpdateError) {
-          addToastStack(
-            "อัปเดตอุปกรณ์สำเร็จ",
-            "อุปกรณ์ถูกเพิ่มไปยังฐานข้อมูล ชื่อ รูป และคำอธิบายจะแสดงให้ผู้ใช้งานทราบ อีกทั้งยังสามารถเพิ่มจำนวนอุปกรณ์โดยการเพิ่มเลขครุภัณฑ์",
-            "success",
-          );
-          onClose();
-        }
+        
+        addToastStack(
+          "อัปเดตอุปกรณ์สำเร็จ",
+          "อุปกรณ์ถูกอัปเดตไปยังฐานข้อมูลเรียบร้อยแล้ว",
+          "success",
+        );
+        onClose();
       } catch (error) {
         let updateErrorMessage = "";
         const err = error as FetchBaseQueryError;
@@ -199,27 +207,33 @@ function CreateItem({ onClose, value }: CreateItemProps) {
           ...prev,
           api: updateErrorMessage,
         }));
+        
+        addToastStack(
+          "อัปเดตอุปกรณ์ไม่สำเร็จ",
+          updateErrorMessage || "เกิดข้อผิดพลาดในการอัปเดตอุปกรณ์",
+          "error",
+        );
       } finally {
         setSubmitting(false);
       }
       return;
     }
+    
     try {
-      await createTools(body).unwrap();
+      await createTools(formData).unwrap();
 
       setName("");
       setDescription("");
       setImages([]);
       setTempFiles([]);
       setUploadStatus({});
-      if (!isError) {
-        addToastStack(
-          "สร้างอุปกรณ์สำเร็จ",
-          "อุปกรณ์ถูกเพิ่มไปยังฐานข้อมูล ชื่อ รูป และคำอธิบายจะแสดงให้ผู้ใช้งานทราบ อีกทั้งยังสามารถเพิ่มจำนวนอุปกรณ์โดยการเพิ่มเลขครุภัณฑ์",
-          "success",
-        );
-        onClose();
-      }
+      
+      addToastStack(
+        "สร้างอุปกรณ์สำเร็จ",
+        "อุปกรณ์ถูกเพิ่มไปยังฐานข้อมูล ชื่อ รูป และคำอธิบายจะแสดงให้ผู้ใช้งานทราบ",
+        "success",
+      );
+      onClose();
     } catch (error) {
       let createErrorMessage = "";
       const err = error as FetchBaseQueryError;
@@ -232,6 +246,12 @@ function CreateItem({ onClose, value }: CreateItemProps) {
         ...prev,
         api: createErrorMessage,
       }));
+      
+      addToastStack(
+        "สร้างอุปกรณ์ไม่สำเร็จ",
+        createErrorMessage || "เกิดข้อผิดพลาดในการสร้างอุปกรณ์",
+        "error",
+      );
     } finally {
       setSubmitting(false);
     }
