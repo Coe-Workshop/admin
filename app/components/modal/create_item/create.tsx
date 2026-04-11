@@ -1,10 +1,6 @@
 "use client";
 import { useToast } from "@/app/context/Toast/ToastProvider";
-import {
-  ErrorResponse,
-  ToolCategories,
-  ToolCreateRequest,
-} from "@/lib/features/tools/tool.typs";
+import { ErrorResponse, ToolCategories } from "@/lib/features/tools/tool.typs";
 import {
   useCreateToolMutation,
   useUpdateToolMutation,
@@ -35,9 +31,8 @@ function CreateItem({ onClose, value }: CreateItemProps) {
   const [tempFiles, setTempFiles] = useState<File[]>([]);
   const [errors, setErrors] = useState({ api: "", name: "", category: "" });
   const { addToastStack } = useToast();
-  const [createTools, { isError }] =
-    useCreateToolMutation();
-  const [updateTool, { isError: isUpdateError }] = useUpdateToolMutation();
+  const [createTools] = useCreateToolMutation();
+  const [updateTool] = useUpdateToolMutation();
   const formatFilename = (name: string, containerWidth = 290) => {
     const maxLength = Math.floor(containerWidth / 10);
     if (name.length <= maxLength) return name;
@@ -174,7 +169,7 @@ function CreateItem({ onClose, value }: CreateItemProps) {
     formData.append("name", name);
     formData.append("description", description);
     formData.append("categoryName", category);
-    
+
     if (images.length > 0) {
       formData.append("image", images[0]);
     }
@@ -188,7 +183,7 @@ function CreateItem({ onClose, value }: CreateItemProps) {
         setImages([]);
         setTempFiles([]);
         setUploadStatus({});
-        
+
         addToastStack(
           "อัปเดตอุปกรณ์สำเร็จ",
           "อุปกรณ์ถูกอัปเดตไปยังฐานข้อมูลเรียบร้อยแล้ว",
@@ -200,14 +195,13 @@ function CreateItem({ onClose, value }: CreateItemProps) {
         const err = error as FetchBaseQueryError;
         if (err.data && typeof err.data === "object" && "message" in err.data) {
           updateErrorMessage =
-            (err.data as ErrorResponse).message ||
-            "something went wrong";
+            (err.data as ErrorResponse).message || "something went wrong";
         }
         setErrors((prev) => ({
           ...prev,
           api: updateErrorMessage,
         }));
-        
+
         addToastStack(
           "อัปเดตอุปกรณ์ไม่สำเร็จ",
           updateErrorMessage || "เกิดข้อผิดพลาดในการอัปเดตอุปกรณ์",
@@ -218,7 +212,7 @@ function CreateItem({ onClose, value }: CreateItemProps) {
       }
       return;
     }
-    
+
     try {
       await createTools(formData).unwrap();
 
@@ -227,7 +221,7 @@ function CreateItem({ onClose, value }: CreateItemProps) {
       setImages([]);
       setTempFiles([]);
       setUploadStatus({});
-      
+
       addToastStack(
         "สร้างอุปกรณ์สำเร็จ",
         "อุปกรณ์ถูกเพิ่มไปยังฐานข้อมูล ชื่อ รูป และคำอธิบายจะแสดงให้ผู้ใช้งานทราบ",
@@ -239,14 +233,13 @@ function CreateItem({ onClose, value }: CreateItemProps) {
       const err = error as FetchBaseQueryError;
       if (err.data && typeof err.data === "object" && "message" in err.data) {
         createErrorMessage =
-          (err.data as ErrorResponse).message ||
-          "something went wrong";
+          (err.data as ErrorResponse).message || "something went wrong";
       }
       setErrors((prev) => ({
         ...prev,
         api: createErrorMessage,
       }));
-      
+
       addToastStack(
         "สร้างอุปกรณ์ไม่สำเร็จ",
         createErrorMessage || "เกิดข้อผิดพลาดในการสร้างอุปกรณ์",

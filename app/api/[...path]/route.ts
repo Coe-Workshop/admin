@@ -45,7 +45,7 @@ export async function POST(
   const contentType = request.headers.get("content-type") || "";
 
   let body: BodyInit | undefined;
-  let headers: Record<string, string> = {
+  const headers: Record<string, string> = {
     cookie: getCookieHeader(request),
   };
 
@@ -92,7 +92,7 @@ export async function PUT(
 
   const contentType = request.headers.get("content-type") || "";
   let body: BodyInit;
-  let headers: Record<string, string> = {
+  const headers: Record<string, string> = {
     cookie: getCookieHeader(request),
   };
 
@@ -133,7 +133,7 @@ export async function PATCH(
 
   const contentType = request.headers.get("content-type") || "";
   let body: BodyInit;
-  let headers: Record<string, string> = {
+  const headers: Record<string, string> = {
     cookie: getCookieHeader(request),
   };
 

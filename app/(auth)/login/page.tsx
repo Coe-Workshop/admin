@@ -21,7 +21,7 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const credentials = { email, password };
-      const userData = await login(credentials).unwrap();
+      await login(credentials).unwrap();
       setErrorMessage(null);
       router.push(`/transactions`);
     } catch (err) {

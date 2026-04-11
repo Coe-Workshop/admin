@@ -5,8 +5,6 @@ import type {
   Tools,
   ToolsResponse,
   ToolResponse,
-  ToolCreateRequest,
-  ToolUpdateRequest,
 } from "@/lib/features/tools/tool.typs";
 // const mock = {
 //   name: "fix333333",
@@ -80,7 +78,7 @@ export const apiSliceWithTools = apiSlice.injectEndpoints({
         body: formData,
         headers: {},
       }),
-      transformResponse(res: ToolResponse) {  
+      transformResponse(res: ToolResponse) {
         return res.data;
       },
       invalidatesTags: (result, error, arg) => [
@@ -89,7 +87,10 @@ export const apiSliceWithTools = apiSlice.injectEndpoints({
       ],
     }),
 
-    updateToolAssets: builder.mutation<Tool, { toolId: number; assets_id: number[] | null }>({
+    updateToolAssets: builder.mutation<
+      Tool,
+      { toolId: number; assets_id: number[] | null }
+    >({
       query: ({ toolId, assets_id }) => ({
         url: `/items/${toolId}/assets`,
         method: "PATCH",
