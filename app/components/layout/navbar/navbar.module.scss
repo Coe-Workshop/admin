@@ -65,7 +65,7 @@
       padding: 8px;
       gap: 5px;
       border-radius: 8px;
-      
+
       @include respond-to-max(md) {
         background-color: transparent;
         flex-direction: column;
@@ -73,7 +73,7 @@
         width: fit-content;
         padding: 0;
       }
-      
+
       .action_plus {
         width: 1.5rem;
         height: 1.5rem;
@@ -123,13 +123,14 @@
   .tab_admin {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     @include respond-to-max(md) {
       display: none;
     }
     .admin {
+      width: 100%;
       display: flex;
       align-items: center;
+      justify-content: space-around;
       gap: 10px;
       .blog_icon {
         border-radius: 50%;

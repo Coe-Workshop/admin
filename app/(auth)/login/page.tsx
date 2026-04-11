@@ -19,13 +19,11 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleLogin = async () => {
-    console.log("login!");
     try {
       const credentials = { email, password };
       const userData = await login(credentials).unwrap();
-      console.log(userData);
       setErrorMessage(null);
-      router.push(`/test`);
+      router.push(`/transactions`);
     } catch (err) {
       let apiMessage = "Login failed";
 

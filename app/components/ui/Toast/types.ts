@@ -1,5 +1,5 @@
 import React from "react";
-
+import { prefix } from "@/app/utils/prefix";
 type Variant = "success" | "warning" | "error";
 type Position =
   | "top-right"
@@ -23,9 +23,9 @@ export interface ToastItem {
 }
 
 export const VariantStyle: Record<string, { color: string; icon: string }> = {
-  success: { color: "var(--green-400)", icon: "/Toast/success.svg" },
-  warning: { color: "var(--green-400)", icon: "/Toast/warning.svg" },
-  error: { color: "var(--red-400)", icon: "/Toast/error.svg" },
+  success: { color: "var(--green-400)", icon: `${prefix}/Toast/success.svg` },
+  warning: { color: "var(--green-400)", icon: `${prefix}/Toast/warning.svg` },
+  error: { color: "var(--red-400)", icon: `${prefix}/Toast/error.svg` },
 } as const;
 
 export const positionStyle: Record<string, CssVarStyle> = {

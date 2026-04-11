@@ -1,6 +1,6 @@
 "use client";
-
 import NavSlide from "@/app/components/layout/navbar/navslide";
+import { useToast } from "@/app/context/Toast/ToastProvider";
 import useDisclosure from "@/app/hook/useDisclosure";
 import { prefix } from "@/app/utils/prefix";
 import SvgIconMono from "@/app/components/Icon/SvgIconMono";
@@ -8,9 +8,14 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./navbar.module.scss";
 import { AdminProps, BlogProps, MenuMapProps } from "./types";
+import { useLogoutMutation } from "@/lib/features/auth/authApi";
 import CreateItem from "../../modal/create_item/create";
 import { ModalContainer } from "../../modal/modalContainer/modalContainer";
+import { useRouter } from "next/navigation";
 function Navbar() {
+  const { addToastStack } = useToast();
+  const router = useRouter();
+  const [logout] = useLogoutMutation();
   const { opened, handle } = useDisclosure();
   const { opened: createItem, handle: handlecreateItem } = useDisclosure();
   const menuMapProps: MenuMapProps[] = [
@@ -42,6 +47,18 @@ function Navbar() {
     name: "username",
     email: "Email@example.com",
     icon: `${prefix}/Navbar/meatBalls.svg`,
+  };
+  const handlerLogout = async () => {
+    try {
+      await logout();
+      router.push("/login");
+    } catch {
+      addToastStack(
+        "Logout ผิดพลาด",
+        "กรุณาลองใหม่อีกครั้ง และหากไม่สามารถ login ได้กรุณาติดต่อผู้ดูแลระบบ",
+        "error",
+      );
+    }
   };
 
   const menuBlog = BlogList.map((item, index) => {
@@ -99,16 +116,16 @@ function Navbar() {
         </div>
         <div className={styles.tab_admin}>
           <div className={styles.admin}>
-            <Image
-              className={styles.blog_icon}
-              src={`${prefix}${Admin.profile}`}
-              width={40}
-              height={40}
-              alt={Admin.title}
-            ></Image>
             <div>
               <p className={styles.name}>{Admin.name}</p>
               <p className={styles.email}>{Admin.email}</p>
+            </div>
+            <div onClick={() => handlerLogout()}>
+              <SvgIconMono
+                width={18}
+                height={18}
+                src={`${prefix}/icon/sign-out.svg`}
+              ></SvgIconMono>
             </div>
           </div>
           <SvgIconMono
@@ -133,7 +150,6 @@ function Navbar() {
         >
           <CreateItem onClose={() => handlecreateItem.close()}></CreateItem>
         </ModalContainer>
-        
       </div>
     </>
   );

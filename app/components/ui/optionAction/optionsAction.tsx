@@ -36,7 +36,7 @@ export const OptionsAction = ({
               >
                 {item.title}
               </h3>
-            )
+            ),
           )}
         </div>
       )}
