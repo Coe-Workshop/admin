@@ -65,7 +65,7 @@ export const TimeTransaction = ({ toolId = 0 }) => {
     
     const assetMap = new Map<string, any[]>();
     
-    toolTransaction.forEach((userGroup: any) => {
+    toolTransaction.users.forEach((userGroup: any) => {
       const user = userGroup.user;
       userGroup.adminTransactions?.forEach((tx: any, index: number) => {
         if (!assetMap.has(tx.assetID)) {

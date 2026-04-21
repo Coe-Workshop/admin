@@ -64,7 +64,7 @@ export const ItemTransaction = ({ toolId = 0 }) => {
               </td>
             </tr>
           )}
-          {toolTransaction?.map((userGroup, userIndex) =>
+          {toolTransaction?.users?.map((userGroup, userIndex) =>
             userGroup.adminTransactions?.map((transaction, txIndex) =>
               txIndex === 0 ? (
                 <tr className={styles.firstItem} key={`${userIndex}-${txIndex}`}>

@@ -27,7 +27,7 @@ function Navbar() {
     {
       cover: "/navbar/transaction.svg",
       title: "Transaction",
-      url: "/transaction",
+      url: "/transactions",
     },
     {
       cover: "/navbar/tools.svg",

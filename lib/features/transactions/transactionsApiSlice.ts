@@ -5,6 +5,7 @@ import {
   ToolTransactionResponse,
   TranactionQueryElement,
   UserTransactionGroups,
+  UserTransactionGroupsResponse,
 } from "./transaction.types";
 
 function querySent(query: TranactionQueryElement) {
@@ -28,7 +29,7 @@ export const apiSliceWithTransactions = apiSlice.injectEndpoints({
       },
       // providesTags:
     }),
-    getAllTransactionsByStatus: builder.query<UserTransactionGroups, { status: string; page?: number }>({
+    getAllTransactionsByStatus: builder.query<{ numberOfPage: number; users: UserTransactionGroups }, { status: string; page?: number }>({
       query: ({ status, page = 1 }) => {
         const params = new URLSearchParams();
         params.set("status", status);
@@ -36,7 +37,7 @@ export const apiSliceWithTransactions = apiSlice.injectEndpoints({
         return `/transactions/by-status?${params.toString()}`;
       },
       keepUnusedDataFor: 300,
-      transformResponse(res: { success: boolean; data: UserTransactionGroups }) {
+      transformResponse(res: UserTransactionGroupsResponse) {
         return res.data;
       },
       providesTags: ["Transaction"],

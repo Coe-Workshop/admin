@@ -150,7 +150,7 @@ export const AdminTransaction = ({
               </td>
             </tr> 
           ) : (
-            toolTransaction?.map((userGroup, userIndex) => (
+            toolTransaction?.users?.map((userGroup, userIndex) => (
               <React.Fragment key={userIndex}>
                 <tr className={styles.userRow}>
                   <td colSpan={1}>

@@ -20,7 +20,7 @@ export const apiSliceWithTools = apiSlice.injectEndpoints({
       query: () => `/items`,
       keepUnusedDataFor: 300,
       transformResponse(res: ToolsResponse) {
-        return res.data;
+        return res.data.items;
       },
       providesTags: (result = []) =>
         result

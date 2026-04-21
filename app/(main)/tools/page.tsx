@@ -3,10 +3,29 @@
 import { ItemBlog } from "@/app/components/ui/ItemBlog/ItemBlog";
 import { useGetToolsQuery } from "@/lib/features/tools/toolsApiSlice";
 import { useRouter } from "next/navigation";
+import Loader from "@/app/components/layout/loader/loader";
+import { Tool } from "@/lib/features/tools/tool.typs";
 import styles from "./tool.module.scss";
+
 const Tools = () => {
-  const { data: toolsInfo } = useGetToolsQuery();
+  const { data: toolsInfo, isLoading, isError } = useGetToolsQuery(undefined);
   const router = useRouter();
+
+  if (isLoading) {
+    return (
+      <div className={styles.loadingContainer}>
+        <Loader />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className={styles.loadingContainer}>
+        <p>เกิดข้อผิดพลาดในการดึงข้อมูล กรุณาลองใหม่อีกครั้ง</p>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -14,7 +33,7 @@ const Tools = () => {
         <h2>อุปกรณ์ทั้งหมด</h2>
       </div>
       <div className={styles.tools}>
-        {toolsInfo?.map((t) => (
+        {toolsInfo?.map((t: Tool) => (
           <div
             onClick={() => router && router.push(`/tools/${t.id}`)}
             key={t.id}
@@ -29,15 +48,6 @@ const Tools = () => {
               imageUrl={t.imageUrl ?? ""}
             ></ItemBlog>
           </div>
-          // <div key={t.id}>
-          //   <h2>{t.name}</h2>
-          //   <p>{t.description}</p>
-          //   <div>
-          //     <span>{t.avaliable}</span>
-          //     <span>/</span>
-          //     <span>{t.quatity}</span>
-          //   </div>
-          // </div>
         ))}
       </div>
     </div>

@@ -20,7 +20,10 @@ export interface Tool {
 
 export type Tools = Tool[];
 export interface ToolsResponse {
-  data: Tools;
+  data: {
+    numberOfPage: number;
+    items: Tools;
+  };
   success: boolean;
   error: string | null;
 }

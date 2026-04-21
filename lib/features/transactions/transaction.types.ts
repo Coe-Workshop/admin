@@ -73,6 +73,14 @@ export interface UserTransactionGroup {
 
 export type UserTransactionGroups = UserTransactionGroup[];
 
+export interface UserTransactionGroupsResponse {
+  success: boolean;
+  data: {
+    numberOfPage: number;
+    users: UserTransactionGroups;
+  };
+}
+
 export interface SentTransactionStatus {
   transactionId: number;
   isApproved: boolean;
