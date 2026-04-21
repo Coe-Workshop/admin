@@ -27,9 +27,13 @@ export const apiSliceWithTransactions = apiSlice.injectEndpoints({
       },
       // providesTags:
     }),
-    // ทำเผื่อ
-    getAllTransactions: builder.query<ToolTransactionData, void>({
-      query: () => `/transactions`,
+    getAllTransactionsByStatus: builder.query<ToolTransactionData, { status: string; page?: number }>({
+      query: ({ status, page = 1 }) => {
+        const params = new URLSearchParams();
+        params.set("status", status);
+        params.set("page", String(page));
+        return `/transactions/by-status?${params.toString()}`;
+      },
       keepUnusedDataFor: 300,
       transformResponse(res: ToolTransactionResponse) {
         return res.data;
@@ -56,6 +60,6 @@ export const apiSliceWithTransactions = apiSlice.injectEndpoints({
 
 export const { 
   useGetToolTransactionQuery, 
-  useGetAllTransactionsQuery,
+  useGetAllTransactionsByStatusQuery,
   useUpdateTransactionStatusMutation,
 } = apiSliceWithTransactions;

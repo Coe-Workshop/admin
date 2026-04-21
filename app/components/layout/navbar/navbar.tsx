@@ -20,7 +20,7 @@ function Navbar() {
   const { opened: createItem, handle: handlecreateItem } = useDisclosure();
   const menuMapProps: MenuMapProps[] = [
     { title: "Quick Create", path: "/create" },
-    { title: "Transaction", path: "/transaction" },
+    { title: "Transaction", path: "/transactions" },
     { title: "Tools", path: "/tools" },
   ];
   const BlogList: BlogProps[] = [

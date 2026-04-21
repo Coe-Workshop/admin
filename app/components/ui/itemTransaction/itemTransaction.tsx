@@ -4,13 +4,15 @@ import SvgIconMono from "@/app/components/Icon/SvgIconMono";
 import { useState } from "react";
 import { StatusTag } from "../statusTag/statusTag";
 import styles from "./tableTransaction.module.scss";
-import { useGetToolTransactionQuery } from "@/lib/features/transactions/transactionsApiSlice";
+import { useGetAllTransactionsByStatusQuery } from "@/lib/features/transactions/transactionsApiSlice";
 import Loader from "../../layout/loader/loader";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { ErrorResponse, TransactionsStatus } from "@/lib/features/transactions/transaction.types";
+
 export const ItemTransaction = ({ toolId = 0 }) => {
   const [openTransaction, setOpenTransaction] = useState<number[]>([]);
   const [closeTransaction, setCloseTransaction] = useState<number[]>([]);
+  
   const toggleTransaction = (idx: number) => {
     if (openTransaction.includes(idx)) {
       setCloseTransaction((prev) => [...prev, idx]);
@@ -18,117 +20,18 @@ export const ItemTransaction = ({ toolId = 0 }) => {
         setOpenTransaction((prev) => prev.filter((item) => item !== idx));
         setCloseTransaction((prev) => prev.filter((item) => item !== idx));
       }, 300);
+    } else {
+      setOpenTransaction((prev) => [...prev, idx]);
     }
-    setOpenTransaction((prev) => [...prev, idx]);
   };
 
-  // const tableContent: ReactNode | null = mockData.flatMap((item, index) => {
-  //   return item.transactions.map((t, i) => {
-  //     const now = new Date();
-  //     const target = new Date(t.endedAt);
-  //     if (i == 0) {
-  //       if (target < now) {
-  //         return (
-  //           <React.Fragment key={item.assetID + i}>
-  //             <tr>
-  //               <td
-  //                 className={styles.toggle}
-  //                 onClick={() => toggleTransaction(index)}
-  //               >
-  //                 <div
-  //                   style={{
-  //                     transform: openTransaction.includes(index)
-  //                       ? "rotate(-90deg)"
-  //                       : "",
-  //                   }}
-  //                 >
-  //                   <SvgIconMono
-  //                     className={styles.toggle_image}
-  //                     src={`${prefix}/icon/arrow.svg`}
-  //                     alt="arrow"
-  //                     width={10}
-  //                     height={10}
-  //                   ></SvgIconMono>
-  //                 </div>
-  //               </td>
-  //               <td className={styles.assetID}>{item.assetID}</td>
-  //               <td className={styles.username}></td>
-  //               <td className={styles.status}>
-  //                 <StatusTag status={Status.Blank}></StatusTag>
-  //               </td>
-  //               <td className={styles.endedAt}></td>
-  //               <td className={styles.message}></td>
-  //             </tr>
-  //             {openTransaction.includes(index) && (
-  //               <tr className={styles.oldTransaction} key={item.assetID + i}>
-  //                 <td></td>
-  //                 <td className={styles.assetID}>{item.assetID}</td>
-  //                 <td className={styles.username}>{t.user.username}</td>
-  //                 <td className={styles.status}>
-  //                   <StatusTag status={Status.Finished}></StatusTag>
-  //                 </td>
-  //                 <td className={styles.endedAt}>{t.endedAt}</td>
-  //                 <td className={styles.message}>{t.message}</td>
-  //               </tr>
-  //             )}
-  //           </React.Fragment>
-  //         );
-  //       }
-  //       return (
-  //         <tr key={item.assetID + i}>
-  //           <th
-  //             className={styles.toggle}
-  //             onClick={() => toggleTransaction(index)}
-  //           >
-  //             <div
-  //               style={{
-  //                 transform: openTransaction.includes(index)
-  //                   ? "rotate(-90deg)"
-  //                   : "",
-  //               }}
-  //             >
-  //               <SvgIconMono
-  //                 className={styles.toggle_image}
-  //                 src={`${prefix}/icon/arrow.svg`}
-  //                 alt="arrow"
-  //                 width={10}
-  //                 height={10}
-  //               ></SvgIconMono>
-  //             </div>
-  //           </th>
-  //           <th className={styles.assetID}>{item.assetID}</th>
-  //           <th className={styles.username}>{t.user.username}</th>
-  //           <th className={styles.status}>
-  //             <StatusTag status={t.status}></StatusTag>
-  //           </th>
-  //           <th className={styles.endedAt}>{t.endedAt}</th>
-  //           <th className={styles.message}>{t.message}</th>
-  //         </tr>
-  //       );
-  //     }
-
-  //     return (
-  //       openTransaction.includes(index) && (
-  //         <tr className={styles.oldTransaction} key={item.assetID + i}>
-  //           <td></td>
-  //           <td className={styles.assetID}>{item.assetID}</td>
-  //           <td className={styles.username}>{t.user.username}</td>
-  //           <td className={styles.status}>
-  //             <StatusTag status={t.status}></StatusTag>
-  //           </td>
-  //           <td className={styles.endedAt}>{t.endedAt}</td>
-  //           <td className={styles.message}>{t.message}</td>
-  //         </tr>
-  //       )
-  //     );
-  //   });
-  // });
   const {
     data: toolTransaction,
     isError,
     error,
     isLoading,
-  } = useGetToolTransactionQuery({toolId: Number(toolId)});
+  } = useGetAllTransactionsByStatusQuery({status: "RESERVE"});
+  
   let toolTransactionErrorMessage = "There's some error occuring while try to fetching the transaction data";
   if (error && "data" in error) {
     const err = error as FetchBaseQueryError;
@@ -136,6 +39,7 @@ export const ItemTransaction = ({ toolId = 0 }) => {
       toolTransactionErrorMessage = (err.data as ErrorResponse).error || "";
     }
   }
+  
   return (
     <div className={styles.item_transaction}>
       <table className={styles.table}>
@@ -160,17 +64,17 @@ export const ItemTransaction = ({ toolId = 0 }) => {
               </td>
             </tr>
           )}
-          {toolTransaction?.assets.map((item, index) =>
-            item.transactions.map((t, i) =>
-              i == 0 ? (
-                <tr className={styles.firstItem} key={i}>
+          {toolTransaction?.map((userGroup, userIndex) =>
+            userGroup.adminTransactions?.map((transaction, txIndex) =>
+              txIndex === 0 ? (
+                <tr className={styles.firstItem} key={`${userIndex}-${txIndex}`}>
                   <td
                     className={styles.toggle}
-                    onClick={() => toggleTransaction(index)}
+                    onClick={() => toggleTransaction(userIndex)}
                   >
                     <div
                       style={{
-                        transform: openTransaction.includes(index)
+                        transform: openTransaction.includes(userIndex)
                           ? ""
                           : "rotate(-90deg)",
                       }}
@@ -184,15 +88,15 @@ export const ItemTransaction = ({ toolId = 0 }) => {
                       ></SvgIconMono>
                     </div>
                   </td>
-                  <td className={styles.assetID}>{item.assetID}</td>
-                  <td className={styles.username}>{t.user.userName}</td>
+                  <td className={styles.assetID}>{transaction.assetID}</td>
+                  <td className={styles.username}>{userGroup.user?.userName}</td>
                   <td className={styles.status}>
-                    <StatusTag status={t.status}></StatusTag>
+                    <StatusTag status={transaction.status}></StatusTag>
                   </td>
-                  <td className={styles.endedAt}>{t.endedAt}</td>
-                  <td className={styles.message}>{t.message}</td>
+                  <td className={styles.endedAt}>{transaction.endedAt}</td>
+                  <td className={styles.message}>{transaction.message ?? "no message attach"}</td>
                   <td className={styles.trashSpace}>
-                    {t.status == TransactionsStatus.Blank && (
+                    {transaction.status === TransactionsStatus.Blank && (
                       <SvgIconMono
                         className={styles.tashIcon}
                         src={`/icon/tash.svg`}
@@ -204,23 +108,23 @@ export const ItemTransaction = ({ toolId = 0 }) => {
                   </td>
                 </tr>
               ) : (
-                openTransaction.includes(index) && (
+                openTransaction.includes(userIndex) && (
                   <tr
                     className={`${styles.oldTransaction} ${
-                      closeTransaction.includes(index)
+                      closeTransaction.includes(userIndex)
                         ? styles.slideOut
                         : styles.slideIn
                     }`}
-                    key={item.assetID + i}
+                    key={`${userIndex}-${txIndex}`}
                   >
                     <td></td>
-                    <td className={styles.assetID}>{item.assetID}</td>
-                    <td className={styles.username}>{t.user.userName}</td>
+                    <td className={styles.assetID}>{transaction.assetID}</td>
+                    <td className={styles.username}>{userGroup.user?.userName}</td>
                     <td className={styles.status}>
-                      <StatusTag status={t.status}></StatusTag>
+                      <StatusTag status={transaction.status}></StatusTag>
                     </td>
-                    <td className={styles.endedAt}>{t.endedAt}</td>
-                    <td className={styles.message}>{t.message}</td>
+                    <td className={styles.endedAt}>{transaction.endedAt}</td>
+                    <td className={styles.message}>{transaction.message ?? "no message attach"}</td>
                     <td></td>
                   </tr>
                 )

@@ -22,7 +22,7 @@ export interface AssetTransactionRecord {
   user: User;
   status: TransactionsStatus;
   endedAt: ISODateString;
-  message: string | "no message attatch";
+  message: string | "-";
   startedAt: ISODateString;
 }
 export type AssetTransactionRecords = AssetTransactionRecord[];

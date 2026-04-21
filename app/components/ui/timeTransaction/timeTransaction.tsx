@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { ModalContainer } from "../../modal/modalContainer/modalContainer";
 import { TransactionInfo } from "../../modal/transactionInfo/transactionInfo";
 import styles from "./timeTransaction.module.scss";
-import { useGetToolTransactionQuery } from "@/lib/features/transactions/transactionsApiSlice";
+import { useGetAllTransactionsByStatusQuery } from "@/lib/features/transactions/transactionsApiSlice";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { ErrorResponse } from "@/lib/features/transactions/transaction.types";
+
 export const TimeTransaction = ({ toolId = 0 }) => {
   const [timeAxis] = useState<string[]>([
     "09.00",
@@ -20,11 +21,11 @@ export const TimeTransaction = ({ toolId = 0 }) => {
   const firstColumnTime = "2025-01-10T09:00:00";
   const lastColumnTime = "2025-01-10T16:00:00";
   const [opened, setOpened] = useState<number[]>([]);
+
   const getColspanLenght = (startedAt: string, endedAt: string): number => {
     const t1 = new Date(startedAt);
     const t2 = new Date(endedAt);
     const timeDiff = t2.getTime() - t1.getTime();
-
     return Math.ceil(timeDiff / (1000 * 60) / 30);
   };
 
@@ -43,11 +44,13 @@ export const TimeTransaction = ({ toolId = 0 }) => {
       .replace(":", ".");
     return time;
   };
+
   const {
     data: toolTransaction,
     isError,
     error,
-  } = useGetToolTransactionQuery({toolId: Number(toolId)});
+  } = useGetAllTransactionsByStatusQuery({status: "RESERVE"});
+
   let toolTransactionErrorMessage =
     "There's some error occuring while try to fetching the transaction data";
   if (error && "data" in error) {
@@ -56,6 +59,33 @@ export const TimeTransaction = ({ toolId = 0 }) => {
       toolTransactionErrorMessage = (err.data as ErrorResponse).error || "";
     }
   }
+
+  const assetGroups = useMemo(() => {
+    if (!toolTransaction) return [];
+    
+    const assetMap = new Map<string, any[]>();
+    
+    toolTransaction.forEach((userGroup: any) => {
+      const user = userGroup.user;
+      userGroup.adminTransactions?.forEach((tx: any, index: number) => {
+        if (!assetMap.has(tx.assetID)) {
+          assetMap.set(tx.assetID, []);
+        }
+        assetMap.get(tx.assetID)!.push({
+          ...tx,
+          user,
+          uniqueId: `${tx.assetID}-${tx.id}-${index}`,
+        });
+      });
+    });
+
+    return Array.from(assetMap.entries()).map(([assetID, transactions]) => ({
+      assetID,
+      transactions: transactions.sort((a: any, b: any) => 
+        new Date(a.startedAt).getTime() - new Date(b.startedAt).getTime()
+      ),
+    }));
+  }, [toolTransaction]);
 
   return isError ? (
     <div className={styles.error}>
@@ -79,7 +109,7 @@ export const TimeTransaction = ({ toolId = 0 }) => {
           ))}
         </div>
         <div className={styles.tableContent}>
-          {toolTransaction?.assets.map((item, index) => {
+          {assetGroups.map((item, index) => {
             return (
               <div key={index} className={styles.row_container}>
                 <div className={styles.row}>
@@ -102,7 +132,7 @@ export const TimeTransaction = ({ toolId = 0 }) => {
                       );
                     }
                   })()}
-                  {item.transactions.map((event, id) => {
+                  {item.transactions.map((event: any, id: number) => {
                     const cuerrentColSpan = getColspanLenght(
                       event?.startedAt,
                       event.endedAt,
@@ -112,7 +142,7 @@ export const TimeTransaction = ({ toolId = 0 }) => {
                       item.transactions[id + 1]?.startedAt ?? lastColumnTime,
                     );
                     return (
-                      <React.Fragment key={id}>
+                      <React.Fragment key={event.uniqueId}>
                         <ModalContainer
                           opened={opened.includes(id)}
                           onClose={() => toggleOpened(id)}
@@ -170,5 +200,3 @@ export const TimeTransaction = ({ toolId = 0 }) => {
     </div>
   );
 };
-
-// 85, 109

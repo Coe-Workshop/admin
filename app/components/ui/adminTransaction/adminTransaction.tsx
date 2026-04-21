@@ -10,7 +10,7 @@ import styles from "./adminTrasaction.module.scss";
 import { AreaInput } from "../../form/AreaInput/AreaInput";
 import { AdminTransactionProps, ResponseStatus } from "./adminTransaction.type";
 import { ModalContainer } from "../../modal/modalContainer/modalContainer";
-import { useGetToolTransactionQuery, useUpdateTransactionStatusMutation } from "@/lib/features/transactions/transactionsApiSlice";
+import { useGetAllTransactionsByStatusQuery, useUpdateTransactionStatusMutation } from "@/lib/features/transactions/transactionsApiSlice";
 import { useSearchParams } from "next/navigation";
 import { ErrorResponse, ISODateString, TransactionsStatus } from "@/lib/features/transactions/transaction.types";
 import { useScrollToRightEnd } from "@/app/hook/useScrollToRightEnd";
@@ -31,12 +31,10 @@ export const AdminTransaction = ({
   const itemQuery = parseInt(searchParams.get("item") || "0", 10);
   const userQuery = searchParams.get("user") || "";
   const dateQuery = searchParams.get("date") as ISODateString;
-  const pageQuery = parseInt(searchParams.get("page") || "0", 10);
+  const pageQuery = parseInt(searchParams.get("page") || "1", 10);
 
-  const { data: toolTransaction, isLoading, isError, isFetching } = useGetToolTransactionQuery({
-    toolId: itemQuery,
-    userId: userQuery,
-    date: dateQuery,
+  const { data: toolTransaction, isLoading, isError, isFetching } = useGetAllTransactionsByStatusQuery({
+    status: "RESERVE",
     page: pageQuery,
   });
 
@@ -139,16 +137,16 @@ export const AdminTransaction = ({
               </td>
             </tr> 
           ) : (
-            toolTransaction?.assets.map((assets, assetsIndex) => (
-              <React.Fragment key={assetsIndex}>
+            toolTransaction?.map((userGroup, userIndex) => (
+              <React.Fragment key={userIndex}>
                 <tr className={styles.userRow}>
                   <td colSpan={1}>
                     <div 
                       className={styles.userInfo}
-                      onClick={() => toggleTransaction(assetsIndex)}>
+                      onClick={() => toggleTransaction(userIndex)}>
                       <div
                         className={`${styles.userArrow} ${
-                          openTransaction.includes(assetsIndex)
+                          openTransaction.includes(userIndex)
                             ? styles.userArrowOpen
                             : styles.userArrowClosed
                         }`}
@@ -160,8 +158,8 @@ export const AdminTransaction = ({
                           alt="arrowDown"
                         ></SvgIconMono>
                       </div>
-                      <Tooltip title={assets.transactions?.[0]?.user.phone}>
-                        <h2 className={styles.username}>{assets.transactions?.[0]?.user?.userName}</h2>
+                      <Tooltip title={userGroup.user?.phone}>
+                        <h2 className={styles.username}>{userGroup.user?.userName}</h2>
                       </Tooltip>
                     </div>
                   </td>
@@ -179,54 +177,54 @@ export const AdminTransaction = ({
                     </button>
                   </td>
                 </tr>
-  
-                {assets.transactions.map((transactions, transactionsIndex) => 
-                openTransaction.includes(assetsIndex) && (
+
+                {userGroup.adminTransactions?.map((transaction, transactionIndex) => 
+                openTransaction.includes(userIndex) && (
                   <tr
-                    key={transactionsIndex}
+                    key={transactionIndex}
                     className={`${styles.transactionRow}  ${
-                      closeTransaction.includes(assetsIndex)
+                      closeTransaction.includes(userIndex)
                         ? styles.slideOut
                         : styles.slideIn
                     }`}
                   >
-                    <td className={styles.itemNameText}>{transactions.id ?? "N/A"}</td> {/* รอแบค */}
-                    <td className={styles.assetsText}>{assets.assetID ?? "N/A"}</td>
+                    <td className={styles.itemNameText}>{transaction.itemName ?? "N/A"}</td>
+                    <td className={styles.assetsText}>{transaction.assetID ?? "N/A"}</td>
                     <td className={styles.status}>
-                      <StatusTag status={transactions.status} />
+                      <StatusTag status={transaction.status} />
                     </td>
                     <td className={styles.endTime}>
-                      {formatHourMinute(transactions.endedAt)}
+                      {formatHourMinute(transaction.endedAt)}
                     </td>
-                    <td className={styles.message}>{transactions.message}</td>
+                    <td className={styles.message}>{transaction.message ?? "no message attach"}</td>
                     <td className={styles.stickyAction}>
                       <div className={styles.action_content}>
-                        <div 
+                        <div
                           className={styles.action_pointer}
                           onClick={() => {
-                            setSelectedTxId(transactions.id);
+                            setSelectedTxId(transaction.id);
                             setResponseStatus(ResponseStatus.Approve);
                             handle.open();
                           }}
                         >
-                          <SvgIconMono 
+                          <SvgIconMono
                             className={styles.action_content_check}
-                            src={`/icon/double-check.svg`} 
-                            width={20} height={20} alt="check" 
+                            src={`/icon/double-check.svg`}
+                            width={20} height={20} alt="check"
                           />
                         </div>
-                        <div 
+                        <div
                           className={styles.action_pointer}
                           onClick={() => {
-                            setSelectedTxId(transactions.id);
+                            setSelectedTxId(transaction.id);
                             setResponseStatus(ResponseStatus.Reject);
                             handle.open();
                           }}
                         >
-                          <SvgIconMono 
+                          <SvgIconMono
                             className={styles.action_content_stop}
-                            src={`/icon/stop.svg`} 
-                            width={20} height={20} alt="stop" 
+                            src={`/icon/stop.svg`}
+                            width={20} height={20} alt="stop"
                           />
                         </div>
                       </div>

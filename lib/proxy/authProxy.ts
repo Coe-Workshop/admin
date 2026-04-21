@@ -17,7 +17,7 @@ export function checkAuthSession(request: NextRequest) {
   const isLoginRoute = pathname === loginRoute;
   const isProtectedRoute = pathname.startsWith(`/`);
 
-  console.log(`Proxying: ${pathname} | Session: ${hasSession}`);
+  // console.log(`Proxying: ${pathname} | Session: ${hasSession}`);
 
   // เข้าหน้าหวงห้าม แต่ไม่มี Session -> ไปหน้า Login
   if (isProtectedRoute && !isLoginRoute && !hasSession) {
