@@ -12,7 +12,7 @@ import { AdminTransactionProps, ResponseStatus } from "./adminTransaction.type";
 import { ModalContainer } from "../../modal/modalContainer/modalContainer";
 import { useGetAllTransactionsByStatusQuery, useUpdateTransactionStatusMutation } from "@/lib/features/transactions/transactionsApiSlice";
 import { useSearchParams } from "next/navigation";
-import { ErrorResponse, ISODateString, TransactionsStatus } from "@/lib/features/transactions/transaction.types";
+import { ErrorResponse, ISODateString } from "@/lib/features/transactions/transaction.types";
 import { useScrollToRightEnd } from "@/app/hook/useScrollToRightEnd";
 
 export const AdminTransaction = ({
@@ -58,27 +58,22 @@ export const AdminTransaction = ({
 
   const handleModalSubmit = async () => {
     try {
-      let backendStatus: TransactionsStatus;
-      if (responseStatus === ResponseStatus.Reject) {
-        backendStatus = TransactionsStatus.REJECT;
-      } else {
-        backendStatus = TransactionsStatus.APPROVE; 
-      }
+      const isApproved = responseStatus !== ResponseStatus.Reject;
 
       await updateStatus({
-        transactionId: selectedTxId !== null ? selectedTxId : undefined,
-        status: backendStatus,
-        message: message, 
+        transactionId: selectedTxId!,
+        isApproved: isApproved,
+        message: message,
       }).unwrap();
 
       handle.close();
-      onChange(""); 
+      onChange("");
       setSelectedTxId(null);
       if (onSubmit) onSubmit();
 
     } catch (err: unknown) {
       const rtkError = err as { data?: ErrorResponse };
-      
+
       if (rtkError?.data?.error) {
         setErrorUpdateStatus(rtkError.data.error);
       } else {
@@ -93,6 +88,24 @@ export const AdminTransaction = ({
       minute: "2-digit",
       hour12: false,
     });
+  };
+
+  const handleImmediateApprove = async (transactionId: number) => {
+    try {
+      await updateStatus({
+        transactionId: transactionId,
+        isApproved: true,
+        message: "",
+      }).unwrap();
+      if (onSubmit) onSubmit();
+    } catch (err: unknown) {
+      const rtkError = err as { data?: ErrorResponse };
+      if (rtkError?.data?.error) {
+        setErrorUpdateStatus(rtkError.data.error);
+      } else {
+        setErrorUpdateStatus("เกิดข้อผิดพลาดในการอนุมัติ กรุณาลองใหม่อีกครั้ง");
+      }
+    }
   };
 
   return (
@@ -159,7 +172,9 @@ export const AdminTransaction = ({
                         ></SvgIconMono>
                       </div>
                       <Tooltip title={userGroup.user?.phone}>
-                        <h2 className={styles.username}>{userGroup.user?.userName}</h2>
+                        <div className={styles.usernameBadge}>
+                          <span className={styles.username}>{userGroup.user?.userName}</span>
+                        </div>
                       </Tooltip>
                     </div>
                   </td>
@@ -199,20 +214,22 @@ export const AdminTransaction = ({
                     <td className={styles.message}>{transaction.message ?? "no message attach"}</td>
                     <td className={styles.stickyAction}>
                       <div className={styles.action_content}>
-                        <div
+                         <button
                           className={styles.action_pointer}
                           onClick={() => {
-                            setSelectedTxId(transaction.id);
-                            setResponseStatus(ResponseStatus.Approve);
-                            handle.open();
+                            console.log("Transaction object:", transaction);
+                            console.log("Transaction ID:", transaction.id);
+                            handleImmediateApprove(transaction.id);
                           }}
+                          disabled={isUpdating}
+                          type="button"
                         >
                           <SvgIconMono
                             className={styles.action_content_check}
                             src={`/icon/double-check.svg`}
                             width={20} height={20} alt="check"
                           />
-                        </div>
+                        </button>
                         <div
                           className={styles.action_pointer}
                           onClick={() => {

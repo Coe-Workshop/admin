@@ -44,10 +44,25 @@
   position: relative;
   z-index: 1;
 }
-.username::before {
-  content: "ผู้ขอ ";
+.usernameBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: var(--theme-200);
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.3rem;
+  font-size: 0.9rem;
+}
+
+.usernameBadge::before {
+  content: "ผู้ขอ";
   color: var(--text-fade-mid);
-  font-weight: lighter;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.username {
+  font-weight: 600;
 }
 .userArrow {
   transition: all ease 0.1s;
@@ -140,6 +155,11 @@
     gap: 1rem;
     .action_pointer {
       cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      margin: 0;
+      box-shadow: none;
     }
     .action_content_check {
       display: flex;
@@ -159,13 +179,26 @@ tr:hover .stickyAction {
 .allApprove {
   cursor: pointer;
   text-wrap: nowrap;
-  padding: 0.2rem 0.4rem;
-  border-radius: 0.2rem;
-  background-color: $sub-0;
-  transition: all 0.5s ease;
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.3rem;
+  background-color: #10b981;
+  color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
   text-align: center;
+  border: none;
   &:hover {
-    background-color: $sub-200;
+    background-color: #059669;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .allApprove {
+    background-color: #10b981;
+    color: white;
+    &:hover {
+      background-color: #059669;
+    }
   }
 }
 
@@ -181,13 +214,11 @@ tr:hover .stickyAction {
   .userRow {
     background-color: $sub-750;
   }
-  .allApprove {
-    background-color: $sub-900;
-    transition: all 0.5s ease;
-    text-align: center;
-    &:hover {
-      background-color: $sub-800;
-    }
+  .stickyAction::before {
+    display: none;
+  }
+  .action_content {
+    box-shadow: none;
   }
 }
 .response {

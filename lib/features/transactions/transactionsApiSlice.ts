@@ -4,6 +4,7 @@ import {
   ToolTransactionData,
   ToolTransactionResponse,
   TranactionQueryElement,
+  UserTransactionGroups,
 } from "./transaction.types";
 
 function querySent(query: TranactionQueryElement) {
@@ -27,7 +28,7 @@ export const apiSliceWithTransactions = apiSlice.injectEndpoints({
       },
       // providesTags:
     }),
-    getAllTransactionsByStatus: builder.query<ToolTransactionData, { status: string; page?: number }>({
+    getAllTransactionsByStatus: builder.query<UserTransactionGroups, { status: string; page?: number }>({
       query: ({ status, page = 1 }) => {
         const params = new URLSearchParams();
         params.set("status", status);
@@ -35,25 +36,25 @@ export const apiSliceWithTransactions = apiSlice.injectEndpoints({
         return `/transactions/by-status?${params.toString()}`;
       },
       keepUnusedDataFor: 300,
-      transformResponse(res: ToolTransactionResponse) {
+      transformResponse(res: { success: boolean; data: UserTransactionGroups }) {
         return res.data;
       },
       providesTags: ["Transaction"],
     }),
-    // wait to complete and adjust it
     updateTransactionStatus: builder.mutation<
-      ToolTransactionResponse, 
+      ToolTransactionResponse,
       SentTransactionStatus
-    >(
-      {
+    >({
       query: (body) => ({
-        url: `/transactions/status`, // THIS will update later (wait back)
-        method: "PUT",
-        body,
+        url: `/transactions/${body.transactionId}`,
+        method: "PATCH",
+        body: {
+          isApproved: body.isApproved,
+          message: body.message,
+        },
       }),
-      invalidatesTags: ["Transaction"], 
-      }
-    ),
+      invalidatesTags: ["Transaction"],
+    }),
   }),
   overrideExisting: true,
 });

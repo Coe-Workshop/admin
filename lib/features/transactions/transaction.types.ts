@@ -56,10 +56,27 @@ export interface ErrorResponse {
   error: string;
 }
 
-export interface SentTransactionStatus { 
-  transactionId?: number | string;
+export interface AdminTransaction {
+  id: number;
+  itemName: string;
+  assetID: string;
+  startedAt: ISODateString;
+  endedAt: ISODateString;
   status: TransactionsStatus;
   message: string;
+}
+
+export interface UserTransactionGroup {
+  user: User;
+  adminTransactions: AdminTransaction[];
+}
+
+export type UserTransactionGroups = UserTransactionGroup[];
+
+export interface SentTransactionStatus {
+  transactionId: number;
+  isApproved: boolean;
+  message?: string;
 }
 
 export interface TranactionQueryElement {
